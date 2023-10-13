@@ -1,0 +1,42 @@
+.background {
+    width: 100%;
+    height: 1000px;
+
+    background-color: bisque;
+}
+
+.video-background {
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.logo {
+    width: 30%;
+    height: auto;
+    z-index: 1;
+}
+/* 레이오버 */
+.logo {
+    position: absolute;
+    top: 1%;
+    left: 8%;
+    background-size: cover;
+    opacity: 1; /* 원하는 투명도로 조정 */
+}
+
+.login_box {
+    width: 30%;
+    /*height: 30%;*/
+    aspect-ratio: 1 / 1.25;
+    background-color: blue;
+
+    position: absolute;
+    top: 25%;
+    left: 8%;
+    background-size: cover;
+    opacity: 1; /* 원하는 투명도로 조정 */
+}
