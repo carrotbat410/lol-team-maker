@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import CryptoJS from "crypto-js";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { console } from "next/dist/compiled/@edge-runtime/primitives";
-import DB from "@/pages/utils/db";
+import DB from "../../utils/db";
 
 export const authOptions = {
   providers: [

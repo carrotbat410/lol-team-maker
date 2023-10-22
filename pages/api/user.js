@@ -1,5 +1,5 @@
 import CryptoJS from "crypto-js";
-import DB from "@/pages/utils/db";
+import DB from "../utils/db";
 
 export default async function handler(req, res) {
   const { method } = req;
