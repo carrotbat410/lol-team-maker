@@ -68,7 +68,7 @@ export const authOptions = {
     },
   },
 
-  secret: "tmpSecret", //! env에 넣기
+  secret: process.env.NEXTAUTH_SECRET, //! env에 넣기
   pages: {
     signIn: "/login",
   },
