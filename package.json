@@ -11,8 +11,10 @@
   "dependencies": {
     "crypto-js": "^4.1.1",
     "knex": "^3.0.1",
+    "mysql": "^2.18.1",
     "mysql2": "^3.6.1",
     "next": "13.5.4",
+    "next-auth": "^4.23.2",
     "react": "^18",
     "react-dom": "^18"
   },
