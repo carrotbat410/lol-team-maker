@@ -21,7 +21,15 @@ export default function Home() {
       <div>this is root page</div>
       {session.data?.user ? <div>hello, {session.data.user.id}</div> : <div />}
       {session.data?.user ? (
-        <input type="button" value="logout" onClick={() => signOut()} />
+        <input
+          type="button"
+          value="logout"
+          onClick={() =>
+            signOut({
+              callbackUrl: "http://localhost:3000/login",
+            })
+          }
+        />
       ) : (
         <div />
       )}
