@@ -1,5 +1,3 @@
-"use client";
-
 import CryptoJS from "crypto-js";
 import DB from "../utils/db";
 
