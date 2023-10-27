@@ -1,6 +1,6 @@
 import DB from "./utils/db";
-import { renewalSummoner } from "./utils/riot";
 import { IsUpdateNeeded } from "./utils/apiUtils";
+import { UpsertSummoner } from "./utils/riot";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -9,36 +9,16 @@ export default async function handler(req, res) {
     const { nickname } = req.query;
 
     if (!nickname) {
-      return res.json({
-        code: 400,
-        message: "Bad Request",
-      });
+      return res.json({ code: 400, message: "Bad Request" });
     }
 
-    const summoner = await renewalSummoner(nickname);
-
-    if (!summoner) {
-      return res.json({
-        code: 404,
-        message: "Not Found a Summoner",
-      });
-    }
-
-    return res.json({
-      code: 200,
-      message: "ok",
-      result: summoner,
-    });
+    return res.json({ code: 200, message: "ok" });
   }
 
   if (method === "POST") {
     const { nickname } = req.body;
-    if (!nickname) {
-      return res.json({
-        code: 400,
-        message: "Bad Request",
-      });
-    }
+
+    if (!nickname) return res.json({ code: 400, message: "Bad Request" });
 
     const db = DB();
 
@@ -51,15 +31,22 @@ export default async function handler(req, res) {
     if (sessionData) {
       if (IsUpdateNeeded(sessionData.renewaled_at)) {
         //* case-갱신한지 오래됨) 갱신후 친구테이블에 추가
+        console.log("오래된 데이터 - 갱신해야함");
+        UpsertSummoner(nickname);
+
+        // 친구 테이블에 insert하는 로직
       } else {
         //* case-갱신할 필요 없는 경우) 친구 테이블에 추가만 하기
-        await db("friends").insert({
-          id: "??",
-          friend_nickname: "??",
-        });
+        console.log("갱신할 필요 없음");
+
+        // 친구 테이블에 insert하는 로직
       }
     } else {
       //* case-세션데이터에 없는 유저) 세션데이터에 생성 + 친구테이블에 추가
+      console.log("세션데이터 존재x - 새로 생성");
+      UpsertSummoner(nickname);
+
+      // 친구 테이블에 insert하는 로직
     }
 
     return res.json({
