@@ -9,12 +9,9 @@ export function GetRiotApiKey() {
 }
 
 export async function renewalSummoner(nickname) {
-  if (!riotUrl || !apiKey) return;
+  // TODO 닉네임 받으면, 라이엇 api 여러곳에 요청해 데이터 가져온후 sessionData에 upSert하는 함수
 
-  //* front에서 created_at 비교후 갱신하기
-  //* A유저가 E크에크파이크 갱신 , B유저가 기존에 있던 E크에크파이크 가지고 있을 수 있으니 아래 절차 거치기
-  //* 먼저 DB에 갱신된거 있는지 확인 -> (날짜가 지났다면 갱신하면서) 소환사 정보 가져오기
-  //* session 갱신할떄마다 friend table updated_at도 갱신하기
+  if (!riotUrl || !apiKey) return;
 
   const db = DB();
 

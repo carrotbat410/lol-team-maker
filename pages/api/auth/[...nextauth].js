@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CryptoJS from "crypto-js";
 import CredentialsProvider from "next-auth/providers/credentials";
-import DB from "../../utils/db";
+import DB from "../utils/db";
 
 export const authOptions = {
   providers: [
