@@ -48,6 +48,36 @@ export async function UpsertSummoner(nickname) {
 
   const db = DB();
 
+  let mmr = 0;
+
+  if (result.tier && result.rank) {
+    const tierArr = [
+      "IRON", // 1~4
+      "BRONZE",
+      "SILVER",
+      "GOLD",
+      "PLATINUM",
+      "EMERALD", // 21 22 23 24
+      "DIAMOND", // 25~28
+      "MASTER", // 29
+      "GRANDMASTER", // 30
+      "CHALLENGER", // 31
+    ];
+
+    const { tier, rank } = result;
+
+    const index = tierArr.indexOf(tier);
+
+    if (index < 7) {
+      mmr = index * 4 + (5 - rank);
+    } else if (index === 7) mmr = 29;
+    else if (index === 8) mmr = 30;
+    else if (index === 9) mmr = 30;
+
+    console.log(tier, rank);
+    console.log("index:", index, " ||  mmr:", mmr);
+  }
+
   await db("summoner_sessions")
     .insert({
       nickname: result.name,
@@ -58,6 +88,7 @@ export async function UpsertSummoner(nickname) {
       main_position: "tmp",
       icon_id: result.profileIconId,
       renewaled_at: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+      mmr,
     })
     .onConflict(["nickname"])
     .merge([
@@ -68,31 +99,8 @@ export async function UpsertSummoner(nickname) {
       "main_position",
       "icon_id",
       "renewaled_at",
+      "mmr",
     ]);
 
   return result;
-}
-
-export async function renewalSummoner(nickname) {
-  // TODO 닉네임 받으면, 라이엇 api 여러곳에 요청해 데이터 가져온후 sessionData에 upSert하는 함수
-
-  if (!riotUrl || !apiKey) return;
-
-  let summoner;
-
-  try {
-    const response = await axios.get(
-      `${riotUrl}/lol/summoner/v4/summoners/by-name/${nickname}?api_key=${apiKey}`,
-    );
-    summoner = response.data;
-  } catch (err) {
-    console.log("err:", err);
-  }
-  console.log("summoner info:", summoner);
-
-  if (!summoner) return;
-
-  // TODO 소환사 존재하면 다른 정보들도 가져와서 업데이트하기
-
-  return summoner;
 }
