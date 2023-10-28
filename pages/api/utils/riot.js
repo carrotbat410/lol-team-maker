@@ -72,7 +72,9 @@ export async function UpsertSummoner(nickname) {
       mmr = index * 4 + (5 - rank);
     } else if (index === 7) mmr = 29;
     else if (index === 8) mmr = 30;
-    else if (index === 9) mmr = 30;
+    else if (index === 9) mmr = 31;
+
+    result.mmr = mmr;
 
     console.log(tier, rank);
     console.log("index:", index, " ||  mmr:", mmr);
