@@ -4,8 +4,9 @@ import { IsUpdateNeeded } from "./utils/apiUtils";
 import { UpsertSummoner } from "./utils/riot";
 
 export default async function handler(req, res) {
-  const session = await getSession({ req });
-  console.log("session info:", session);
+  // const session = await getSession({ req }); // TODO 백엔드 테스트하려고 임의로 박음, 나중에 지우기 + expires 검사
+  const session = { user: { id: "dlckdals04" } };
+
   if (!session || !session.user) {
     return res.json({ code: 401, message: "Expired Session" });
   }
@@ -29,7 +30,7 @@ export default async function handler(req, res) {
 
     const db = DB();
 
-    const sessionData = await db("summoner_sessions")
+    let sessionData = await db("summoner_sessions")
       .where("nickname", nickname)
       .first();
 
@@ -39,22 +40,24 @@ export default async function handler(req, res) {
       if (IsUpdateNeeded(sessionData.renewaled_at)) {
         //* case-갱신한지 오래됨) 갱신후 친구테이블에 추가
         console.log("오래된 데이터 - 갱신해야함");
-        const summoner = await UpsertSummoner(nickname);
-
-        // 친구 테이블에 insert하는 로직
+        sessionData = await UpsertSummoner(nickname);
       } else {
         //* case-갱신할 필요 없는 경우) 친구 테이블에 추가만 하기
         console.log("갱신할 필요 없음");
-
-        // 친구 테이블에 insert하는 로직
       }
     } else {
       //* case-세션데이터에 없는 유저) 세션데이터에 생성 + 친구테이블에 추가
       console.log("세션데이터 존재x - 새로 생성");
-      const summoner = await UpsertSummoner(nickname);
-
-      // 친구 테이블에 insert하는 로직
+      sessionData = await UpsertSummoner(nickname);
     }
+
+    await db("friends")
+      .insert({
+        id: session.user.id,
+        friend_nickname: sessionData.nickname,
+      })
+      .onConflict(["id", "friend_nickname"])
+      .merge();
 
     return res.json({
       code: 200,
