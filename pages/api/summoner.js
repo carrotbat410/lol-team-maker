@@ -11,16 +11,18 @@ export default async function handler(req, res) {
     return res.json({ code: 401, message: "Expired Session" });
   }
 
+  const { id } = session.user;
+
   const { method } = req;
 
   if (method === "GET") {
-    const { nickname } = req.query;
+    const db = DB();
 
-    if (!nickname) {
-      return res.json({ code: 400, message: "Bad Request" });
-    }
+    const result = await db("friends as f")
+      .where("f.id", id)
+      .join("summoner_sessions as ss", "f.friend_nickname", "ss.nickname");
 
-    return res.json({ code: 200, message: "ok" });
+    return res.json({ code: 200, message: "ok", result });
   }
 
   if (method === "POST") {
@@ -30,7 +32,7 @@ export default async function handler(req, res) {
 
     const db = DB();
 
-    let sessionData = await db("summoner_sessions")
+    const sessionData = await db("summoner_sessions")
       .where("nickname", nickname)
       .first();
 
@@ -40,7 +42,7 @@ export default async function handler(req, res) {
       if (IsUpdateNeeded(sessionData.renewaled_at)) {
         //* case-갱신한지 오래됨) 갱신후 친구테이블에 추가
         console.log("오래된 데이터 - 갱신해야함");
-        sessionData = await UpsertSummoner(nickname);
+        UpsertSummoner(nickname);
       } else {
         //* case-갱신할 필요 없는 경우) 친구 테이블에 추가만 하기
         console.log("갱신할 필요 없음");
@@ -48,13 +50,13 @@ export default async function handler(req, res) {
     } else {
       //* case-세션데이터에 없는 유저) 세션데이터에 생성 + 친구테이블에 추가
       console.log("세션데이터 존재x - 새로 생성");
-      sessionData = await UpsertSummoner(nickname);
+      UpsertSummoner(nickname);
     }
 
     await db("friends")
       .insert({
         id: session.user.id,
-        friend_nickname: sessionData.nickname,
+        friend_nickname: nickname,
       })
       .onConflict(["id", "friend_nickname"])
       .merge();
