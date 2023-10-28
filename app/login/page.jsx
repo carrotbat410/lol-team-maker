@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import styles from "./page.module.css";
 
 export default function Login() {
@@ -10,19 +10,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
-  // const onSubmitHandler = async (event) => {
-  //   event.preventDefault();
-  //   const id = event.target.id.value;
-  //   const password = event.target.password.value;
-  //
-  //   const result = await signIn("credentials", {
-  //     id,
-  //     password,
-  //     redirect: true,
-  //     callbackUrl: "/",
-  //   });
-  //   console.log("result info:", result);
-  // };
+
+  const session = useSession();
+
+  if (session && session.status !== "loading") {
+    if (session.status === "authenticated") {
+      router.push("/");
+      console.log("로그인 되어있음, session info:", session.data.user);
+    }
+  }
 
   const onChangeIdHandler = (event) => {
     setId(event.target.value);
@@ -51,18 +47,6 @@ export default function Login() {
       .catch((err) => {
         console.log("err info:", err);
       });
-
-    // axios
-    //   .post("http://localhost:3000/api/login", body)
-    //   .then(() => {
-    //     if (res.data.code >= 400) {
-    //       return alert(res.data.message);
-    //     }
-    //     router.push("/");
-    //   })
-    //   .catch((err) => {
-    //     console.log("err info:", err);
-    //   });
   };
 
   return (
