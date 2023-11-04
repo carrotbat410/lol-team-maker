@@ -24,23 +24,6 @@ export default function Home() {
   }, [session, status]);
 
   return (
-    // <div>
-    //   <div>this is root page</div>
-    //   {session.data?.user ? <div>hello, {session.data.user.id}</div> : <div />}
-    //   {session.data?.user ? (
-    //     <input
-    //       type="button"
-    //       value="logout"
-    //       onClick={() =>
-    //         signOut({
-    //           callbackUrl: "http://localhost:3000/login",
-    //         })
-    //       }
-    //     />
-    //   ) : (
-    //     <div />
-    //   )}
-    // </div>
     <div className={styles.wrapper}>
       <div className={styles.left_wrapper}>left_wrapper</div>
       <div className={styles.right_wrapper}>

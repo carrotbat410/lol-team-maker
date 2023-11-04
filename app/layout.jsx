@@ -10,7 +10,7 @@ import { SessionProvider } from "next-auth/react";
 
 export default function RootLayout({ children }) {
   const globalCss = {
-    background: "#061018",
+    background: "#151b21",
 
     width: "100%",
     height: "100%",

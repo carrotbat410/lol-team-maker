@@ -13,6 +13,10 @@
     height: 100%;
 
     border: 1px solid black;
+
+    background-image: url("/images/forest.jpg");
+    background-size: cover;
+    opacity: 0.2;
 }
 
 .right_wrapper {
