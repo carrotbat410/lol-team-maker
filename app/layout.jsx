@@ -9,9 +9,20 @@ import { SessionProvider } from "next-auth/react";
 // };
 
 export default function RootLayout({ children }) {
+  const globalCss = {
+    // background: "#001933",
+
+    width: "100%",
+    height: "100%",
+
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
   return (
     <SessionProvider>
-      <html lang="ko">
+      <html lang="ko" style={globalCss}>
         <body>{children}</body>
       </html>
     </SessionProvider>

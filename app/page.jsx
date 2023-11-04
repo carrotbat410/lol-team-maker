@@ -2,6 +2,7 @@
 
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import styles from "./page.module.css";
 
 export default function Home() {
   const router = useRouter();
@@ -17,22 +18,26 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <div>this is root page</div>
-      {session.data?.user ? <div>hello, {session.data.user.id}</div> : <div />}
-      {session.data?.user ? (
-        <input
-          type="button"
-          value="logout"
-          onClick={() =>
-            signOut({
-              callbackUrl: "http://localhost:3000/login",
-            })
-          }
-        />
-      ) : (
-        <div />
-      )}
+    // <div>
+    //   <div>this is root page</div>
+    //   {session.data?.user ? <div>hello, {session.data.user.id}</div> : <div />}
+    //   {session.data?.user ? (
+    //     <input
+    //       type="button"
+    //       value="logout"
+    //       onClick={() =>
+    //         signOut({
+    //           callbackUrl: "http://localhost:3000/login",
+    //         })
+    //       }
+    //     />
+    //   ) : (
+    //     <div />
+    //   )}
+    // </div>
+    <div className={styles.wrapper}>
+      <div className={styles.left_wrapper}>left_wrapper</div>
+      <div className={styles.right_wrapper}>right_wrapper</div>
     </div>
   );
 }
