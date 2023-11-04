@@ -17,6 +17,24 @@ export default function FriendList(props) {
     });
   }, []);
 
+  const onClickAddFriendBtn = () => {
+    console.log("총 인원:", friendList.length);
+    if (friendList.length >= 30) {
+      alert("등록할 수 있는 최대 유저 인원은 30명입니다.");
+    }
+
+    // axios.post("http://localhost:3000/api/summoner").then((res) => {
+    //   console.log();
+    // });
+
+    // setFriendList([...friendList,])
+  };
+
+  const onClickDeleteFriendBtn = (no) => {
+    const newFriendList = friendList.filter((v) => v.no !== no);
+    setFriendList([...newFriendList]);
+  };
+
   return (
     <div>
       <div className={styles.header}>
@@ -39,7 +57,11 @@ export default function FriendList(props) {
       </div>
       <div className={styles.content}>
         <div className={styles.btn_container}>
-          <input type="button" value="내전 인원 추가" />
+          <input
+            type="button"
+            value="내전 인원 추가"
+            onClick={onClickAddFriendBtn}
+          />
           <input type="button" value="검색 공간?" />
         </div>
         <div className={styles.friend_list_container}>
@@ -66,14 +88,8 @@ export default function FriendList(props) {
                   type="button"
                   value="x"
                   className={styles.friend_box_delete_btn}
-                  targetNo={v.no}
-                  onClick={(event) => {
-                    const parentElement = event.target.parentNode;
-                    parentElement.style.display = "none";
-
-                    const targetNo = event.target.getAttribute("targetNo");
-                    // TODO db에 delete 요청하는 코드 짜기
-                  }}
+                  onClick={() => onClickDeleteFriendBtn(v.no)}
+                  // TODO db에 delete 요청하는 코드 짜기
                 />
               </div>
             );
