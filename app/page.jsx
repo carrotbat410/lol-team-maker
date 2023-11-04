@@ -2,20 +2,26 @@
 
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
+import FriendList from "./component/friendList/FriendList";
 
 export default function Home() {
   const router = useRouter();
 
-  const session = useSession();
-  if (session && session.status !== "loading") {
-    if (session.status === "authenticated") {
-      console.log("로그인 성공, session info:", session.data.user);
+  const { data: session, status } = useSession();
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    if (status === "authenticated" && session?.user) {
+      setUser({ ...session.user });
+    } else if (status === "loading") {
+      // 로딩 중에 할 작업
     } else {
-      alert("로그인후 이용 가능합니다.");
+      alert("로그인 후 이용 가능합니다.");
       router.push("/login");
     }
-  }
+  }, [session, status]);
 
   return (
     // <div>
@@ -37,7 +43,9 @@ export default function Home() {
     // </div>
     <div className={styles.wrapper}>
       <div className={styles.left_wrapper}>left_wrapper</div>
-      <div className={styles.right_wrapper}>right_wrapper</div>
+      <div className={styles.right_wrapper}>
+        <FriendList user={user} />
+      </div>
     </div>
   );
 }
