@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { signOut } from "next-auth/react";
 import styles from "./FriendList.module.css";
 
 export default function FriendList(props) {
@@ -19,7 +20,22 @@ export default function FriendList(props) {
   return (
     <div>
       <div className={styles.header}>
-        {id ? <div>{`${id}님 즐거운 내전 되세요 :)`}</div> : <div>로딩중</div>}
+        {id ? (
+          <div>
+            {`${id}님 즐거운 내전 되세요 :)`}{" "}
+            <input
+              type="button"
+              value="logout"
+              onClick={() =>
+                signOut({
+                  callbackUrl: "http://localhost:3000/login",
+                })
+              }
+            />
+          </div>
+        ) : (
+          <div>로딩중</div>
+        )}
       </div>
       <div className={styles.content}>
         <div className={styles.btn_container}>
