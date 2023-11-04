@@ -62,22 +62,19 @@ export default function FriendList(props) {
                   <div>{v.nickname}</div>
                   <div>{tier}</div>
                 </div>
-                <div
-                  className={styles.friend_box_delete}
+                <input
+                  type="button"
+                  value="x"
+                  className={styles.friend_box_delete_btn}
                   targetNo={v.no}
                   onClick={(event) => {
-                    const targetNo = event.target.getAttribute("targetNo");
-                    console.log(targetNo);
-                    console.log("부모요소", event.target.parentNode);
                     const parentElement = event.target.parentNode;
                     parentElement.style.display = "none";
 
-                    // TODO div박스 두개가 아닌 버튼으로 통합하기
+                    const targetNo = event.target.getAttribute("targetNo");
                     // TODO db에 delete 요청하는 코드 짜기
                   }}
-                >
-                  <div targetNo={v.no}>X</div>
-                </div>
+                />
               </div>
             );
           })}

@@ -85,14 +85,19 @@
     /*border: 1px solid black;*/
 }
 
-.friend_box_delete {
+.friend_box_delete_btn {
     width: 30px;
     height: 30px;
-    border: 1px solid white;
+    background: none;
+    font-size: 20px;
+    color: white;
 
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid white;
+    /*border-radius: 15px;*/
+    /*border: none;*/
 }
 
 .profile_img {
