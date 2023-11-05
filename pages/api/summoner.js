@@ -10,8 +10,8 @@ dayjs.extend(timezone); // use plugin
 dayjs.extend(utc); // use plugin
 
 export default async function handler(req, res) {
-  // const session = await getSession({ req }); // TODO 백엔드 테스트하려고 임의로 박음, 나중에 지우기 + expires 검사
-  const session = { user: { id: "dlckdals04" } };
+  const session = await getSession({ req }); // TODO 백엔드 테스트하려고 임의로 박음, 나중에 지우기 + expires 검사
+  // const session = { user: { id: "test1" } };
 
   if (!session || !session.user) {
     return res.json({ code: 401, message: "Expired Session" });
