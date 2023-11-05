@@ -14,9 +14,8 @@
 
     border: 1px solid black;
 
-    background-image: url("/images/forest.jpg");
+    background-image: url("/images/forest.png");
     background-size: cover;
-    opacity: 0.2;
 }
 
 .right_wrapper {
