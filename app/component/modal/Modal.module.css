@@ -1,0 +1,72 @@
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1F1A2A;
+
+    width: 400px;
+    height: 500px;
+}
+
+.modal_close {
+    width: 100%;
+    height: 10%;
+    border: 1px solid red;
+}
+
+.modal_close span {
+    font-size: 30px;
+    border: 1px solid red;
+}
+
+.modal_content_text_div {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid red;
+
+    width: 100%;
+    height: 20%;
+
+    font-size: 18px
+}
+
+.modal_content_input_div {
+    border: 1px solid red;
+    width: 100%;
+    height: 20%;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.modal_content_input_div input {
+    margin-left: 100px;
+    /*margin-right: 10px;*/
+
+    /*background-image: url("/public/images/icon_reading_glasses.png");*/
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-size: 20px;
+}
+
+/*.modal_content_input_div input:focus{*/
+/*    background-image: none;*/
+/*}*/
+
+/*.has-value {*/
+/*    background-image: none;*/
+/*}*/
+
+
+
+.modal_content_input_div input{
+    width: 200px;
+    height: 30px;
+}

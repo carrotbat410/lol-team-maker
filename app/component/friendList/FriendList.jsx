@@ -2,12 +2,21 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import styles from "./FriendList.module.css";
+import Modal from "../modal/Modal";
 
 export default function FriendList(props) {
   const { user } = props;
   const id = user.id || undefined;
 
   const [friendList, setFriendList] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     axios.get("http://localhost:3000/api/summoner").then((res) => {
@@ -22,12 +31,6 @@ export default function FriendList(props) {
     if (friendList.length >= 30) {
       alert("등록할 수 있는 최대 유저 인원은 30명입니다.");
     }
-
-    // axios.post("http://localhost:3000/api/summoner").then((res) => {
-    //   console.log();
-    // });
-
-    // setFriendList([...friendList,])
   };
 
   const onClickDeleteFriendBtn = (no) => {
@@ -57,11 +60,7 @@ export default function FriendList(props) {
       </div>
       <div className={styles.content}>
         <div className={styles.btn_container}>
-          <input
-            type="button"
-            value="내전 인원 추가"
-            onClick={onClickAddFriendBtn}
-          />
+          <input type="button" value="내전 인원 추가" onClick={openModal} />
           <input type="button" value="검색 공간?" />
         </div>
         <div className={styles.friend_list_container}>
@@ -97,6 +96,7 @@ export default function FriendList(props) {
         </div>
       </div>
       {/* <div className={styles.footer}>i'm footer</div> */}
+      {isModalOpen && <Modal closeModal={closeModal} />}
     </div>
   );
 }
