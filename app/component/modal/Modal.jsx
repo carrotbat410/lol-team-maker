@@ -13,6 +13,7 @@ function Modal({ closeModal }) {
       </div>
       <div className={styles.modal_content_input_div}>
         <input
+          className={styles.modal_content_search_bar}
           style={{
             backgroundImage: "url(/images/icon_reading_glasses.png)",
           }}
@@ -29,7 +30,14 @@ function Modal({ closeModal }) {
             }
           }}
         />
-        <span>여기다 닉네임추가되었습니다 or 없는 닉네임입니다 띄우기</span>
+        <input
+          type="button"
+          value="추가"
+          className={styles.modal_content_add_btn}
+        />
+      </div>
+      <div className={styles.modal_result_text_div}>
+        <span>닉네임 추가 / 없는 닉네임 문구</span>
       </div>
     </div>
   );
