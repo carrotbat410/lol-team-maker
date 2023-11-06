@@ -29,6 +29,7 @@ function Modal({ closeModal }) {
             }
           }}
         />
+        <span>여기다 닉네임추가되었습니다 or 없는 닉네임입니다 띄우기</span>
       </div>
     </div>
   );
