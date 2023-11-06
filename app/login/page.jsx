@@ -50,7 +50,7 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className={styles.background}>
       <img src="/images/logo.png" className={styles.logo} />
       <video
         autoPlay

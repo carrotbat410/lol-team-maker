@@ -1,8 +1,8 @@
 .background {
-    width: 100%;
-    height: 1000px;
+    width: 1600px;
+    height: 800px;
 
-    background-color: bisque;
+    /*background-color: bisque;*/
 }
 
 .video-background {
@@ -14,29 +14,34 @@
     z-index: -1;
 }
 
-.logo {
-    width: 30%;
-    height: auto;
-    z-index: 1;
-}
+/*.logo {*/
+/*    width: 300px;*/
+/*    height: 200px;*/
+/*    z-index: 1;*/
+/*}*/
+
 /* 레이오버 */
 .logo {
+    width: 400px;
+    height: 250px;
+    z-index: 1;
+
     position: absolute;
-    top: 1%;
-    left: 8%;
+    top: 110px;
+    left: 250px;
     background-size: cover;
     opacity: 1; /* 원하는 투명도로 조정 */
 }
 
 .login_box {
-    width: 30%;
-    /*height: 30%;*/
-    aspect-ratio: 1 / 1.25;
+    width: 400px;
+    height: 500px;
+    /*aspect-ratio: 1 / 1.25;*/
     background-color: blue;
 
     position: absolute;
-    top: 25%;
-    left: 8%;
+    top: 300px;
+    left: 250px;
     background-size: cover;
     opacity: 1; /* 원하는 투명도로 조정 */
 }
