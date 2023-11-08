@@ -10,11 +10,25 @@ const apiKey = process.env.RIOT_DEV_API_KEY;
 // }
 
 export async function UpsertSummoner(nickname) {
-  let result = {};
+  let result = {
+    isError: false,
+  };
 
-  const summonerInfo = await axios.get(
-    `${riotUrl}/lol/summoner/v4/summoners/by-name/${nickname}?api_key=${apiKey}`,
-  );
+  let summonerInfo;
+
+  try {
+    summonerInfo = await axios.get(
+      `${riotUrl}/lol/summoner/v4/summoners/by-name/${nickname}?api_key=${apiKey}`,
+    );
+  } catch (err) {
+    // const statusCode = err.response.data.status?.status_code || 404;
+    // const statusCode = 404;
+    result.isError = true;
+  }
+
+  if (result.isError) {
+    return result;
+  }
 
   const encryptedId = summonerInfo.data.id;
 
