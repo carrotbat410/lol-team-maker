@@ -10,8 +10,8 @@ dayjs.extend(timezone); // use plugin
 dayjs.extend(utc); // use plugin
 
 export default async function handler(req, res) {
-  const session = await getSession({ req }); // TODO 백엔드 테스트하려고 임의로 박음, 나중에 지우기 + expires 검사
-  // const session = { user: { id: "test1" } };
+  // const session = await getSession({ req }); // TODO 백엔드 테스트하려고 임의로 박음, 나중에 지우기 + expires 검사
+  const session = { user: { id: "test1" } };
 
   if (!session || !session.user) {
     return res.json({ code: 401, message: "Expired Session" });
@@ -52,6 +52,19 @@ export default async function handler(req, res) {
 
     const db = DB();
 
+    const existingFriend = await db("friends")
+      .where("id", id)
+      .where("friend_nickname", nickname)
+      .first();
+
+    if (existingFriend) {
+      console.log("친구 있음;", existingFriend);
+      return res.json({
+        code: 409,
+        message: "Already added a friend",
+      });
+    }
+
     const sessionData = await db("summoner_sessions")
       .where("nickname", nickname)
       .first();
@@ -68,7 +81,13 @@ export default async function handler(req, res) {
       ) {
         //* case-갱신한지 오래됨) 갱신후 친구테이블에 추가
         console.log("오래된 데이터 - 갱신해야함");
-        UpsertSummoner(nickname);
+        const upsertResult = await UpsertSummoner(nickname);
+        if (upsertResult.isError) {
+          return res.json({
+            code: 404,
+            message: "User Not Found",
+          });
+        }
       } else {
         //* case-갱신할 필요 없는 경우) 친구 테이블에 추가만 하기
         console.log("갱신할 필요 없음");
@@ -76,7 +95,13 @@ export default async function handler(req, res) {
     } else {
       //* case-세션데이터에 없는 유저) 세션데이터에 생성 + 친구테이블에 추가
       console.log("세션데이터 존재x - 새로 생성");
-      UpsertSummoner(nickname);
+      const upsertResult = await UpsertSummoner(nickname);
+      if (upsertResult.isError) {
+        return res.json({
+          code: 404,
+          message: "User Not Found",
+        });
+      }
     }
 
     await db("friends")
