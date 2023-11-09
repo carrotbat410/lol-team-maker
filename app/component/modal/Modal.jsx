@@ -8,16 +8,26 @@ function Modal({ closeModal }) {
   const [nickname, setNickname] = useState("");
 
   const onClickAddBtn = async () => {
-    const apiRequest = await axios.post("http://localhost:3000/api/summoner");
+    if (!nickname) {
+      return alert("닉네임을 입력해주세요.");
+    }
+
+    const apiRequest = await axios.post("http://localhost:3000/api/summoner", {
+      nickname,
+    });
+
     const result = apiRequest.data;
 
     if (result.code === 200) {
       console.log("200 message:", result.message);
-    } else if (result.code === 404) {
-      console.log("404 error:", result.message);
-    } else {
-      console.log("else error:", result.message);
+      return alert("추가되었습니다.");
     }
+    if (result.code === 404) {
+      console.log("404 error:", result.message);
+      return alert("존재하지 않는 유저입니다.");
+    }
+    // 400 Bad Request
+    console.log("else error:", result);
   };
 
   return (
