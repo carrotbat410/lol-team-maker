@@ -52,6 +52,20 @@ export default async function handler(req, res) {
 
     const db = DB();
 
+    const friendInfo = await db("friends")
+      .where("id", id)
+      .count("no as cnt")
+      .first();
+
+    const friendCnt = friendInfo.cnt || 0;
+
+    if (friendCnt >= 30) {
+      return res.json({
+        code: 403,
+        message: "Exceeded the number of friends limit",
+      });
+    }
+
     const existingFriend = await db("friends")
       .where("id", id)
       .where("friend_nickname", nickname)

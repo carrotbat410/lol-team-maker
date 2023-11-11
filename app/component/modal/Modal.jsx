@@ -24,6 +24,8 @@ function Modal({ closeModal, onAddFriend }) {
       setAddUserCode(200);
       onAddFriend(result.newFriend);
       // return alert("추가되었습니다.");
+    } else if (result.code === 403) {
+      setAddUserCode(403);
     } else if (result.code === 404) {
       // console.log("404 error:", result.message);
       setAddUserCode(404);
@@ -78,10 +80,12 @@ function Modal({ closeModal, onAddFriend }) {
         <span>
           {addUserCode === 200
             ? "유저를 추가했습니다 "
-            : addUserCode === 404
-            ? "존재하지 않는 유저입니다."
             : addUserCode === 400
             ? "현재 서버에 문제가 있습니다."
+            : addUserCode === 403
+            ? "친구 추가는 최대 30명까지 가능합니다."
+            : addUserCode === 404
+            ? "존재하지 않는 유저입니다."
             : addUserCode === 409
             ? "이미 추가한 유저입니다."
             : null}
