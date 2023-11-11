@@ -71,15 +71,16 @@ export default function FriendList(props) {
             const tier = tmpTier ? `${tmpTier} ${tmpRank}` : "UNRANKED";
 
             return (
-              <div className={styles.friend_box} key={v.no}>
+              <div className={styles.friend_box} key={v.no} draggable="true">
                 <div className={styles.friend_box_profile}>
                   <img
+                    draggable="false"
                     src={v.icon_img_url}
                     alt="profile_img"
                     className={styles.profile_img}
                   />
                 </div>
-                <div className={styles.friend_box_content}>
+                <div className={styles.friend_box_content} draggable="false">
                   <div>{v.nickname}</div>
                   <div>{tier}</div>
                 </div>
@@ -89,6 +90,7 @@ export default function FriendList(props) {
                   className={styles.friend_box_delete_btn}
                   onClick={() => onClickDeleteFriendBtn(v.no)}
                   // TODO db에 delete 요청하는 코드 짜기
+                  draggable="false"
                 />
               </div>
             );
