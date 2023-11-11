@@ -55,7 +55,8 @@
 .friend_box {
     width: 100%;
     height: 35px;
-    /*border: 1px solid black;*/
+    /*border: 3px solid #151b21;*/
+    background: #151b21;
     padding: 10px;
 
     display: flex;
