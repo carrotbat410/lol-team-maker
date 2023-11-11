@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./Modal.module.css";
 
 function Modal({ closeModal, onAddFriend }) {
+  // TODO 모달창 띄우면 뒷배경 검하게 + 클릭 안되도록 수정하기
   let imageTrue = true;
 
   const [nickname, setNickname] = useState("");
