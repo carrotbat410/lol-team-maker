@@ -33,13 +33,6 @@ export default function FriendList(props) {
     });
   }, []);
 
-  const onClickAddFriendBtn = () => {
-    console.log("총 인원:", friendList.length);
-    if (friendList.length >= 30) {
-      alert("등록할 수 있는 최대 유저 인원은 30명입니다.");
-    }
-  };
-
   const onClickDeleteFriendBtn = (no) => {
     const newFriendList = friendList.filter((v) => v.no !== no);
     setFriendList([...newFriendList]);
