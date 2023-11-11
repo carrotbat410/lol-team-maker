@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import FriendList from "./component/friendList/FriendList";
+import { Main } from "./component/main/Main";
 
 export default function Home() {
   const router = useRouter();
@@ -25,7 +26,9 @@ export default function Home() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.left_wrapper}>left_wrapper</div>
+      <div className={styles.left_wrapper}>
+        <Main />
+      </div>
       <div className={styles.right_wrapper}>
         <FriendList user={user} />
       </div>
