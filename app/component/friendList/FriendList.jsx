@@ -11,6 +11,9 @@ export default function FriendList(props) {
   const [friendList, setFriendList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
+    if (friendList.length >= 30) {
+      return alert("친구 추가는 최대 30명까지 가능합니다.");
+    }
     setIsModalOpen(true);
   };
 
