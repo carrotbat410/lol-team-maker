@@ -18,6 +18,10 @@ export default function FriendList(props) {
     setIsModalOpen(false);
   };
 
+  const addFriend = (newFriend) => {
+    setFriendList([...friendList, newFriend]);
+  };
+
   useEffect(() => {
     axios.get("http://localhost:3000/api/summoner").then((res) => {
       if (res.data.code === 200) {
@@ -96,7 +100,7 @@ export default function FriendList(props) {
         </div>
       </div>
       {/* <div className={styles.footer}>i'm footer</div> */}
-      {isModalOpen && <Modal closeModal={closeModal} />}
+      {isModalOpen && <Modal onAddFriend={addFriend} closeModal={closeModal} />}
     </div>
   );
 }

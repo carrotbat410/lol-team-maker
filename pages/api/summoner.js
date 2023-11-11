@@ -118,9 +118,21 @@ export default async function handler(req, res) {
       .onConflict(["id", "friend_nickname"])
       .merge();
 
+    // TODO 조회 쿼리 없이 직접 데이터 만들어 프론트에게 주면 더 빠름 (삭제는 no 없어도 아이디, 친구닉네임조합으로 가능)
+    const newFriend = await db("friends as f")
+      .where("id", id)
+      .where("friend_nickname", nickname)
+      .join("summoner_sessions as ss", "f.friend_nickname", "ss.nickname")
+      .first();
+
+    if (newFriend) {
+      newFriend.icon_img_url = `http://ddragon.leagueoflegends.com/cdn/13.21.1/img/profileicon/${newFriend.icon_id}.png`;
+    }
+
     return res.json({
       code: 200,
       message: "ok",
+      newFriend,
     });
   }
 

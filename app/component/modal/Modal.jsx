@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import styles from "./Modal.module.css";
 
-function Modal({ closeModal }) {
+function Modal({ closeModal, onAddFriend }) {
   let imageTrue = true;
 
   const [nickname, setNickname] = useState("");
@@ -22,6 +22,7 @@ function Modal({ closeModal }) {
     if (result.code === 200) {
       console.log("200 message:", result.message);
       setAddUserCode(200);
+      onAddFriend(result.newFriend);
       // return alert("추가되었습니다.");
     } else if (result.code === 404) {
       // console.log("404 error:", result.message);
