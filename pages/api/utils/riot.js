@@ -11,7 +11,7 @@ const apiKey = process.env.RIOT_DEV_API_KEY;
 
 export async function UpsertSummoner(nickname) {
   let result = {
-    isError: false,
+    errorCode: null,
   };
 
   let summonerInfo;
@@ -21,12 +21,11 @@ export async function UpsertSummoner(nickname) {
       `${riotUrl}/lol/summoner/v4/summoners/by-name/${nickname}?api_key=${apiKey}`,
     );
   } catch (err) {
-    // const statusCode = err.response.data.status?.status_code || 404;
-    // const statusCode = 404;
-    result.isError = true;
+    // console.log("error:", err.response.data?.status.status_code);
+    result.errorCode = err.response?.data?.status.status_code || 400;
   }
 
-  if (result.isError) {
+  if (result.errorCode) {
     return result;
   }
 

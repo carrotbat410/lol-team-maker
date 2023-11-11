@@ -6,6 +6,7 @@ function Modal({ closeModal }) {
   let imageTrue = true;
 
   const [nickname, setNickname] = useState("");
+  const [addUserCode, setAddUserCode] = useState(0);
 
   const onClickAddBtn = async () => {
     if (!nickname) {
@@ -20,14 +21,20 @@ function Modal({ closeModal }) {
 
     if (result.code === 200) {
       console.log("200 message:", result.message);
-      return alert("추가되었습니다.");
+      setAddUserCode(200);
+      // return alert("추가되었습니다.");
+    } else if (result.code === 404) {
+      // console.log("404 error:", result.message);
+      setAddUserCode(404);
+      // return alert("존재하지 않는 유저입니다.");
+    } else if (result.code === 409) {
+      // console.log("409:", result.message);
+      setAddUserCode(409);
+    } else {
+      // 400 Bad Request
+      setAddUserCode(400);
+      // console.log("else error:", result);
     }
-    if (result.code === 404) {
-      console.log("404 error:", result.message);
-      return alert("존재하지 않는 유저입니다.");
-    }
-    // 400 Bad Request
-    console.log("else error:", result);
   };
 
   return (
@@ -67,7 +74,17 @@ function Modal({ closeModal }) {
         />
       </div>
       <div className={styles.modal_result_text_div}>
-        <span>닉네임 추가 / 없는 닉네임 문구</span>
+        <span>
+          {addUserCode === 200
+            ? "유저를 추가했습니다 "
+            : addUserCode === 404
+            ? "존재하지 않는 유저입니다."
+            : addUserCode === 400
+            ? "현재 서버에 문제가 있습니다."
+            : addUserCode === 409
+            ? "이미 추가한 유저입니다."
+            : null}
+        </span>
       </div>
     </div>
   );
