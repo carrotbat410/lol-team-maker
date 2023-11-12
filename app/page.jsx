@@ -14,7 +14,7 @@ export default function Home() {
   const [user, setUser] = useState({});
 
   const handleDrop = (droppedData) => {
-    console.log("Dropped into the designated area!", JSON.parse(droppedData));
+    console.log("Dropped into the designated area!", droppedData);
   };
 
   useEffect(() => {

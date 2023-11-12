@@ -39,6 +39,7 @@ export default function FriendList(props) {
   };
 
   const handleDragStart = (event) => {
+    console.log("드래그 시작");
     const data = event.target.getAttribute("data");
     event.dataTransfer.setData("text/plain", data); // 필수
   };

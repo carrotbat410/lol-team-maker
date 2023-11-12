@@ -23,8 +23,10 @@ export function Main({ onDrop }) {
   const handleDrop = (event) => {
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
-    console.log("droppedData:", droppedData);
-    onDrop(droppedData);
+    const data = JSON.parse(droppedData);
+    console.log("놓았음 - data:", data);
+
+    onDrop(data);
   };
 
   return (
