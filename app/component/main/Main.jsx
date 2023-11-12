@@ -3,6 +3,8 @@ import styles from "./Main.module.css";
 
 export function Main({ onDrop }) {
   const [resultMode, setResultMode] = useState(false);
+  const [team1List, setTeam1List] = useState([]);
+  const [team2List, setTeam2List] = useState([]);
   const [noTeamList, setNoTeamList] = useState([]);
 
   const handleDragOver = (event) => {
@@ -22,12 +24,16 @@ export function Main({ onDrop }) {
   };
 
   const handleDropTeam1 = (event) => {
+    if (team1List.length >= 5) {
+      return;
+    }
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
     data.location = "team1";
     console.log("team1 List에서 받음 - data:", data);
     onDrop(data);
+    setTeam1List([...team1List, data]);
   };
 
   const handleDropTeam2 = (event) => {
@@ -43,12 +49,25 @@ export function Main({ onDrop }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.setting_container}>setting_container</div>
-      <div
-        className={styles.content_container}
-        onDragOver={handleDragOver}
-        onDrop={handleDropTeam1}
-      >
-        content_container
+      <div className={styles.content_container}>
+        <div
+          className={styles.content_container_team_div}
+          id="team1"
+          onDragOver={handleDragOver}
+          onDrop={handleDropTeam1}
+        >
+          {team1List.map((v) => {
+            return <div key={v.no}>{v.nickname}</div>;
+          })}
+        </div>
+        <div
+          className={styles.content_container_team_div}
+          id="team2"
+          onDragOver={handleDragOver}
+          onDrop={handleDropTeam2}
+        >
+          team2
+        </div>
       </div>
       <div className={styles.result_container}>
         {resultMode ? (
