@@ -13,6 +13,10 @@ export default function Home() {
   const { data: session, status } = useSession();
   const [user, setUser] = useState({});
 
+  const handleDrop = (droppedData) => {
+    console.log("Dropped into the designated area!", droppedData);
+  };
+
   useEffect(() => {
     if (status === "authenticated" && session?.user) {
       setUser({ ...session.user });
@@ -27,7 +31,7 @@ export default function Home() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.left_wrapper}>
-        <Main />
+        <Main onDrop={handleDrop} />
       </div>
       <div className={styles.right_wrapper}>
         <FriendList user={user} />
