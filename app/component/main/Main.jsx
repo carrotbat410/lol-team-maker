@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./Main.module.css";
 
-export function Main() {
+export function Main({ onDrop }) {
   const [resultMode, setResultMode] = useState(false);
   const [noTeamList, setNoTeamList] = useState([
     { id: 1, nickname: "E크에크파이크" },
@@ -15,6 +15,17 @@ export function Main() {
     { id: 9, nickname: "구민상담소" },
     { id: 10, nickname: "구민상담소" },
   ]);
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const droppedData = event.dataTransfer.getData("text/plain");
+    console.log("droppedData:", droppedData);
+    onDrop(droppedData);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -34,7 +45,11 @@ export function Main() {
           </div>
         ) : (
           <div className={styles.result_mode_false_container}>
-            <div className={styles.no_team_summoner_List}>
+            <div
+              className={styles.no_team_summoner_List}
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+            >
               {noTeamList.map((v) => {
                 return (
                   <div key={v.id} className={styles.no_team_summoner}>

@@ -38,6 +38,12 @@ export default function FriendList(props) {
     setFriendList([...newFriendList]);
   };
 
+  const handleDragStart = (event) => {
+    const drag_no = event.target.getAttribute("drag_no");
+    console.log("drag event info:", drag_no);
+    event.dataTransfer.setData("text/plain", drag_no); // 필수
+  };
+
   return (
     <div>
       <div className={styles.header}>
