@@ -39,9 +39,8 @@ export default function FriendList(props) {
   };
 
   const handleDragStart = (event) => {
-    const drag_no = event.target.getAttribute("drag_no");
-    console.log("drag event info:", drag_no);
-    event.dataTransfer.setData("text/plain", drag_no); // 필수
+    const data = event.target.getAttribute("data");
+    event.dataTransfer.setData("text/plain", data); // 필수
   };
 
   return (
@@ -80,7 +79,7 @@ export default function FriendList(props) {
               <div
                 className={styles.friend_box}
                 key={v.no}
-                drag_no={v.no}
+                data={JSON.stringify(v)}
                 draggable="true"
                 onDragStart={handleDragStart}
               >

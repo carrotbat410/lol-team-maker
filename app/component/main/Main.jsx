@@ -5,15 +5,15 @@ export function Main({ onDrop }) {
   const [resultMode, setResultMode] = useState(false);
   const [noTeamList, setNoTeamList] = useState([
     { id: 1, nickname: "E크에크파이크" },
-    { id: 2, nickname: "통티모바배큐" },
-    { id: 3, nickname: "쏠킬땃을떄따봉좀" },
-    { id: 4, nickname: "구민상담소" },
-    { id: 5, nickname: "구민상담소" },
-    { id: 6, nickname: "구민상담소" },
-    { id: 7, nickname: "구민상담소" },
-    { id: 8, nickname: "구민상담소" },
-    { id: 9, nickname: "구민상담소" },
-    { id: 10, nickname: "구민상담소" },
+    // { id: 2, nickname: "통티모바배큐" },
+    // { id: 3, nickname: "쏠킬땃을떄따봉좀" },
+    // { id: 4, nickname: "구민상담소" },
+    // { id: 5, nickname: "구민상담소" },
+    // { id: 6, nickname: "구민상담소" },
+    // { id: 7, nickname: "구민상담소" },
+    // { id: 8, nickname: "구민상담소" },
+    // { id: 9, nickname: "구민상담소" },
+    // { id: 10, nickname: "구민상담소" },
   ]);
 
   const handleDragOver = (event) => {
