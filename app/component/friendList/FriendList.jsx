@@ -77,7 +77,13 @@ export default function FriendList(props) {
             const tier = tmpTier ? `${tmpTier} ${tmpRank}` : "UNRANKED";
 
             return (
-              <div className={styles.friend_box} key={v.no} draggable="true">
+              <div
+                className={styles.friend_box}
+                key={v.no}
+                drag_no={v.no}
+                draggable="true"
+                onDragStart={handleDragStart}
+              >
                 <div className={styles.friend_box_profile}>
                   <img
                     draggable="false"
