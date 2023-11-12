@@ -30,6 +30,7 @@ export default async function handler(req, res) {
       .orderBy("f.created_at", "asc");
 
     for (const r of result) {
+      delete r.friend_nickname;
       r.icon_img_url = `http://ddragon.leagueoflegends.com/cdn/13.21.1/img/profileicon/${r.icon_id}.png`;
       if (r.created_at)
         r.created_at = dayjs(r.created_at)
