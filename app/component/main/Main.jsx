@@ -3,28 +3,40 @@ import styles from "./Main.module.css";
 
 export function Main({ onDrop }) {
   const [resultMode, setResultMode] = useState(false);
-  const [noTeamList, setNoTeamList] = useState([
-    { id: 1, nickname: "E크에크파이크" },
-    // { id: 2, nickname: "통티모바배큐" },
-    // { id: 3, nickname: "쏠킬땃을떄따봉좀" },
-    // { id: 4, nickname: "구민상담소" },
-    // { id: 5, nickname: "구민상담소" },
-    // { id: 6, nickname: "구민상담소" },
-    // { id: 7, nickname: "구민상담소" },
-    // { id: 8, nickname: "구민상담소" },
-    // { id: 9, nickname: "구민상담소" },
-    // { id: 10, nickname: "구민상담소" },
-  ]);
+  const [noTeamList, setNoTeamList] = useState([]);
 
   const handleDragOver = (event) => {
     event.preventDefault();
   };
 
-  const handleDrop = (event) => {
+  const handleDropNoTeam = (event) => {
+    // event.target.style.display = "none";
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
-    console.log("놓았음 - data:", data);
+    data.location = "noTeam";
+    console.log("noTeamList에서 받음 - data:", data);
+
+    setNoTeamList([...noTeamList, data]);
+    console.log("noTeamList:", noTeamList);
+    onDrop(data);
+  };
+
+  const handleDropTeam1 = (event) => {
+    event.preventDefault();
+    const droppedData = event.dataTransfer.getData("text/plain");
+    const data = JSON.parse(droppedData);
+    data.location = "team1";
+    console.log("team1 List에서 받음 - data:", data);
+    onDrop(data);
+  };
+
+  const handleDropTeam2 = (event) => {
+    event.preventDefault();
+    const droppedData = event.dataTransfer.getData("text/plain");
+    const data = JSON.parse(droppedData);
+    data.location = "team2";
+    console.log("team2 List에서 받음 - data:", data);
 
     onDrop(data);
   };
@@ -32,7 +44,13 @@ export function Main({ onDrop }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.setting_container}>setting_container</div>
-      <div className={styles.content_container}>content_container</div>
+      <div
+        className={styles.content_container}
+        onDragOver={handleDragOver}
+        onDrop={handleDropTeam1}
+      >
+        content_container
+      </div>
       <div className={styles.result_container}>
         {resultMode ? (
           <div className={styles.result_mode_true_container}>
@@ -50,11 +68,11 @@ export function Main({ onDrop }) {
             <div
               className={styles.no_team_summoner_List}
               onDragOver={handleDragOver}
-              onDrop={handleDrop}
+              onDrop={handleDropNoTeam}
             >
               {noTeamList.map((v) => {
                 return (
-                  <div key={v.id} className={styles.no_team_summoner}>
+                  <div key={v.no} className={styles.no_team_summoner}>
                     {v.nickname}
                   </div>
                 );
