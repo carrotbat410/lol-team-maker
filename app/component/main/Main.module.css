@@ -23,7 +23,49 @@
 
 
 .result_container{
-    border: 1px solid blue;
+    border: 3px solid blue;
     width: 100%;
     height: 300px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /*align-items: center;*/
+}
+
+.result_mode_false_container {
+    border: 3px solid rosybrown;
+    width: 400px;
+    height: 250px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 30px;
+}
+
+.no_team_summoner_List {
+    border: 1px solid blue;
+    width: 400px;
+    height: 200px;
+
+    /*display: flex;*/
+    /*flex-direction: column;*/
+}
+
+.no_team_summoner {
+    /*border: 1px solid black;*/
+    width: 48%;
+    height: 35px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.make_result_btn {
+    margin-top: 10px;
+    width: 150px;
+    height: 40px;
+
 }

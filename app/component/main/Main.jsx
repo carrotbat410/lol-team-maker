@@ -3,6 +3,18 @@ import styles from "./Main.module.css";
 
 export function Main() {
   const [resultMode, setResultMode] = useState(false);
+  const [noTeamList, setNoTeamList] = useState([
+    { id: 1, nickname: "E크에크파이크" },
+    { id: 2, nickname: "통티모바배큐" },
+    { id: 3, nickname: "쏠킬땃을떄따봉좀" },
+    { id: 4, nickname: "구민상담소" },
+    { id: 5, nickname: "구민상담소" },
+    { id: 6, nickname: "구민상담소" },
+    { id: 7, nickname: "구민상담소" },
+    { id: 8, nickname: "구민상담소" },
+    { id: 9, nickname: "구민상담소" },
+    { id: 10, nickname: "구민상담소" },
+  ]);
 
   return (
     <div className={styles.wrapper}>
@@ -10,7 +22,7 @@ export function Main() {
       <div className={styles.content_container}>content_container</div>
       <div className={styles.result_container}>
         {resultMode ? (
-          <div>
+          <div className={styles.result_mode_true_container}>
             <input type="button" value="결과 복사하기" />
             <input
               type="button"
@@ -21,8 +33,16 @@ export function Main() {
             />
           </div>
         ) : (
-          <div>
-            <div>팀 미정 인원 목록 박스</div>
+          <div className={styles.result_mode_false_container}>
+            <div className={styles.no_team_summoner_List}>
+              {noTeamList.map((v) => {
+                return (
+                  <div key={v.id} className={styles.no_team_summoner}>
+                    {v.nickname}
+                  </div>
+                );
+              })}
+            </div>
             <input
               type="button"
               className={styles.make_result_btn}
