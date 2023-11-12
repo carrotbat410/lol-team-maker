@@ -18,7 +18,6 @@ export function Main({ onDrop }) {
     console.log("noTeamList에서 받음 - data:", data);
 
     setNoTeamList([...noTeamList, data]);
-    console.log("noTeamList:", noTeamList);
     onDrop(data);
   };
 

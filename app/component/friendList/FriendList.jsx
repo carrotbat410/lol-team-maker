@@ -44,6 +44,13 @@ export default function FriendList(props) {
     event.dataTransfer.setData("text/plain", data); // 필수
   };
 
+  const handleDragEnd = (event) => {
+    event.target.style.display = "none";
+
+    // TODO team1,2, noTeam은 state로 관리
+    // TODO 친구목록에 보이도록 하는건 seTfriendList이 아닌 style.display으로 관리하기
+  };
+
   return (
     <div>
       <div className={styles.header}>
@@ -83,6 +90,7 @@ export default function FriendList(props) {
                 data={JSON.stringify(v)}
                 draggable="true"
                 onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
               >
                 <div className={styles.friend_box_profile}>
                   <img
