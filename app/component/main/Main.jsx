@@ -21,7 +21,7 @@ export function Main({
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
-    data.location = "noTeam";
+    data.from = "noTeam";
     console.log("noTeamList에서 받음 - data:", data);
 
     setNoTeamList([...noTeamList, data]);
@@ -35,7 +35,7 @@ export function Main({
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
-    data.location = "team1";
+    data.from = "team1";
     console.log("team1 List에서 받음 - data:", data);
     onDrop(data);
     setTeam1List([...team1List, data]);
@@ -45,7 +45,7 @@ export function Main({
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
-    data.location = "team2";
+    data.from = "team2";
     console.log("team2 List에서 받음 - data:", data);
 
     onDrop(data);
