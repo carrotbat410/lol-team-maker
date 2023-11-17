@@ -31,7 +31,7 @@ export function Main({
 
   const handleDropTeam1 = (event) => {
     if (team1List.length >= 5) {
-      return;
+      return alert("한 팀에 최대 인원은 5명 입니다.");
     }
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
@@ -43,14 +43,13 @@ export function Main({
 
   const handleDropTeam2 = (event) => {
     if (team2List.length >= 5) {
-      return;
+      return alert("한 팀에 최대 인원은 5명 입니다.");
     }
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
     data.to = "team2";
     console.log("team2 List에서 받음 - data:", data);
-
     onDrop(data);
   };
 

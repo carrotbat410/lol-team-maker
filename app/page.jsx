@@ -32,6 +32,12 @@ export default function Home() {
       return;
     }
 
+    const addedSummonerCnt =
+      team1List.length + team2List.length + noTeamList.length;
+    if (addedSummonerCnt === 10 && droppedSummoner.from === "friend") {
+      return alert(`현재 인원:${addedSummonerCnt}`);
+    }
+
     // console.log("Dropped into the designated area!", droppedSummoner);
 
     const { from, to } = droppedSummoner;
