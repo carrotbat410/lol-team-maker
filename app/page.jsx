@@ -38,27 +38,38 @@ export default function Home() {
 
     // from
     if (from === "friend") {
-      const deletedList = friendList.filter((friend) => {
-        return friend.no !== droppedSummoner.no;
+      const deletedList = friendList.filter((v) => {
+        return v.no !== droppedSummoner.no;
       });
       setFriendList([...deletedList]);
     } else if (from === "noTeam") {
-      const deletedList = noTeamList.filter((friend) => {
-        return friend.no !== droppedSummoner.no;
+      const deletedList = noTeamList.filter((v) => {
+        return v.no !== droppedSummoner.no;
       });
       setNoTeamList([...deletedList]);
     } else if (from === "team1") {
+      const deletedList = team1List.filter((v) => {
+        return v.no !== droppedSummoner.no;
+      });
+      setTeam1List([...deletedList]);
     } else if (from === "team2") {
+      const deletedList = team2List.filter((v) => {
+        return v.no !== droppedSummoner.no;
+      });
+      setTeam2List([...deletedList]);
     }
 
     // to
     droppedSummoner.from = to; //! state 추가할 떄 from값 변경해서 저장하기
+
     if (to === "friend") {
       setFriendList([...friendList, droppedSummoner]);
     } else if (to === "noTeam") {
       setNoTeamList([...noTeamList, droppedSummoner]);
     } else if (to === "team1") {
+      setTeam1List([...team1List, droppedSummoner]);
     } else if (to === "team2") {
+      setTeam2List([...team2List, droppedSummoner]);
     }
   };
 

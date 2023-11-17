@@ -42,7 +42,7 @@ export function Main({
   };
 
   const handleDropTeam2 = (event) => {
-    if (team1List.length >= 5) {
+    if (team2List.length >= 5) {
       return;
     }
     event.preventDefault();
@@ -66,7 +66,16 @@ export function Main({
         >
           Team 1
           {team1List.map((v) => {
-            return <div key={v.no}>{v.nickname}</div>;
+            return (
+              <div
+                key={v.no}
+                data={JSON.stringify(v)}
+                draggable="true"
+                onDragStart={handleDragStart}
+              >
+                {v.nickname}
+              </div>
+            );
           })}
         </div>
         <div
@@ -76,6 +85,18 @@ export function Main({
           onDrop={handleDropTeam2}
         >
           Team 2
+          {team2List.map((v) => {
+            return (
+              <div
+                key={v.no}
+                data={JSON.stringify(v)}
+                draggable="true"
+                onDragStart={handleDragStart}
+              >
+                {v.nickname}
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className={styles.result_container}>
