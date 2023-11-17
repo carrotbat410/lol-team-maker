@@ -4,11 +4,9 @@ import { signOut } from "next-auth/react";
 import styles from "./FriendList.module.css";
 import Modal from "../modal/Modal";
 
-export default function FriendList(props) {
-  const { user } = props;
+export default function FriendList({ user, friendList, setFriendList }) {
   const id = user.id || undefined;
 
-  const [friendList, setFriendList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
     if (friendList.length >= 30) {
@@ -46,9 +44,6 @@ export default function FriendList(props) {
 
   const handleDragEnd = (event) => {
     event.target.style.display = "none";
-
-    // TODO team1,2, noTeam은 state로 관리
-    // TODO 친구목록에 보이도록 하는건 seTfriendList이 아닌 style.display으로 관리하기
   };
 
   return (
