@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./Main.module.css";
+import { handleDragStart } from "../friendList/FriendList";
 
 export function Main({
   onDrop,
@@ -26,6 +27,7 @@ export function Main({
     console.log("noTeamList에서 받음 - data:", data);
 
     onDrop(data);
+    data.from = "noTeam";
   };
 
   const handleDropTeam1 = (event) => {
@@ -96,7 +98,13 @@ export function Main({
             >
               {noTeamList.map((v) => {
                 return (
-                  <div key={v.no} className={styles.no_team_summoner}>
+                  <div
+                    key={v.no}
+                    className={styles.no_team_summoner}
+                    data={JSON.stringify(v)}
+                    draggable="true"
+                    onDragStart={handleDragStart}
+                  >
                     {v.nickname}
                   </div>
                 );

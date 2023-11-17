@@ -4,8 +4,35 @@ import { signOut } from "next-auth/react";
 import styles from "./FriendList.module.css";
 import Modal from "../modal/Modal";
 
-export default function FriendList({ user, friendList, setFriendList }) {
+export const handleDragStart = (event) => {
+  const data = event.target.getAttribute("data");
+  event.dataTransfer.setData("text/plain", data); // 필수
+};
+
+export default function FriendList({
+  onDrop,
+  user,
+  friendList,
+  setFriendList,
+}) {
   const id = user.id || undefined;
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDropFriend = (event) => {
+    // event.target.style.display = "none";
+    event.preventDefault();
+    const droppedData = event.dataTransfer.getData("text/plain");
+    const data = JSON.parse(droppedData);
+    if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
+    data.to = "friend";
+    console.log("friendList에서 받음 - data:", data);
+
+    onDrop(data);
+    data.from = "friend";
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
@@ -34,12 +61,6 @@ export default function FriendList({ user, friendList, setFriendList }) {
   const onClickDeleteFriendBtn = (no) => {
     const newFriendList = friendList.filter((v) => v.no !== no);
     setFriendList([...newFriendList]);
-  };
-
-  const handleDragStart = (event) => {
-    console.log("드래그 시작");
-    const data = event.target.getAttribute("data");
-    event.dataTransfer.setData("text/plain", data); // 필수
   };
 
   const handleDragEnd = (event) => {
@@ -71,7 +92,11 @@ export default function FriendList({ user, friendList, setFriendList }) {
           <input type="button" value="내전 인원 추가" onClick={openModal} />
           <input type="button" value="검색 공간?" />
         </div>
-        <div className={styles.friend_list_container}>
+        <div
+          className={styles.friend_list_container}
+          onDragOver={handleDragOver}
+          onDrop={handleDropFriend}
+        >
           {friendList.map((v) => {
             const tmpTier = v.tier;
             const tmpRank = v.rank;

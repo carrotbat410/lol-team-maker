@@ -32,7 +32,7 @@ export default function Home() {
       return;
     }
 
-    console.log("Dropped into the designated area!", droppedSummoner);
+    // console.log("Dropped into the designated area!", droppedSummoner);
 
     const { from, to } = droppedSummoner;
 
@@ -43,12 +43,17 @@ export default function Home() {
       });
       setFriendList([...deletedList]);
     } else if (from === "noTeam") {
+      const deletedList = noTeamList.filter((friend) => {
+        return friend.no !== droppedSummoner.no;
+      });
+      setNoTeamList([...deletedList]);
     } else if (from === "team1") {
     } else if (from === "team2") {
     }
 
     // to
     if (to === "friend") {
+      setFriendList([...friendList, droppedSummoner]);
     } else if (to === "noTeam") {
       setNoTeamList([...noTeamList, droppedSummoner]);
     } else if (to === "team1") {
@@ -82,6 +87,7 @@ export default function Home() {
       </div>
       <div className={styles.right_wrapper}>
         <FriendList
+          onDrop={handleDrop}
           user={user}
           friendList={friendList}
           setFriendList={setFriendList}
