@@ -1,11 +1,16 @@
 import { useState } from "react";
 import styles from "./Main.module.css";
 
-export function Main({ onDrop }) {
+export function Main({
+  onDrop,
+  team1List,
+  setTeam1List,
+  team2List,
+  setTeam2List,
+  noTeamList,
+  setNoTeamList,
+}) {
   const [resultMode, setResultMode] = useState(false);
-  const [team1List, setTeam1List] = useState([]);
-  const [team2List, setTeam2List] = useState([]);
-  const [noTeamList, setNoTeamList] = useState([]);
 
   const handleDragOver = (event) => {
     event.preventDefault();

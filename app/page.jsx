@@ -45,7 +45,15 @@ export default function Home() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.left_wrapper}>
-        <Main onDrop={handleDrop} />
+        <Main
+          onDrop={handleDrop}
+          team1List={team1List}
+          setTeam1List={setTeam1List}
+          team2List={team2List}
+          setTeam2List={setTeam2List}
+          noTeamList={noTeamList}
+          setNoTeamList={setNoTeamList}
+        />
       </div>
       <div className={styles.right_wrapper}>
         <FriendList
