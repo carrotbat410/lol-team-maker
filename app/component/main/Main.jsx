@@ -27,7 +27,6 @@ export function Main({
     console.log("noTeamList에서 받음 - data:", data);
 
     onDrop(data);
-    data.from = "noTeam";
   };
 
   const handleDropTeam1 = (event) => {
@@ -40,10 +39,12 @@ export function Main({
     data.to = "team1";
     console.log("team1 List에서 받음 - data:", data);
     onDrop(data);
-    setTeam1List([...team1List, data]);
   };
 
   const handleDropTeam2 = (event) => {
+    if (team1List.length >= 5) {
+      return;
+    }
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);

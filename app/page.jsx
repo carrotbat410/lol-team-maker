@@ -52,6 +52,7 @@ export default function Home() {
     }
 
     // to
+    droppedSummoner.from = to; //! state 추가할 떄 from값 변경해서 저장하기
     if (to === "friend") {
       setFriendList([...friendList, droppedSummoner]);
     } else if (to === "noTeam") {

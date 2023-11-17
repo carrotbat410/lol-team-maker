@@ -5,6 +5,7 @@ import styles from "./FriendList.module.css";
 import Modal from "../modal/Modal";
 
 export const handleDragStart = (event) => {
+  console.log("드래그 시작");
   const data = event.target.getAttribute("data");
   event.dataTransfer.setData("text/plain", data); // 필수
 };
@@ -31,7 +32,6 @@ export default function FriendList({
     console.log("friendList에서 받음 - data:", data);
 
     onDrop(data);
-    data.from = "friend";
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
