@@ -27,8 +27,33 @@ export default function Home() {
     });
   }, []);
 
-  const handleDrop = (droppedData) => {
-    // console.log("Dropped into the designated area!", droppedData);
+  const handleDrop = (droppedSummoner) => {
+    if (!droppedSummoner) {
+      return;
+    }
+
+    console.log("Dropped into the designated area!", droppedSummoner);
+
+    const { from, to } = droppedSummoner;
+
+    // from
+    if (from === "friend") {
+      const deletedList = friendList.filter((friend) => {
+        return friend.no !== droppedSummoner.no;
+      });
+      setFriendList([...deletedList]);
+    } else if (from === "noTeam") {
+    } else if (from === "team1") {
+    } else if (from === "team2") {
+    }
+
+    // to
+    if (to === "friend") {
+    } else if (to === "noTeam") {
+      setNoTeamList([...noTeamList, droppedSummoner]);
+    } else if (to === "team1") {
+    } else if (to === "team2") {
+    }
   };
 
   useEffect(() => {

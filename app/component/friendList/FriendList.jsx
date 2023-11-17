@@ -43,7 +43,7 @@ export default function FriendList({ user, friendList, setFriendList }) {
   };
 
   const handleDragEnd = (event) => {
-    event.target.style.display = "none";
+    // event.target.style.display = "none";
   };
 
   return (
