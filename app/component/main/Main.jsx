@@ -61,6 +61,7 @@ export function Main({
           onDragOver={handleDragOver}
           onDrop={handleDropTeam1}
         >
+          Team 1
           {team1List.map((v) => {
             return <div key={v.no}>{v.nickname}</div>;
           })}
@@ -71,7 +72,7 @@ export function Main({
           onDragOver={handleDragOver}
           onDrop={handleDropTeam2}
         >
-          team2
+          Team 2
         </div>
       </div>
       <div className={styles.result_container}>
