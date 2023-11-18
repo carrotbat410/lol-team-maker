@@ -72,7 +72,9 @@ export default async function handler(req, res) {
 
     const existingFriend = await db("friends")
       .where("id", id)
-      .where("friend_nickname", nickname)
+      .whereRaw('LOWER(REPLACE(friend_nickname, " ", "")) = ?', [
+        nickname.toLowerCase().replace(/\s/g, ""),
+      ])
       .first();
 
     if (existingFriend) {
@@ -88,6 +90,8 @@ export default async function handler(req, res) {
       .first();
 
     // TODO 갱신해야하는지 체크하는 함수, 갱신하는 함수 만들기
+
+    let realNickname;
 
     if (sessionData) {
       if (
@@ -126,20 +130,23 @@ export default async function handler(req, res) {
           message: "Bad Request",
         });
       }
+      realNickname = upsertResult.name;
     }
 
     await db("friends")
       .insert({
         id: session.user.id,
-        friend_nickname: nickname,
+        friend_nickname: realNickname,
       })
       .onConflict(["id", "friend_nickname"])
       .merge();
 
     // TODO 조회 쿼리 없이 직접 데이터 만들어 프론트에게 주면 더 빠름 (삭제는 no 없어도 아이디, 친구닉네임조합으로 가능)
     const newFriend = await db("friends as f")
-      .where("id", id)
-      .where("friend_nickname", nickname)
+      .where("f.id", id)
+      .whereRaw('LOWER(REPLACE(f.friend_nickname, " ", "")) = ?', [
+        nickname.toLowerCase().replace(/\s/g, ""),
+      ])
       .join("summoner_sessions as ss", "f.friend_nickname", "ss.nickname")
       .first();
 
