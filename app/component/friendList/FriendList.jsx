@@ -28,6 +28,7 @@ export default function FriendList({
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
     if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
+    if (data.from === "friend") return; // 같은 곳에 드롭하는 경우.
     data.to = "friend";
     console.log("friendList에서 받음 - data:", data);
 

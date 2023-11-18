@@ -23,6 +23,7 @@ export function Main({
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
     if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
+    if (data.from === "noTeam") return; // 같은 곳에 드롭하는 경우.
     data.to = "noTeam";
     console.log("noTeamList에서 받음 - data:", data);
 
@@ -36,6 +37,8 @@ export function Main({
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
+    if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
+    if (data.from === "team1") return; // 같은 곳에 드롭하는 경우.
     data.to = "team1";
     console.log("team1 List에서 받음 - data:", data);
     onDrop(data);
@@ -48,6 +51,8 @@ export function Main({
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
+    if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
+    if (data.from === "team2") return; // 같은 곳에 드롭하는 경우.
     data.to = "team2";
     console.log("team2 List에서 받음 - data:", data);
     onDrop(data);
