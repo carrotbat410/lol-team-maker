@@ -165,6 +165,13 @@ function ContentComponent({
       >
         Team 1
         {team1List.map((v) => {
+          if (resultMode) {
+            return (
+              <div key={v.no} data={JSON.stringify(v)}>
+                {v.nickname}
+              </div>
+            );
+          }
           return (
             <div
               key={v.no}
