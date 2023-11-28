@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import styles from "./Main.module.css";
 import { handleDragStart } from "../friendList/FriendList";
 
@@ -140,8 +141,18 @@ export function Main({
               type="button"
               className={styles.make_result_btn}
               value="팀 짜기"
-              onClick={() => {
+              onClick={async () => {
                 setResultMode(!resultMode);
+                const result = await axios.post(
+                  "http://localhost:3000/api/makeResult",
+                  {
+                    selectMode: "random",
+                    team1List,
+                    team2List,
+                    noTeamList,
+                  },
+                );
+                console.log("axios result:", result.data);
               }}
             />
           </div>
