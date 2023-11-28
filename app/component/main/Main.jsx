@@ -3,16 +3,10 @@ import axios from "axios";
 import styles from "./Main.module.css";
 import { handleDragStart } from "../friendList/FriendList";
 
-export function Main({
-  onDrop,
-  team1List,
-  setTeam1List,
-  team2List,
-  setTeam2List,
-  noTeamList,
-  setNoTeamList,
-}) {
+export function Main({ onDrop, team1List, team2List, noTeamList }) {
   const [resultMode, setResultMode] = useState(false);
+  const [finishedTeam1, setFinishedTeam1] = useState([]);
+  const [finishedTeam2, setFinishedTeam2] = useState([]);
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -62,47 +56,26 @@ export function Main({
   return (
     <div className={styles.wrapper}>
       <div className={styles.setting_container}>setting_container</div>
-      <div className={styles.content_container}>
-        <div
-          className={styles.content_container_team_div}
-          id="team1"
-          onDragOver={handleDragOver}
-          onDrop={handleDropTeam1}
-        >
-          Team 1
-          {team1List.map((v) => {
-            return (
-              <div
-                key={v.no}
-                data={JSON.stringify(v)}
-                draggable="true"
-                onDragStart={handleDragStart}
-              >
-                {v.nickname}
-              </div>
-            );
-          })}
-        </div>
-        <div
-          className={styles.content_container_team_div}
-          id="team2"
-          onDragOver={handleDragOver}
-          onDrop={handleDropTeam2}
-        >
-          Team 2
-          {team2List.map((v) => {
-            return (
-              <div
-                key={v.no}
-                data={JSON.stringify(v)}
-                draggable="true"
-                onDragStart={handleDragStart}
-              >
-                {v.nickname}
-              </div>
-            );
-          })}
-        </div>
+      <div>
+        {resultMode ? (
+          <ContentComponent
+            team1List={finishedTeam1}
+            team2List={finishedTeam2}
+            resultMode={resultMode}
+            // handleDragOver={handleDragOver}
+            // handleDropTeam1={handleDropTeam1}
+            // handleDropTeam2={handleDropTeam2}
+          />
+        ) : (
+          <ContentComponent
+            team1List={team1List}
+            team2List={team2List}
+            resultMode={resultMode}
+            handleDragOver={handleDragOver}
+            handleDropTeam1={handleDropTeam1}
+            handleDropTeam2={handleDropTeam2}
+          />
+        )}
       </div>
       <div className={styles.result_container}>
         {resultMode ? (
@@ -142,7 +115,13 @@ export function Main({
               className={styles.make_result_btn}
               value="팀 짜기"
               onClick={async () => {
-                setResultMode(!resultMode);
+                if (
+                  team1List.length + team2List.length + noTeamList.length !==
+                  10
+                ) {
+                  return alert("10명 채우셈");
+                }
+
                 const result = await axios.post(
                   "http://localhost:3000/api/makeResult",
                   {
@@ -152,11 +131,71 @@ export function Main({
                     noTeamList,
                   },
                 );
-                console.log("axios result:", result.data);
+                if (result.data?.code === 200) {
+                  setFinishedTeam1(result.data.result.finishedTeam1);
+                  setFinishedTeam2(result.data.result.finishedTeam2);
+                  setResultMode(!resultMode);
+                }
               }}
             />
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+function ContentComponent({
+  team1List,
+  team2List,
+  handleDragOver,
+  handleDropTeam1,
+  handleDropTeam2,
+  resultMode,
+}) {
+  console.log("resultMode:", resultMode);
+
+  return (
+    <div className={styles.content_container}>
+      <div
+        className={styles.content_container_team_div}
+        id="team1"
+        onDragOver={handleDragOver}
+        onDrop={handleDropTeam1}
+      >
+        Team 1
+        {team1List.map((v) => {
+          return (
+            <div
+              key={v.no}
+              data={JSON.stringify(v)}
+              draggable="true"
+              onDragStart={handleDragStart}
+            >
+              {v.nickname}
+            </div>
+          );
+        })}
+      </div>
+      <div
+        className={styles.content_container_team_div}
+        id="team2"
+        onDragOver={handleDragOver}
+        onDrop={handleDropTeam2}
+      >
+        Team 2
+        {team2List.map((v) => {
+          return (
+            <div
+              key={v.no}
+              data={JSON.stringify(v)}
+              draggable="true"
+              onDragStart={handleDragStart}
+            >
+              {v.nickname}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
