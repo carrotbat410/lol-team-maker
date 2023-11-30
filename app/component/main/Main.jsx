@@ -230,7 +230,7 @@ function TeamedSummoner({ resultMode, data }) {
         data={JSON.stringify(data)}
       >
         <div className={styles.teamed_summoner_level}>124</div>
-        <img src={data.icon_img_url} />
+        <img src={data.icon_img_url} draggable={false} />
         <div className={styles.teamed_summoner_nickname}>{data.nickname}</div>
         <div className={styles.teamed_summoner_tier}>
           <div>{data.rank ? tierString : "UNRANKED"}</div>
@@ -248,7 +248,7 @@ function TeamedSummoner({ resultMode, data }) {
       onDragStart={handleDragStart}
     >
       <div className={styles.teamed_summoner_level}>124</div>
-      <img src={data.icon_img_url} />
+      <img src={data.icon_img_url} draggable={false} />
       <div className={styles.teamed_summoner_nickname}>{data.nickname}</div>
       <div className={styles.teamed_summoner_tier}>
         <div>{data.rank ? tierString : "UNRANKED"}</div>
