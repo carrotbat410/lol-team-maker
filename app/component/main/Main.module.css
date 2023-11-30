@@ -5,7 +5,7 @@
 }
 
 .setting_container {
-    /*border: 1px solid red;*/
+    border: 1px solid red;
     width: 100%;
     height: 90px;
 }
@@ -24,7 +24,7 @@
 }
 
 .content_container_team_div {
-    /*border: 1px solid black;*/
+    border: 1px solid red;
     width: 500px;
     height: 230px;
 }
@@ -82,7 +82,7 @@
 .result_mode_false_container {
     border: 3px solid rosybrown;
     width: 400px;
-    height: 300px;
+    height: 320px;
 
     display: flex;
     flex-direction: column;
@@ -94,8 +94,8 @@
 .no_team_summoner_List {
     border: 1px solid blue;
     width: 400px;
-    height: 250px;
-
+    height: 240px;
+    margin-bottom: 10px;
     /*display: flex;*/
     /*flex-direction: column;*/
 }
@@ -109,11 +109,26 @@
     color: rgb(174, 176, 104);
     margin-top: 5px;
     margin-left: 3px;
+
 }
 
 .make_result_btn {
-    margin-top: 5px;
+    margin-top: 10px;
     width: 150px;
     height: 40px;
 
+    background-color: rgba(31,26,42, 0.05);
+    border: 2px solid rgba(174, 150, 60, 0.8);
+    color: white;
+
+    box-shadow: 4px 4px 4px black;
+}
+
+.make_result_btn:hover {
+    background-color: #1F1A2A;
+}
+.make_result_btn:active {
+    margin-top: 11px;
+    margin-left: 4px;
+    box-shadow: none;
 }
