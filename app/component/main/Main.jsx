@@ -222,7 +222,13 @@ function TeamedSummoner({ resultMode, data }) {
         key={data.no}
         data={JSON.stringify(data)}
       >
-        {data.nickname}
+        <div className={styles.teamed_summoner_level}>124</div>
+        <img src={data.icon_img_url} />
+        <div className={styles.teamed_summoner_nickname}>{data.nickname}</div>
+        <div className={styles.teamed_summoner_tier}>
+          <div>{data.rank ? `${data.tier} ${data.rank}` : "UNRANKED"}</div>
+          <div>승률: 50%</div>
+        </div>
       </div>
     );
   }
@@ -234,7 +240,13 @@ function TeamedSummoner({ resultMode, data }) {
       draggable="true"
       onDragStart={handleDragStart}
     >
-      {data.nickname}
+      <div className={styles.teamed_summoner_level}>124</div>
+      <img src={data.icon_img_url} />
+      <div className={styles.teamed_summoner_nickname}>{data.nickname}</div>
+      <div className={styles.teamed_summoner_tier}>
+        <div>{data.rank ? `${data.tier} ${data.rank}` : "UNRANKED"}</div>
+        <div>승률: 50%</div>
+      </div>
     </div>
   );
 }
