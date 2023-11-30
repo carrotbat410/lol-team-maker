@@ -69,7 +69,7 @@
 
 
 .result_container{
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
     width: 100%;
     height: 350px;
 
@@ -79,8 +79,59 @@
     /*align-items: center;*/
 }
 
+.result_mode_true_container {
+    /*border: 1px solid blue;*/
+    width: 350px;
+    height: 330px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*align-items: flex-end;*/
+}
+
+.result_mode_true_container div {
+    /*border: 1px solid blue;*/
+}
+
+.result_mode_true_container input[type="button"] {
+    width: 150px;
+    height: 40px;
+
+    background-color: rgba(31,26,42, 0.05);
+    border: 2px solid rgba(174, 150, 60, 0.7);
+    color: white;
+
+    box-shadow: 2px 2px 2px black;
+
+    margin-top: 260px;
+}
+
+.result_mode_true_container input[type="button"]:hover {
+    background-color: #1F1A2A;
+}
+
+.result_mode_true_container input[type="button"]:active {
+    margin-top: 261px;
+    margin-left: 1px;
+    box-shadow: none;
+}
+
+/*.copy_btn:active {*/
+/*    margin-top: 2px;*/
+/*    margin-left: 2px;*/
+/*    box-shadow: none;*/
+/*}*/
+
+/*.again_btn:active {*/
+/*    margin-top: 1px;*/
+/*    margin-left: 2px;*/
+/*    box-shadow: none;*/
+/*}*/
+
 .result_mode_false_container {
-    border: 3px solid rosybrown;
+    border: 1px solid rosybrown;
+    /*border: 5px solid rgba(0,0,0, 0.1);*/
     width: 400px;
     height: 320px;
 
@@ -92,7 +143,7 @@
 }
 
 .no_team_summoner_List {
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
     width: 400px;
     height: 240px;
     margin-bottom: 10px;

@@ -80,14 +80,23 @@ export function Main({ onDrop, team1List, team2List, noTeamList }) {
       <div className={styles.result_container}>
         {resultMode ? (
           <div className={styles.result_mode_true_container}>
-            <input type="button" value="결과 복사하기" />
-            <input
-              type="button"
-              value="다시 짜기"
-              onClick={() => {
-                setResultMode(!resultMode);
-              }}
-            />
+            <div>
+              <input
+                type="button"
+                value="결과 복사하기"
+                className={styles.copy_btn}
+              />
+            </div>
+            <div>
+              <input
+                type="button"
+                value="다시 하기"
+                className={styles.again_btn}
+                onClick={() => {
+                  setResultMode(!resultMode);
+                }}
+              />
+            </div>
           </div>
         ) : (
           <div className={styles.result_mode_false_container}>
