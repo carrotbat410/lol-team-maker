@@ -75,13 +75,20 @@ export default function FriendList({
           <div>
             {`${id}님 즐거운 내전 되세요 :)`}{" "}
             <input
+              className={styles.btn}
               type="button"
-              value="logout"
+              value="로그아웃"
               onClick={() =>
                 signOut({
                   callbackUrl: "http://localhost:3000/login",
                 })
               }
+            />
+            <input
+              className={styles.btn}
+              type="button"
+              value="문의 등록"
+              onClick={() => alert("개발중")}
             />
           </div>
         ) : (
@@ -91,7 +98,7 @@ export default function FriendList({
       <div className={styles.content}>
         <div className={styles.btn_container}>
           <input type="button" value="내전 인원 추가" onClick={openModal} />
-          <input type="button" value="검색 공간?" />
+          {/* <input type="button" value="검색 공간?" /> */}
         </div>
         <div
           className={styles.friend_list_container}
