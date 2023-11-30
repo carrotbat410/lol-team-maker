@@ -167,20 +167,19 @@ function ContentComponent({
         {team1List.map((v) => {
           if (resultMode) {
             return (
-              <div key={v.no} data={JSON.stringify(v)}>
-                {v.nickname}
-              </div>
+              <TeamedSummoner
+                key={v.no}
+                resultMode={resultMode}
+                data={JSON.stringify(v)}
+              />
             );
           }
           return (
-            <div
+            <TeamedSummoner
+              resultMode={resultMode}
               key={v.no}
               data={JSON.stringify(v)}
-              draggable="true"
-              onDragStart={handleDragStart}
-            >
-              {v.nickname}
-            </div>
+            />
           );
         })}
       </div>
@@ -192,18 +191,50 @@ function ContentComponent({
       >
         Team 2
         {team2List.map((v) => {
+          if (resultMode) {
+            return (
+              <TeamedSummoner
+                key={v.no}
+                resultMode={resultMode}
+                data={JSON.stringify(v)}
+              />
+            );
+          }
           return (
-            <div
+            <TeamedSummoner
+              resultMode={resultMode}
               key={v.no}
               data={JSON.stringify(v)}
-              draggable="true"
-              onDragStart={handleDragStart}
-            >
-              {v.nickname}
-            </div>
+            />
           );
         })}
       </div>
+    </div>
+  );
+}
+
+function TeamedSummoner({ resultMode, data }) {
+  data = JSON.parse(data);
+  if (resultMode) {
+    return (
+      <div
+        className={styles.teamed_summoner_div}
+        key={data.no}
+        data={JSON.stringify(data)}
+      >
+        {data.nickname}
+      </div>
+    );
+  }
+  return (
+    <div
+      className={styles.teamed_summoner_div}
+      key={data.no}
+      data={JSON.stringify(data)}
+      draggable="true"
+      onDragStart={handleDragStart}
+    >
+      {data.nickname}
     </div>
   );
 }
