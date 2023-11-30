@@ -215,6 +215,13 @@ function ContentComponent({
 
 function TeamedSummoner({ resultMode, data }) {
   data = JSON.parse(data);
+  const noRankArr = ["MASTER", "GRANDMASTER", "CHALLENGE"];
+  let tierString;
+  if (noRankArr.includes(data.tier)) {
+    tierString = data.tier;
+  } else {
+    tierString = `${data.tier} ${data.rank}`;
+  }
   if (resultMode) {
     return (
       <div
@@ -226,7 +233,7 @@ function TeamedSummoner({ resultMode, data }) {
         <img src={data.icon_img_url} />
         <div className={styles.teamed_summoner_nickname}>{data.nickname}</div>
         <div className={styles.teamed_summoner_tier}>
-          <div>{data.rank ? `${data.tier} ${data.rank}` : "UNRANKED"}</div>
+          <div>{data.rank ? tierString : "UNRANKED"}</div>
           <div>승률: 50%</div>
         </div>
       </div>
@@ -244,7 +251,7 @@ function TeamedSummoner({ resultMode, data }) {
       <img src={data.icon_img_url} />
       <div className={styles.teamed_summoner_nickname}>{data.nickname}</div>
       <div className={styles.teamed_summoner_tier}>
-        <div>{data.rank ? `${data.tier} ${data.rank}` : "UNRANKED"}</div>
+        <div>{data.rank ? tierString : "UNRANKED"}</div>
         <div>승률: 50%</div>
       </div>
     </div>
