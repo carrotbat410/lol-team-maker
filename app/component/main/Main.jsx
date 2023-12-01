@@ -3,7 +3,13 @@ import axios from "axios";
 import styles from "./Main.module.css";
 import { handleDragStart } from "../friendList/FriendList";
 
-export function Main({ onDrop, team1List, team2List, noTeamList }) {
+export function Main({
+  onDrop,
+  team1List,
+  team2List,
+  noTeamList,
+  onClickResetHandler,
+}) {
   const [resultMode, setResultMode] = useState(false);
   const [finishedTeam1, setFinishedTeam1] = useState([]);
   const [finishedTeam2, setFinishedTeam2] = useState([]);
@@ -67,7 +73,13 @@ export function Main({ onDrop, team1List, team2List, noTeamList }) {
           </select>
         </div>
         <div className={styles.reset_btn_div}>
-          <input type="button" value="리셋" />
+          <input
+            type="button"
+            value="리셋"
+            onClick={() => {
+              onClickResetHandler();
+            }}
+          />
         </div>
       </div>
       <div>

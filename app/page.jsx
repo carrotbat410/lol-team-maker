@@ -27,6 +27,18 @@ export default function Home() {
     });
   }, []);
 
+  const onClickResetHandler = () => {
+    setTeam1List([]);
+    setTeam2List([]);
+    setNoTeamList([]);
+
+    axios.get("http://localhost:3000/api/summoner").then((res) => {
+      if (res.data.code === 200) {
+        setFriendList(res.data.result);
+      }
+    });
+  };
+
   const handleDrop = (droppedSummoner) => {
     if (!droppedSummoner) {
       return;
@@ -101,6 +113,7 @@ export default function Home() {
           setTeam2List={setTeam2List}
           noTeamList={noTeamList}
           setNoTeamList={setNoTeamList}
+          onClickResetHandler={onClickResetHandler}
         />
       </div>
       <div className={styles.right_wrapper}>
