@@ -78,6 +78,7 @@ export function Main({
             value="리셋"
             onClick={() => {
               onClickResetHandler();
+              if (resultMode === true) setResultMode(false);
             }}
           />
         </div>
