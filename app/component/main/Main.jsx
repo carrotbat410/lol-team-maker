@@ -163,7 +163,7 @@ export function Main({
                 }
 
                 const result = await axios.post(
-                  "http://localhost:3000/api/makeResult",
+                  "https://lol-team-maker.vercel.app/api/makeResult",
                   {
                     selectedMode,
                     team1List,

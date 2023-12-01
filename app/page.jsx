@@ -20,7 +20,7 @@ export default function Home() {
   const [friendList, setFriendList] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/summoner").then((res) => {
+    axios.get("https://lol-team-maker.vercel.app/api/summoner").then((res) => {
       if (res.data.code === 200) {
         setFriendList(res.data.result);
       }
@@ -32,7 +32,7 @@ export default function Home() {
     setTeam2List([]);
     setNoTeamList([]);
 
-    axios.get("http://localhost:3000/api/summoner").then((res) => {
+    axios.get("https://lol-team-maker.vercel.app/api/summoner").then((res) => {
       if (res.data.code === 200) {
         setFriendList(res.data.result);
       }

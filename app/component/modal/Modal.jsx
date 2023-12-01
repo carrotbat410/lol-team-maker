@@ -14,9 +14,12 @@ function Modal({ closeModal, onAddFriend }) {
       return alert("닉네임을 입력해주세요.");
     }
 
-    const apiRequest = await axios.post("http://localhost:3000/api/summoner", {
-      nickname,
-    });
+    const apiRequest = await axios.post(
+      "https://lol-team-maker.vercel.app/api/summoner",
+      {
+        nickname,
+      },
+    );
 
     const result = apiRequest.data;
 

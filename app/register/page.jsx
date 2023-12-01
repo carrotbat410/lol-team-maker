@@ -33,7 +33,7 @@ export default function Register() {
     };
 
     axios
-      .post("http://localhost:3000/api/register", body)
+      .post("https://lol-team-maker.vercel.app/api/register", body)
       .then((res) => {
         if (res.data.code >= 400) {
           return alert(res.data.message);
