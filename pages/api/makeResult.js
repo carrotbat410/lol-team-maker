@@ -1,4 +1,4 @@
-// function CalculateMmrDifference2(n, m) {
+// function BalanceMode(n, m) {
 //   const team1 = [{ id: 10 }, { id: 11 }];
 //   const noTeamList = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];
 //   const answer = [];
@@ -22,7 +22,7 @@
 //   DFS(0, 0);
 //   return "hi";
 // }
-// console.log(CalculateMmrDifference2(5, 3)); // n(noTeamList 인원수), m(team1부족한 인원 수)
+// console.log(BalanceMode(5, 3)); // n(noTeamList 인원수), m(team1부족한 인원 수)
 
 const RandomMode = (team1List, team2List, noTeamList) => {
   const needCnt = 5 - team1List.length;
