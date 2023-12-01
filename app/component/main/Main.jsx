@@ -55,7 +55,21 @@ export function Main({ onDrop, team1List, team2List, noTeamList }) {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.setting_container}>setting_container</div>
+      <div className={styles.setting_container}>
+        <div className={styles.mode_select_div}>
+          <span>모드 선택</span>
+          <select>
+            <option value="random" selected>
+              랜덤
+            </option>
+            <option value="balance">밸런스있게</option>
+            <option value="goldBalance">황금밸런스</option>
+          </select>
+        </div>
+        <div className={styles.reset_btn_div}>
+          <input type="button" value="리셋" />
+        </div>
+      </div>
       <div>
         {resultMode ? (
           <ContentComponent
