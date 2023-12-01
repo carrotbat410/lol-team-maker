@@ -47,11 +47,11 @@ export default async function handler(req, res) {
   const { method } = req;
 
   if (method === "POST") {
-    const { selectMode, team1List, team2List, noTeamList } = req.body;
+    const { selectedMode, team1List, team2List, noTeamList } = req.body;
 
     // validation
     if (
-      !selectMode ||
+      !selectedMode ||
       !team1List ||
       !team2List ||
       !noTeamList ||
@@ -66,14 +66,14 @@ export default async function handler(req, res) {
     }
 
     let result = {};
-    if (selectMode === "random") {
+    if (selectedMode === "random") {
       result = RandomMode(team1List, team2List, noTeamList);
     }
 
     return res.json({
       code: 200,
       message: "ok",
-      selectMode,
+      selectedMode,
       result,
     });
   }

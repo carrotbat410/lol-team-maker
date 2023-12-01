@@ -10,6 +10,7 @@ export function Main({
   noTeamList,
   onClickResetHandler,
 }) {
+  const [selectedMode, setSelectedMode] = useState("random");
   const [resultMode, setResultMode] = useState(false);
   const [finishedTeam1, setFinishedTeam1] = useState([]);
   const [finishedTeam2, setFinishedTeam2] = useState([]);
@@ -64,7 +65,11 @@ export function Main({
       <div className={styles.setting_container}>
         <div className={styles.mode_select_div}>
           <span>모드 선택</span>
-          <select>
+          <select
+            onChange={(event) => {
+              setSelectedMode(event.target.value);
+            }}
+          >
             <option value="random" selected>
               랜덤
             </option>
@@ -151,6 +156,9 @@ export function Main({
               className={styles.make_result_btn}
               value="팀 짜기"
               onClick={async () => {
+                // const selectBox = document.querySelector(".selectBox");
+                // const selectOption = selectBox.options[selectBox.selectedIndex];
+                return alert(`선택한 모드:`);
                 if (
                   team1List.length + team2List.length + noTeamList.length !==
                   10
@@ -161,7 +169,7 @@ export function Main({
                 const result = await axios.post(
                   "http://localhost:3000/api/makeResult",
                   {
-                    selectMode: "random",
+                    selectedMode,
                     team1List,
                     team2List,
                     noTeamList,
