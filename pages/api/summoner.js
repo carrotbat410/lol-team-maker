@@ -13,6 +13,14 @@ export default async function handler(req, res) {
   const session = await getSession({ req }); // TODO 백엔드 테스트하려고 임의로 박음, 나중에 지우기 + expires 검사
   // const session = { user: { id: "test1" } };
 
+  return res.json({
+    code: 200,
+    message: "test",
+    isSession: !session,
+    sessionUser: !session.user,
+    sessionUserInfo: session.user,
+  });
+
   if (!session || !session.user) {
     return res.json({ code: 401, message: "Expired Session" });
   }
