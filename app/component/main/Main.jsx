@@ -66,13 +66,12 @@ export function Main({
         <div className={styles.mode_select_div}>
           <span>모드 선택</span>
           <select
+            defaultValue="random"
             onChange={(event) => {
               setSelectedMode(event.target.value);
             }}
           >
-            <option value="random" selected>
-              랜덤
-            </option>
+            <option value="random">랜덤</option>
             <option value="balance">밸런스있게</option>
             <option value="goldBalance">황금밸런스</option>
           </select>
@@ -156,9 +155,6 @@ export function Main({
               className={styles.make_result_btn}
               value="팀 짜기"
               onClick={async () => {
-                // const selectBox = document.querySelector(".selectBox");
-                // const selectOption = selectBox.options[selectBox.selectedIndex];
-                return alert(`선택한 모드:`);
                 if (
                   team1List.length + team2List.length + noTeamList.length !==
                   10
