@@ -16,9 +16,8 @@ export default async function handler(req, res) {
   return res.json({
     code: 200,
     message: "test",
-    isSession: !session,
-    sessionUser: !session.user,
-    sessionUserInfo: session.user,
+    isSession: session,
+    sessionUser: session?.user,
   });
 
   if (!session || !session.user) {
