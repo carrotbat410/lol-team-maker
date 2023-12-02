@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import styles from "./FriendList.module.css";

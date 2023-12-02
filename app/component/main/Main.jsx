@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import styles from "./Main.module.css";
 import { handleDragStart } from "../friendList/FriendList";
 import { instance } from "../../../lib/axios";

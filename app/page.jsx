@@ -3,7 +3,6 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import styles from "./page.module.css";
 import FriendList from "./component/friendList/FriendList";
 import { Main } from "./component/main/Main";

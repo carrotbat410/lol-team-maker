@@ -1,8 +1,8 @@
 "use client";
 
-import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { instance } from "../../lib/axios";
 
 export default function Register() {
   const router = useRouter();
@@ -32,8 +32,8 @@ export default function Register() {
       password,
     };
 
-    axios
-      .post("https://lol-team-maker.vercel.app/api/register", body)
+    instance
+      .post("/api/register", body)
       .then((res) => {
         if (res.data.code >= 400) {
           return alert(res.data.message);
