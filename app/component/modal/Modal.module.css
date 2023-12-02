@@ -23,14 +23,14 @@
 .modal_content_text_div {
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     border: 1px solid red;
 
     width: 100%;
-    height: 30px;
+    height: 80px;
 
     font-size: 18px
 }

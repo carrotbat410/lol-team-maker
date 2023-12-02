@@ -25,6 +25,8 @@ function Modal({ closeModal, onAddFriend }) {
       setAddUserCode(200);
       onAddFriend(result.newFriend);
       // return alert("추가되었습니다.");
+    } else if (result.code === 401) {
+      setAddUserCode(401);
     } else if (result.code === 403) {
       setAddUserCode(403);
     } else if (result.code === 404) {
@@ -47,7 +49,10 @@ function Modal({ closeModal, onAddFriend }) {
         <span onClick={closeModal}>&times;</span>
       </div>
       <div className={styles.modal_content_text_div}>
-        <p>추가할 유저의 닉네임을 롤 닉네임을 입력해주세요.</p>
+        <div>추가할 유저의 닉네임과 태그라인을 입력해주세요.</div>
+        <div>예) Hide On Bush#KR1</div>
+        <div>(태그라인 생략시 태그라인은 #KR1으로 검색합니다.)</div>
+        <div />
       </div>
       <div className={styles.modal_content_input_div}>
         <input
@@ -83,6 +88,8 @@ function Modal({ closeModal, onAddFriend }) {
             ? "유저를 추가했습니다 "
             : addUserCode === 400
             ? "현재 서버에 문제가 있습니다."
+            : addUserCode === 401
+            ? "세션이 만료되었습니다. 다시 로그인 후 시도해주세요."
             : addUserCode === 403
             ? "친구 추가는 최대 30명까지 가능합니다."
             : addUserCode === 404
