@@ -81,7 +81,7 @@ export default function FriendList({
               onClick={() =>
                 signOut({
                   callbackUrl:
-                    process.env.MODE === "dev"
+                    process.env.NODE_ENV === "development"
                       ? "http://localhost:3000/login"
                       : "https://lolteammaker.vercel.app/login",
                 })
