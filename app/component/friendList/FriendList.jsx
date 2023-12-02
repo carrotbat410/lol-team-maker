@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import styles from "./FriendList.module.css";
 import Modal from "../modal/Modal";
+import { instance } from "../../../lib/axios";
 
 export const handleDragStart = (event) => {
   console.log("드래그 시작");
@@ -52,7 +53,7 @@ export default function FriendList({
   };
 
   useEffect(() => {
-    axios.get("https://lol-team-maker.vercel.app/api/summoner").then((res) => {
+    instance.get("/api/summoner").then((res) => {
       if (res.data.code === 200) {
         setFriendList(res.data.result);
       }

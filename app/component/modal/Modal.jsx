@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import styles from "./Modal.module.css";
+import { instance } from "../../../lib/axios";
 
 function Modal({ closeModal, onAddFriend }) {
   // TODO 모달창 띄우면 뒷배경 검하게 + 클릭 안되도록 수정하기
@@ -14,12 +15,9 @@ function Modal({ closeModal, onAddFriend }) {
       return alert("닉네임을 입력해주세요.");
     }
 
-    const apiRequest = await axios.post(
-      "https://lol-team-maker.vercel.app/api/summoner",
-      {
-        nickname,
-      },
-    );
+    const apiRequest = await instance.post("/api/summoner", {
+      nickname,
+    });
 
     const result = apiRequest.data;
 

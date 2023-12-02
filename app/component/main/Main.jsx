@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import styles from "./Main.module.css";
 import { handleDragStart } from "../friendList/FriendList";
+import { instance } from "../../../lib/axios";
 
 export function Main({
   onDrop,
@@ -162,15 +163,12 @@ export function Main({
                   return alert("10명 채우셈");
                 }
 
-                const result = await axios.post(
-                  "https://lol-team-maker.vercel.app/api/makeResult",
-                  {
-                    selectedMode,
-                    team1List,
-                    team2List,
-                    noTeamList,
-                  },
-                );
+                const result = await instance.post("/api/makeResult", {
+                  selectedMode,
+                  team1List,
+                  team2List,
+                  noTeamList,
+                });
                 if (result.data?.code === 200) {
                   setFinishedTeam1(result.data.result.finishedTeam1);
                   setFinishedTeam2(result.data.result.finishedTeam2);
