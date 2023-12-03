@@ -172,5 +172,14 @@ export default async function handler(req, res) {
     });
   }
 
+  if (method === "DELETE") {
+    const { no } = req.body;
+    if (!no) return res.json({ code: 200, message: "ok" });
+
+    const db = DB();
+
+    await db("friends").where("id", id).where("no", no).delete();
+  }
+
   return res.send("Not Allowed Method");
 }

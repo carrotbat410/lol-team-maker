@@ -62,6 +62,10 @@ export default function FriendList({
   const onClickDeleteFriendBtn = (no) => {
     const newFriendList = friendList.filter((v) => v.no !== no);
     setFriendList([...newFriendList]);
+
+    instance.delete("/api/summoner", {
+      data: { no },
+    });
   };
 
   const handleDragEnd = (event) => {
