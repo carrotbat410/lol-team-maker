@@ -6,18 +6,9 @@
     background-color: #1F1A2A;
 
     width: 400px;
-    height: 300px;
-}
+    height: 270px;
 
-.modal_close {
-    width: 100%;
-    height: 50px;
-    border: 1px solid red;
-}
-
-.modal_close span {
-    font-size: 30px;
-    border: 1px solid red;
+    border: 2px solid black;
 }
 
 .modal_content_text_div {
@@ -27,7 +18,7 @@
     justify-content: center;
     align-items: center;
 
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 
     width: 100%;
     height: 80px;
@@ -35,44 +26,56 @@
     font-size: 18px
 }
 
-.modal_content_input_div {
-    border: 1px solid red;
+.input_div {
+    /*border: 1px solid red;*/
     width: 100%;
-    height: 60px;
+    height: 90px;
 
     display: flex;
-    flex-direction: row;
-    /*justify-content: center;*/
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.modal_content_search_bar {
-    /*margin-top: -20px;*/
+.input_div input::placeholder {
+    font-size: 16px;
+}
+
+.input_div span{
+    margin-left: 50px;
+}
+
+
+.nickname_input_bar {
+    margin-left: 25px;
 
     width: 200px;
-    height: 30px;
+    height: 25px;
 
     background-size: contain;
     background-repeat: no-repeat;
     font-size: 20px;
 
-    margin-left: 80px;
 }
 
-.modal_content_add_btn {
-    width: 45px;
-    height: 35px;
-
+.tagline_input_bar {
     margin-left: 10px;
-    /*background: none;*/
-    /*border: none;*/
-    /*color: white;*/
+    margin-top: 10px;
+
+    width: 200px;
+    height: 25px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-size: 20px;
+}
+.modal_tagline_search_bar ::placeholder {
+    font-size: 15px;
 }
 
 .modal_result_text_div {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     width: 100%;
-    height: 25px;
+    height: 35px;
 
     text-align: center;
 
@@ -83,3 +86,42 @@
 /*    margin-top: 10px;*/
 /*}*/
 
+.btn_div {
+    width: 100%;
+    height: 50px;
+    /*border: 1px solid red;*/
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btns_wrapper {
+    /*border: 1px solid red;*/
+    width: 170px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btns_wrapper input[type="button"] {
+    width: 70px;
+    height: 45px;
+
+    background-color: rgba(31,26,42, 1);
+    border: 2px solid rgb(48, 99, 94);
+    color: white;
+    box-shadow: 1px 1px 1px black;
+}
+
+/*.btns_wrapper input[type="button"]:hover {*/
+/*    background-color: rgba(31,26,42, 1);*/
+/*}*/
+
+.btns_wrapper input[type="button"]:active {
+    margin-top: 1px;
+    margin-left: 1px;
+    box-shadow: none;
+}

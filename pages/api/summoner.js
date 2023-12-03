@@ -53,18 +53,23 @@ export default async function handler(req, res) {
   }
 
   if (method === "POST") {
-    const { nickname } = req.body;
+    let { nickname, tagLine } = req.body;
 
-    if (!nickname) return res.json({ code: 400, message: "Bad Request" });
+    if (!nickname || nickname.length > 20 || tagLine.length > 20)
+      return res.json({
+        code: 400,
+        message: "Bad Request",
+      });
+    if (!tagLine) tagLine = "KR1";
 
     const db = DB();
 
-    const friendInfo = await db("friends")
+    const friendCntInfo = await db("friends")
       .where("id", id)
       .count("no as cnt")
       .first();
 
-    const friendCnt = friendInfo.cnt || 0;
+    const friendCnt = friendCntInfo.cnt || 0;
 
     if (friendCnt >= 30) {
       return res.json({
@@ -78,6 +83,7 @@ export default async function handler(req, res) {
       .whereRaw('LOWER(REPLACE(friend_nickname, " ", "")) = ?', [
         nickname.toLowerCase().replace(/\s/g, ""),
       ])
+      .where("tagLine", tagLine)
       .first();
 
     if (existingFriend) {
@@ -90,6 +96,7 @@ export default async function handler(req, res) {
 
     const sessionData = await db("summoner_sessions")
       .where("nickname", nickname)
+      .where("tagLine", tagLine)
       .first();
 
     // TODO 갱신해야하는지 체크하는 함수, 갱신하는 함수 만들기
@@ -140,8 +147,9 @@ export default async function handler(req, res) {
       .insert({
         id: session.user.id,
         friend_nickname: realNickname,
+        tagLine,
       })
-      .onConflict(["id", "friend_nickname"])
+      .onConflict(["id", "friend_nickname", "tagLine"])
       .merge();
 
     // TODO 조회 쿼리 없이 직접 데이터 만들어 프론트에게 주면 더 빠름 (삭제는 no 없어도 아이디, 친구닉네임조합으로 가능)
