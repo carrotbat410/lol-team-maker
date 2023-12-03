@@ -1,24 +1,17 @@
-import { getSession } from "next-auth/react";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
+import { getServerSession } from "next-auth";
 import DB from "./utils/db";
 import { IsUpdateNeeded } from "./utils/apiUtils";
 import { UpsertSummoner } from "./utils/riot";
+import { authOptions } from "./auth/[...nextauth]";
 
 dayjs.extend(timezone); // use plugin
 dayjs.extend(utc); // use plugin
 
 export default async function handler(req, res) {
-  const session = await getSession({ req }); // TODO 백엔드 테스트하려고 임의로 박음, 나중에 지우기 + expires 검사
-  // const session = { user: { id: "test1" } };
-
-  // return res.json({
-  //   code: 200,
-  //   message: "test",
-  //   isSession: session,
-  //   sessionUser: session?.user,
-  // });
+  const session = await getServerSession(req, res, authOptions); // TODO expires 검사
 
   if (!session || !session.user) {
     return res.json({ code: 401, message: "Expired Session" });
