@@ -123,6 +123,7 @@ export default async function handler(req, res) {
       } else {
         //* case-갱신할 필요 없는 경우) 친구 테이블에 추가만 하기
         console.log("갱신할 필요 없음");
+        realNickname = sessionData.nickname;
       }
     } else {
       //* case-세션데이터에 없는 유저) 세션데이터에 생성 + 친구테이블에 추가
