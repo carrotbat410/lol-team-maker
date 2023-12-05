@@ -113,7 +113,7 @@ export default async function handler(req, res) {
       ) {
         //* case-갱신한지 오래됨) 갱신후 친구테이블에 추가
         console.log("오래된 데이터 - 갱신해야함");
-        const upsertResult = await UpsertSummoner(nickname);
+        const upsertResult = await UpsertSummoner(nickname, tagLine);
         if (upsertResult.isError) {
           return res.json({
             code: 404,
@@ -127,7 +127,7 @@ export default async function handler(req, res) {
     } else {
       //* case-세션데이터에 없는 유저) 세션데이터에 생성 + 친구테이블에 추가
       console.log("세션데이터 존재x - 새로 생성");
-      const upsertResult = await UpsertSummoner(nickname);
+      const upsertResult = await UpsertSummoner(nickname, tagLine);
       if (upsertResult.errorCode) {
         if (upsertResult.errorCode === 404) {
           return res.json({

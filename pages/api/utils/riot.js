@@ -9,33 +9,43 @@ const apiKey = process.env.RIOT_DEV_API_KEY;
 //   return apiKey;
 // }
 
-export async function UpsertSummoner(nickname) {
+export async function UpsertSummoner(nickname, tagLine) {
   let result = {
     errorCode: null,
   };
 
-  let summonerInfo;
-
+  let summonerInfo = {};
+  let puuid;
   try {
-    summonerInfo = await axios.get(
-      `${riotUrl}/lol/summoner/v4/summoners/by-name/${nickname}?api_key=${apiKey}`,
+    const accountInfo = await axios.get(
+      `https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${nickname}/${tagLine}?api_key=${apiKey}`,
     );
+    puuid = accountInfo.data.puuid;
   } catch (err) {
-    // console.log("error:", err.response.data?.status.status_code);
     result.errorCode = err.response?.data?.status.status_code || 400;
   }
-
   if (result.errorCode) {
     return result;
   }
 
-  const encryptedId = summonerInfo.data.id;
+  try {
+    const tmpSummonerInfo = await axios.get(
+      `${riotUrl}/lol/summoner/v4/summoners/by-puuid/${puuid}?api_key=${apiKey}`,
+    );
+    summonerInfo = tmpSummonerInfo.data;
+  } catch (err) {
+    // console.log("error:", err.response.data?.status.status_code);
+    result.errorCode = err.response?.data?.status.status_code || 400;
+  }
+  if (result.errorCode) {
+    return result;
+  }
 
   const leagueInfo = await axios.get(
-    `${riotUrl}/lol/league/v4/entries/by-summoner/${encryptedId}?api_key=${apiKey}`,
+    `${riotUrl}/lol/league/v4/entries/by-summoner/${summonerInfo.id}?api_key=${apiKey}`,
   );
 
-  result = { ...result, ...summonerInfo.data };
+  result = summonerInfo;
 
   if (leagueInfo.data.length > 0) {
     // 데이터가 있다면,
@@ -76,7 +86,6 @@ export async function UpsertSummoner(nickname) {
       "GRANDMASTER", // 30
       "CHALLENGER", // 31
     ];
-
     const { tier, rank } = result;
 
     const index = tierArr.indexOf(tier);
@@ -88,14 +97,12 @@ export async function UpsertSummoner(nickname) {
     else if (index === 9) mmr = 31;
 
     result.mmr = mmr;
-
-    console.log(tier, rank);
-    console.log("index:", index, " ||  mmr:", mmr);
   }
 
   await db("summoner_sessions")
     .insert({
-      nickname: result.name,
+      nickname,
+      tagLine,
       tier: result.tier,
       rank: result.rank,
       wins: result.wins,
@@ -105,7 +112,7 @@ export async function UpsertSummoner(nickname) {
       renewaled_at: dayjs().format("YYYY-MM-DD HH:mm:ss"),
       mmr,
     })
-    .onConflict(["nickname"])
+    .onConflict(["nickname", "tagLine"])
     .merge([
       "tier",
       "rank",
