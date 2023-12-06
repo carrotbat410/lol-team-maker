@@ -69,9 +69,18 @@
     margin-left: 20px;
 }
 
-.content_wrapper {
+.content_wrapper_login {
     width: 400px;
     height: 200px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.content_wrapper_register {
+    width: 400px;
+    height: 280px;
 
     display: flex;
     flex-direction: row;
@@ -85,11 +94,8 @@
     border-top: 2px solid black;
     border-bottom: 2px solid black;
 
-
-
     display: flex;
     flex-direction: column;
-
 }
 
 .content input {
@@ -139,6 +145,10 @@
 
 .footer div {
     margin-top: 20px;
+}
+
+.footer span {
+    color: royalblue;
 }
 
 .description {

@@ -4,10 +4,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import styles from "./page.module.css";
+import { instance } from "../../lib/axios";
 
 export default function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoginBox, setIsLoginBox] = useState(true);
 
   const router = useRouter();
 
@@ -27,10 +30,12 @@ export default function Login() {
     setPassword(event.target.value);
   };
 
-  const onClickLoginBtnHandler = async (event) => {
-    if (!id) return alert("no - id");
-    if (!password) return alert("no - password");
+  const onChangeConfirmHandler = (event) => {
+    setConfirmPassword(event.target.value);
+  };
 
+  const onClickLoginBtnHandler = async (event) => {
+    if (!id || !password) return;
     await signIn("credentials", {
       id,
       password,
@@ -47,6 +52,30 @@ export default function Login() {
       .catch((err) => {
         console.log("err info:", err);
       });
+  };
+
+  const onClickRegisterBtnHandler = async () => {
+    if (!id || !password || !confirmPassword) return;
+    if (password !== confirmPassword) {
+      return alert("비밀번호가 일치하지 않습니다.");
+    }
+
+    const response = await instance.post("/api/register", {
+      id,
+      password,
+    });
+    const statusCode = response.data.code;
+    if (statusCode === 200) {
+      alert("회원가입에 성공하였습니다.");
+      setIsLoginBox(true);
+      setPassword("");
+      setConfirmPassword("");
+      return;
+    }
+    if (statusCode === 409) {
+      return alert("이미 사용중인 아이디입니다.");
+    }
+    return alert("bad reqeust");
   };
 
   return (
@@ -68,57 +97,129 @@ export default function Login() {
         different browser.
       </video>
       <div className={styles.wrapper}>
-        <div className={styles.login_box}>
-          <div className={styles.header}>
-            <span>계정 로그인</span>
-          </div>
-          <div className={styles.content_wrapper}>
-            <div className={styles.content}>
-              <span className={styles.name_span}>계정 이름</span>
-              <input type="text" value={id} onChange={onChangeIdHandler} />
-              <span className={styles.password_span}>비밀번호</span>
-              <input
-                type="password"
-                value={password}
-                onChange={onChangePasswordHandler}
-              />
-              <div className={styles.login_btn_wrapper}>
-                {id && password ? (
-                  <input
-                    className={styles.login_btn_enabled}
-                    type="button"
-                    value="로그인"
-                    onClick={onClickLoginBtnHandler}
-                  />
-                ) : (
-                  <input
-                    className={styles.login_btn_disabled}
-                    type="button"
-                    value="로그인"
-                    disabled
-                    // onClick={onClickLoginBtnHandler}
-                  />
-                )}
-                {/* <input */}
-                {/*  type="button" */}
-                {/*  value="로그인" */}
-                {/*  onClick={onClickLoginBtnHandler} */}
-                {/* /> */}
+        {isLoginBox ? (
+          <div className={styles.login_box}>
+            <div className={styles.header}>
+              <span>계정 로그인</span>
+            </div>
+            <div className={styles.content_wrapper_login}>
+              <div className={styles.content}>
+                <span className={styles.name_span}>계정 이름</span>
+                <input type="text" value={id} onChange={onChangeIdHandler} />
+                <span className={styles.password_span}>비밀번호</span>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={onChangePasswordHandler}
+                />
+                <div className={styles.login_btn_wrapper}>
+                  {id && password ? (
+                    <input
+                      className={styles.login_btn_enabled}
+                      type="button"
+                      value="로그인"
+                      onClick={onClickLoginBtnHandler}
+                    />
+                  ) : (
+                    <input
+                      className={styles.login_btn_disabled}
+                      type="button"
+                      value="로그인"
+                      disabled
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className={styles.footer}>
+              <div>
+                아직 계정이 없으신가요?{" "}
+                <span
+                  onClick={() => {
+                    setIsLoginBox(false);
+                    setId("");
+                    setPassword("");
+                  }}
+                >
+                  지금 가입하세요!
+                </span>
+              </div>
+              <div>
+                <span
+                  onClick={() => {
+                    return alert("개발중인 기능입니다.");
+                  }}
+                >
+                  계정이름을 잊으셨나요?
+                </span>
+              </div>
+              <div>
+                <span
+                  onClick={() => {
+                    return alert("개발중인 기능입니다.");
+                  }}
+                >
+                  비밀번호를 잊으셨나요?
+                </span>
               </div>
             </div>
           </div>
-          <div className={styles.footer}>
-            <div>
-              아직 계정이 없으신가요? <span>지금 가입하세요!</span>
+        ) : (
+          <div className={styles.login_box}>
+            <div className={styles.header}>
+              <span>계정 등록</span>
             </div>
-            <div>
-              <span>계정이름을 잊으셨나요?</span>
+            <div className={styles.content_wrapper_register}>
+              <div className={styles.content}>
+                <span className={styles.name_span}>계정 이름</span>
+                <input type="text" value={id} onChange={onChangeIdHandler} />
+                <span className={styles.password_span}>비밀번호</span>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={onChangePasswordHandler}
+                />
+                <span className={styles.password_span}>비밀번호 확인</span>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={onChangeConfirmHandler}
+                />
+                <div className={styles.login_btn_wrapper}>
+                  {id && password && confirmPassword ? (
+                    <input
+                      className={styles.login_btn_enabled}
+                      type="button"
+                      value="회원가입"
+                      onClick={onClickRegisterBtnHandler}
+                    />
+                  ) : (
+                    <input
+                      className={styles.login_btn_disabled}
+                      type="button"
+                      value="회원가입"
+                      disabled
+                    />
+                  )}
+                </div>
+              </div>
             </div>
-            <div>
-              <span>비밀번호를 잊으셨나요?</span>
+            <div className={styles.footer}>
+              <div>
+                <span
+                  onClick={() => {
+                    setIsLoginBox(true);
+                    setId("");
+                    setPassword("");
+                    setConfirmPassword("");
+                  }}
+                >
+                  로그인 화면으로 돌아가기
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
         <div className={styles.description}>
           ~는 내전~ 팀짜기 제공, ~팬메이드, 라이엇 공식 서비스가 아님을 밝힘.
         </div>
