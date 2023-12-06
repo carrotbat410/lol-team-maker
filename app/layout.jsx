@@ -4,11 +4,11 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Gothic_A1, IBM_Plex_Sans_KR } from "next/font/google";
 
-// const inter = Gothic_A1({
+// const nextFont = Gothic_A1({
 //   subsets: ["latin"],
 //   weight: ["300"],
 // });
-const inter = IBM_Plex_Sans_KR({
+const nextFont = IBM_Plex_Sans_KR({
   subsets: ["latin"],
   weight: ["400"],
 });
@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
 
   return (
     <SessionProvider>
-      <html lang="ko" style={globalCss} className={inter.className}>
+      <html lang="ko" style={globalCss} className={nextFont.className}>
         <body>{children}</body>
       </html>
     </SessionProvider>
