@@ -2,6 +2,16 @@
 
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
+import { Gothic_A1, IBM_Plex_Sans_KR } from "next/font/google";
+
+// const inter = Gothic_A1({
+//   subsets: ["latin"],
+//   weight: ["300"],
+// });
+const inter = IBM_Plex_Sans_KR({
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 // export const metadata = {
 //   title: "진짜사나이들을 위한 롤 팀짜기",
@@ -22,7 +32,7 @@ export default function RootLayout({ children }) {
 
   return (
     <SessionProvider>
-      <html lang="ko" style={globalCss}>
+      <html lang="ko" style={globalCss} className={inter.className}>
         <body>{children}</body>
       </html>
     </SessionProvider>
