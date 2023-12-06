@@ -116,10 +116,18 @@
     width: 110px;
     height: 30px;
 
+    font-size: 17px;
+}
+
+.login_btn_enabled {
     background: linear-gradient(Navajowhite 1%, Orange);
     color: white;
+}
 
-    font-size: 17px;
+.login_btn_disabled {
+    background: linear-gradient(lightgrey 10%, darkslategrey);
+    color: lightgrey;
+    border: none;
 }
 
 .footer {

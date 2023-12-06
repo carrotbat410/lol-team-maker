@@ -83,11 +83,27 @@ export default function Login() {
                 onChange={onChangePasswordHandler}
               />
               <div className={styles.login_btn_wrapper}>
-                <input
-                  type="button"
-                  value="로그인"
-                  onClick={onClickLoginBtnHandler}
-                />
+                {id && password ? (
+                  <input
+                    className={styles.login_btn_enabled}
+                    type="button"
+                    value="로그인"
+                    onClick={onClickLoginBtnHandler}
+                  />
+                ) : (
+                  <input
+                    className={styles.login_btn_disabled}
+                    type="button"
+                    value="로그인"
+                    disabled
+                    // onClick={onClickLoginBtnHandler}
+                  />
+                )}
+                {/* <input */}
+                {/*  type="button" */}
+                {/*  value="로그인" */}
+                {/*  onClick={onClickLoginBtnHandler} */}
+                {/* /> */}
               </div>
             </div>
           </div>
