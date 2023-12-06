@@ -67,35 +67,45 @@ export default function Login() {
         Your browser does not support the video tag. Please try again in a
         different browser.
       </video>
-      <div className={styles.login_box}>
-        <p>계정 로그인</p>
-        <p>계정 이름</p>
-        <input type="text" value={id} onChange={onChangeIdHandler} />
-        <p>비밀번호</p>
-        <input
-          type="password"
-          value={password}
-          onChange={onChangePasswordHandler}
-        />
-        <p>
-          <input
-            type="button"
-            value="로그인"
-            onClick={onClickLoginBtnHandler}
-          />
-        </p>
-        <p>
-          아직 계정이 없으신가요? <span>지금 가입하세요!</span>
-        </p>
-        <p>
-          <span>계정이름을 잊으셨나요?</span>
-        </p>
-        <p>
-          <span>비밀번호를 잊으셨나요?</span>
-        </p>
-        <p>
-          <span>회원가입후 자동 내전 팀짜기 서비스를 이용할 수 있습니다.</span>
-        </p>
+      <div className={styles.wrapper}>
+        <div className={styles.login_box}>
+          <div className={styles.header}>
+            <span>계정 로그인</span>
+          </div>
+          <div className={styles.content_wrapper}>
+            <div className={styles.content}>
+              <span className={styles.name_span}>계정 이름</span>
+              <input type="text" value={id} onChange={onChangeIdHandler} />
+              <span className={styles.password_span}>비밀번호</span>
+              <input
+                type="password"
+                value={password}
+                onChange={onChangePasswordHandler}
+              />
+              <div className={styles.login_btn_wrapper}>
+                <input
+                  type="button"
+                  value="로그인"
+                  onClick={onClickLoginBtnHandler}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={styles.footer}>
+            <div>
+              아직 계정이 없으신가요? <span>지금 가입하세요!</span>
+            </div>
+            <div>
+              <span>계정이름을 잊으셨나요?</span>
+            </div>
+            <div>
+              <span>비밀번호를 잊으셨나요?</span>
+            </div>
+          </div>
+        </div>
+        <div className={styles.description}>
+          ~는 내전~ 팀짜기 제공, ~팬메이드, 라이엇 공식 서비스가 아님을 밝힘.
+        </div>
       </div>
     </div>
   );

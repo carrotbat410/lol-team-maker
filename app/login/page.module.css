@@ -27,21 +27,112 @@
     z-index: 1;
 
     position: absolute;
-    top: 110px;
-    left: 250px;
+    top: 90px;
+    left: 200px;
     background-size: cover;
-    opacity: 1; /* 원하는 투명도로 조정 */
+}
+
+
+.wrapper {
+    width: 400px;
+    height: 500px;
+    /*background-color: rgba(31,26,42, 0.95);*/
+    /*background-color: blue;*/
+
+    position: absolute;
+    top: 300px;
+    left: 200px;
+
+    /*border: 3px solid red;*/
 }
 
 .login_box {
     width: 400px;
-    height: 500px;
-    /*aspect-ratio: 1 / 1.25;*/
-    background-color: blue;
+    height: 380px;
+    background-color: rgba(31,26,42, 0.95);
 
-    position: absolute;
-    top: 300px;
-    left: 250px;
-    background-size: cover;
-    opacity: 1; /* 원하는 투명도로 조정 */
+    border: 1px solid black;
+    box-shadow: 3px 3px 5px black;
+}
+
+.header {
+    width: 100%;
+    height: 40px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*border-bottom: 1px solid black;*/
+}
+
+.header span {
+    margin-left: 20px;
+}
+
+.content_wrapper {
+    width: 400px;
+    height: 200px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.content {
+    width: 330px;
+    height: 100%;
+
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+
+
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.content input {
+    height: 25px
+}
+
+.name_span {
+    margin-top: 15px;
+}
+
+.password_span {
+    margin-top: 15px;
+}
+
+.login_btn_wrapper {
+    margin-top: 13px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.login_btn_wrapper input[type="button"] {
+    width: 110px;
+    height: 30px;
+
+    background: linear-gradient(Navajowhite 1%, Orange);
+    color: white;
+
+    font-size: 17px;
+}
+
+.footer {
+    padding: 0 35px;
+
+    font-size: 17px;
+}
+
+.footer div {
+    margin-top: 20px;
+}
+
+.description {
+    margin-top: 15px;
+    border: 1px dashed blue;
 }
