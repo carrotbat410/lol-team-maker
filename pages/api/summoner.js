@@ -80,7 +80,7 @@ export default async function handler(req, res) {
 
     const existingFriend = await db("friends")
       .where("id", id)
-      .whereRaw('LOWER(REPLACE(friend_nickname, " ", "")) = ?', [
+      .andWhereRaw('LOWER(REPLACE(friend_nickname, " ", "")) = ?', [
         nickname.toLowerCase().replace(/\s/g, ""),
       ])
       .where("tagLine", tagLine)

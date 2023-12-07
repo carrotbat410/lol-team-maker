@@ -16,11 +16,13 @@ export async function UpsertSummoner(nickname, tagLine) {
 
   let summonerInfo = {};
   let puuid;
+  let realNickname;
   try {
     const accountInfo = await axios.get(
       `https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${nickname}/${tagLine}?api_key=${apiKey}`,
     );
     puuid = accountInfo.data.puuid;
+    realNickname = accountInfo.data.gameName;
   } catch (err) {
     result.errorCode = err.response?.data?.status.status_code || 400;
   }
@@ -46,6 +48,7 @@ export async function UpsertSummoner(nickname, tagLine) {
   );
 
   result = summonerInfo;
+  result.name = realNickname;
 
   if (leagueInfo.data.length > 0) {
     // 데이터가 있다면,
