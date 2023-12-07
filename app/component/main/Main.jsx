@@ -232,12 +232,13 @@ function ContentComponent({
             />
           );
         })}
-        {emptyTeam1.map(() => {
+        {emptyTeam1.map((v, i) => {
           if (!resultMode) {
             return (
               <div
                 className={styles.empty_teamed_summoner_div}
                 draggable={false}
+                key={i}
               >
                 <span>비어 있음</span>
               </div>
