@@ -76,27 +76,26 @@ export default function FriendList({
     <div>
       <div className={styles.header}>
         {id ? (
-          <div>
-            {`${id}님 즐거운 내전 되세요 :)`}{" "}
-            <input
-              className={styles.btn}
-              type="button"
-              value="로그아웃"
-              onClick={() =>
-                signOut({
-                  callbackUrl:
-                    process.env.NODE_ENV === "development"
-                      ? "http://localhost:3000/login"
-                      : "https://lolteammaker.vercel.app/login",
-                })
-              }
-            />
-            <input
-              className={styles.btn}
-              type="button"
-              value="문의 등록"
-              onClick={() => alert("개발중")}
-            />
+          <div className={styles.header_wrapper}>
+            <div className={styles.header_hello_div}>
+              <div>{`${id}님`}</div>
+              <div>즐거운 내전 되세요 :)</div>
+            </div>
+            <div className={styles.btn_wrapper}>
+              <input
+                className={styles.btn}
+                type="button"
+                value="로그아웃"
+                onClick={() =>
+                  signOut({
+                    callbackUrl:
+                      process.env.NODE_ENV === "development"
+                        ? "http://localhost:3000/login"
+                        : "https://lolteammaker.vercel.app/login",
+                  })
+                }
+              />
+            </div>
           </div>
         ) : (
           <div>로딩중</div>
@@ -106,6 +105,12 @@ export default function FriendList({
         <div className={styles.btn_container}>
           <input type="button" value="내전 인원 추가" onClick={openModal} />
           {/* <input type="button" value="검색 공간?" /> */}
+          <input
+            className={styles.btn}
+            type="button"
+            value="문의 등록"
+            onClick={() => alert("개발중")}
+          />
         </div>
         <div
           className={styles.friend_list_container}
@@ -152,7 +157,20 @@ export default function FriendList({
           })}
         </div>
       </div>
-      {/* <div className={styles.footer}>i'm footer</div> */}
+      <div className={styles.footer}>
+        <input
+          className={styles.btn}
+          type="button"
+          value="문의 등록"
+          onClick={() => alert("개발중")}
+        />
+        <input
+          className={styles.btn}
+          type="button"
+          value="회원 탈퇴"
+          onClick={() => alert("개발중")}
+        />
+      </div>
       {isModalOpen && <Modal onAddFriend={addFriend} closeModal={closeModal} />}
     </div>
   );

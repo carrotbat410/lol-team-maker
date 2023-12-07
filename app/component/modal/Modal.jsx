@@ -74,7 +74,7 @@ function Modal({ closeModal, onAddFriend }) {
           <input
             className={styles.nickname_input_bar}
             // style={{ backgroundImage: "url(/images/icon_reading_glasses.png)"}}
-            placeholder="e.g. Hide On Bush"
+            placeholder="e.g. Hide on bush"
             type="text"
             value={nickname}
             onChange={(event) => {
