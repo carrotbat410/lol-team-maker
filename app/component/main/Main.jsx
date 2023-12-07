@@ -166,7 +166,7 @@ export function Main({
                   team1List.length + team2List.length + noTeamList.length !==
                   10
                 ) {
-                  return alert("10명 채우셈");
+                  return alert("팀 생성을 위해 10명을 채워주세요.");
                 }
 
                 const result = await instance.post("/api/makeResult", {
