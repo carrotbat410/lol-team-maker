@@ -9,6 +9,8 @@ export function Main({
   team2List,
   noTeamList,
   onClickResetHandler,
+  emptyTeam1,
+  emptyTeam2,
 }) {
   const [selectedMode, setSelectedMode] = useState("random");
   const [resultMode, setResultMode] = useState(false);
@@ -103,6 +105,8 @@ export function Main({
             // handleDragOver={handleDragOver}
             // handleDropTeam1={handleDropTeam1}
             // handleDropTeam2={handleDropTeam2}
+            emptyTeam1={emptyTeam1}
+            emptyTeam2={emptyTeam2}
           />
         ) : (
           <ContentComponent
@@ -112,6 +116,8 @@ export function Main({
             handleDragOver={handleDragOver}
             handleDropTeam1={handleDropTeam1}
             handleDropTeam2={handleDropTeam2}
+            emptyTeam1={emptyTeam1}
+            emptyTeam2={emptyTeam2}
           />
         )}
       </div>
@@ -196,9 +202,9 @@ function ContentComponent({
   handleDropTeam1,
   handleDropTeam2,
   resultMode,
+  emptyTeam1,
+  emptyTeam2,
 }) {
-  console.log("resultMode:", resultMode);
-
   return (
     <div className={styles.content_container}>
       <div
@@ -226,6 +232,18 @@ function ContentComponent({
             />
           );
         })}
+        {emptyTeam1.map(() => {
+          if (!resultMode) {
+            return (
+              <div
+                className={styles.empty_teamed_summoner_div}
+                draggable={false}
+              >
+                <span>비어 있음</span>
+              </div>
+            );
+          }
+        })}
       </div>
       <div
         className={styles.content_container_team_div}
@@ -251,6 +269,18 @@ function ContentComponent({
               data={JSON.stringify(v)}
             />
           );
+        })}
+        {emptyTeam2.map(() => {
+          if (!resultMode) {
+            return (
+              <div
+                className={styles.empty_teamed_summoner_div}
+                draggable={false}
+              >
+                <span>비어 있음</span>
+              </div>
+            );
+          }
         })}
       </div>
     </div>

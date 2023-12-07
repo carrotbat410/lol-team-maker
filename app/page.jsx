@@ -18,6 +18,8 @@ export default function Home() {
   const [team2List, setTeam2List] = useState([]);
   const [noTeamList, setNoTeamList] = useState([]);
   const [friendList, setFriendList] = useState([]);
+  const [emptyTeam1, setEmptyTeam1] = useState([0, 0, 0, 0, 0]);
+  const [emptyTeam2, setEmptyTeam2] = useState([0, 0, 0, 0, 0]);
 
   useEffect(() => {
     instance.get("/api/summoner").then((res) => {
@@ -31,6 +33,8 @@ export default function Home() {
     setTeam1List([]);
     setTeam2List([]);
     setNoTeamList([]);
+    setEmptyTeam1([0, 0, 0, 0, 0]);
+    setEmptyTeam2([0, 0, 0, 0, 0]);
 
     instance.get("/api/summoner").then((res) => {
       if (res.data.code === 200) {
@@ -70,11 +74,13 @@ export default function Home() {
         return v.no !== droppedSummoner.no;
       });
       setTeam1List([...deletedList]);
+      setEmptyTeam1([...emptyTeam1, 0]);
     } else if (from === "team2") {
       const deletedList = team2List.filter((v) => {
         return v.no !== droppedSummoner.no;
       });
       setTeam2List([...deletedList]);
+      setEmptyTeam2([...emptyTeam2, 0]);
     }
 
     // to
@@ -86,8 +92,12 @@ export default function Home() {
       setNoTeamList([...noTeamList, droppedSummoner]);
     } else if (to === "team1") {
       setTeam1List([...team1List, droppedSummoner]);
+      const deletedEmpty1 = emptyTeam1.slice(1);
+      setEmptyTeam1(deletedEmpty1);
     } else if (to === "team2") {
       setTeam2List([...team2List, droppedSummoner]);
+      const deletedEmpty2 = emptyTeam2.slice(1);
+      setEmptyTeam2(deletedEmpty2);
     }
   };
 
@@ -114,6 +124,8 @@ export default function Home() {
           noTeamList={noTeamList}
           setNoTeamList={setNoTeamList}
           onClickResetHandler={onClickResetHandler}
+          emptyTeam1={emptyTeam1}
+          emptyTeam2={emptyTeam2}
         />
       </div>
       <div className={styles.right_wrapper}>
