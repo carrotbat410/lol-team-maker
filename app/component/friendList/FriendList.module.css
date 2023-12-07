@@ -1,7 +1,7 @@
 .header {
     width: 100%;
     height: 100px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 
     display: flex;
     flex-direction: row;
@@ -55,14 +55,14 @@
     width: 100%;
     height: 620px;
 
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 .btn_container {
     width: 100%;
     height: 50px;
 
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 
     display: flex;
     flex-direction: row;
@@ -91,6 +91,7 @@
     max-height: 600px; /* 최대 높이 지정 */
     overflow-y: auto; /* 세로 스크롤 활성화 */
     border: 1px solid #ccc; /* 스크롤 가능한 컨테이너를 시각적으로 나타내기 위한 예시 스타일 */
+    /*border: 1px solid black; !* 스크롤 가능한 컨테이너를 시각적으로 나타내기 위한 예시 스타일 *!*/
     /* 스크롤바 스타일 추가 */
     scrollbar-width: thin; /* Firefox에서 스크롤바 너비 지정 */
     scrollbar-color: dark gray lightgray; /* Firefox에서 스크롤바 색상 지정 */
