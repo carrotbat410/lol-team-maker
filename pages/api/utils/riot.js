@@ -104,7 +104,7 @@ export async function UpsertSummoner(nickname, tagLine) {
 
   await db("summoner_sessions")
     .insert({
-      nickname,
+      nickname: realNickname,
       tagLine,
       tier: result.tier,
       rank: result.rank,
