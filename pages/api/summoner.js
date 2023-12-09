@@ -36,7 +36,7 @@ export default async function handler(req, res) {
       delete r.tagLine;
       delete r.friend_nickname;
       delete r.id;
-      r.icon_img_url = `http://ddragon.leagueoflegends.com/cdn/13.21.1/img/profileicon/${r.icon_id}.png`;
+      r.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${r.icon_id}.png`;
       if (r.created_at) {
         r.created_at = dayjs(r.created_at)
           .tz("Asia/Seoul")
@@ -165,7 +165,7 @@ export default async function handler(req, res) {
       .first();
 
     if (newFriend) {
-      newFriend.icon_img_url = `http://ddragon.leagueoflegends.com/cdn/13.21.1/img/profileicon/${newFriend.icon_id}.png`;
+      newFriend.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${newFriend.icon_id}.png`;
       newFriend.nickname += `#${tagLine}`;
     }
 
