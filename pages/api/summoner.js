@@ -97,8 +97,10 @@ export default async function handler(req, res) {
     }
 
     const sessionData = await db("summoner_sessions")
-      .where("nickname", nickname)
       .where("tagLine", tagLine)
+      .andWhereRaw('LOWER(REPLACE(nickname, " ", "")) = ?', [
+        nickname.toLowerCase().replace(/\s/g, ""),
+      ])
       .first();
 
     // TODO 갱신해야하는지 체크하는 함수, 갱신하는 함수 만들기
@@ -131,6 +133,7 @@ export default async function handler(req, res) {
       //* case-세션데이터에 없는 유저) 세션데이터에 생성 + 친구테이블에 추가
       console.log("세션데이터 존재x - 새로 생성");
       const upsertResult = await UpsertSummoner(nickname, tagLine);
+      console.log("upsertResult 결과:", upsertResult);
       if (upsertResult.errorCode) {
         if (upsertResult.errorCode === 404) {
           return res.json({
