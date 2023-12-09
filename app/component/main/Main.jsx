@@ -233,12 +233,13 @@ function ContentComponent({
           );
         })}
         {emptyTeam1.map((v, i) => {
+          const index = 10 + i;
           if (!resultMode) {
             return (
               <div
                 className={styles.empty_teamed_summoner_div}
                 draggable={false}
-                key={i}
+                key={index}
               >
                 <span>비어 있음</span>
               </div>
@@ -271,12 +272,14 @@ function ContentComponent({
             />
           );
         })}
-        {emptyTeam2.map(() => {
+        {emptyTeam2.map((v, i) => {
+          const index = 20 + i;
           if (!resultMode) {
             return (
               <div
                 className={styles.empty_teamed_summoner_div}
                 draggable={false}
+                key={index}
               >
                 <span>비어 있음</span>
               </div>
