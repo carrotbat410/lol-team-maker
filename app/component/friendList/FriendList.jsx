@@ -108,7 +108,7 @@ export default function FriendList({
           <input
             className={styles.btn}
             type="button"
-            value="문의 등록"
+            value="사용법 보기"
             onClick={() => alert("개발중")}
           />
         </div>
