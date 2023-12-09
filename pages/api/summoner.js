@@ -166,6 +166,7 @@ export default async function handler(req, res) {
 
     if (newFriend) {
       newFriend.icon_img_url = `http://ddragon.leagueoflegends.com/cdn/13.21.1/img/profileicon/${newFriend.icon_id}.png`;
+      newFriend.nickname += `#${tagLine}`;
     }
 
     return res.json({
