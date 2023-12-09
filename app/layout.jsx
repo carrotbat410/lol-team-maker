@@ -20,7 +20,8 @@ const nextFont = IBM_Plex_Sans_KR({
 
 export default function RootLayout({ children }) {
   const globalCss = {
-    background: "#151b21",
+    // background: "#151b21",
+    backgroundColor: "#0f101c",
 
     width: "100%",
     height: "100%",
