@@ -162,17 +162,27 @@ export default async function handler(req, res) {
     // TODO 조회 쿼리 없이 직접 데이터 만들어 프론트에게 주면 더 빠름 (삭제는 no 없어도 아이디, 친구닉네임조합으로 가능)
     const newFriend = await db("friends as f")
       .where("f.id", id)
-      .whereRaw('LOWER(REPLACE(f.friend_nickname, " ", "")) = ?', [
-        nickname.toLowerCase().replace(/\s/g, ""),
-      ])
-      .join("summoner_sessions as ss", "f.friend_nickname", "ss.nickname")
+      .where("f.friend_nickname", realNickname)
       .where("f.tagLine", tagLine)
+      .join("summoner_sessions as ss", function () {
+        this.on("f.friend_nickname", "=", "ss.nickname").andOn(
+          "f.tagLine",
+          "=",
+          "ss.tagLine",
+        );
+      })
       .first();
 
-    if (newFriend) {
-      newFriend.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${newFriend.icon_id}.png`;
-      newFriend.nickname += `#${tagLine}`;
+    if (!newFriend) {
+      return res.json({
+        code: 400,
+        message: "Bad Request - no newFriend",
+      });
     }
+
+    newFriend.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${newFriend.icon_id}.png`;
+    newFriend.nickname = `${newFriend.nickname}#${tagLine}`;
+    newFriend.from = "friend";
 
     return res.json({
       code: 200,
