@@ -118,6 +118,7 @@ export default async function handler(req, res) {
         //* case-갱신한지 오래됨) 갱신후 친구테이블에 추가
         console.log("오래된 데이터 - 갱신해야함");
         const upsertResult = await UpsertSummoner(nickname, tagLine);
+        realNickname = upsertResult.name;
         if (upsertResult.errorCode) {
           return res.json({
             code: 404,
