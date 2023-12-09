@@ -162,6 +162,15 @@ export default function Login() {
                   비밀번호를 잊으셨나요?
                 </span>
               </div>
+              <div>
+                <span
+                  onClick={() => {
+                    return alert("카톡링크걸기");
+                  }}
+                >
+                  문의사항이 있나요?
+                </span>
+              </div>
             </div>
           </div>
         ) : (
