@@ -166,6 +166,7 @@ export default async function handler(req, res) {
         nickname.toLowerCase().replace(/\s/g, ""),
       ])
       .join("summoner_sessions as ss", "f.friend_nickname", "ss.nickname")
+      .where("f.tagLine", tagLine)
       .first();
 
     if (newFriend) {
