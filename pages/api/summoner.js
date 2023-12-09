@@ -26,7 +26,9 @@ export default async function handler(req, res) {
 
     const result = await db("friends as f")
       .where("f.id", id)
-      .join("summoner_sessions as ss", "f.friend_nickname", "ss.nickname")
+      .joinRaw(
+        "INNER JOIN summoner_sessions as ss ON ss.tagLine = f.tagLine AND ss.nickname = f.friend_nickname",
+      )
       .orderBy("f.created_at", "asc");
 
     for (const r of result) {
