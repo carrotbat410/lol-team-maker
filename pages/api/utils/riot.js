@@ -112,6 +112,7 @@ export async function UpsertSummoner(nickname, tagLine) {
       losses: result.losses,
       main_position: "tmp",
       icon_id: result.profileIconId,
+      level: result.summonerLevel,
       renewaled_at: dayjs().format("YYYY-MM-DD HH:mm:ss"),
       mmr,
     })
@@ -125,6 +126,7 @@ export async function UpsertSummoner(nickname, tagLine) {
       "icon_id",
       "renewaled_at",
       "mmr",
+      "level",
     ]);
 
   return result;
