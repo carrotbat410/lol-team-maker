@@ -181,6 +181,10 @@ export default function FriendList({
             type="button"
             value="회원 탈퇴"
             onClick={async () => {
+              if (id === "test1") {
+                return alert("test계정은 탈퇴가 불가능합니다.");
+              }
+
               if (
                 confirm(
                   "정말로 회원 탈퇴하시겠습니까? \n회원 정보는 전부 즉시 파기됩니다.",
