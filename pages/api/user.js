@@ -8,9 +8,8 @@ export default async function handler(req, res) {
 
   if (method === "POST") {
     const { id, password } = req.body;
-    console.log("body in api", id, password);
 
-    if (!id || !password) {
+    if (!id || !password || id.length > 20 || password.length > 20) {
       return res.json({
         code: 400,
         message: "bad request",
