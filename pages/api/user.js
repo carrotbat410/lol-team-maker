@@ -1,5 +1,7 @@
 import CryptoJS from "crypto-js";
+import { getServerSession } from "next-auth";
 import DB from "./utils/db";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -38,6 +40,29 @@ export default async function handler(req, res) {
 
     return res.json({
       code: 200,
+      message: "ok",
+    });
+  }
+
+  if (method === "DELETE") {
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session || !session.user) {
+      return res.json({ code: 401, message: "Expired Session" });
+    }
+
+    const db = DB();
+
+    let errorCode;
+    try {
+      await db("users").where("id", session.user.id).delete();
+      await db("friends").where("id", session.user.id).delete();
+    } catch (err) {
+      errorCode = 400;
+    }
+
+    return res.json({
+      code: errorCode || 200,
       message: "ok",
     });
   }

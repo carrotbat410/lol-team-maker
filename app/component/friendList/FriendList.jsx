@@ -180,7 +180,36 @@ export default function FriendList({
             className={styles.btn}
             type="button"
             value="회원 탈퇴"
-            onClick={() => alert("개발중")}
+            onClick={async () => {
+              if (
+                confirm(
+                  "정말로 회원 탈퇴하시겠습니까? \n회원 정보는 전부 즉시 파기됩니다.",
+                )
+              ) {
+                const result = await instance.delete("/user");
+                console.log("result.data info:", result.data);
+                const { code } = result.data;
+                if (code === 200) {
+                  alert("이용해주셔서 감사합니다.");
+                  await signOut({
+                    callbackUrl:
+                      process.env.NODE_ENV === "development"
+                        ? "http://localhost:3000/login"
+                        : "https://lolteammaker.vercel.app/login",
+                  });
+                  return;
+                }
+                if (code === 401) {
+                  return alert(
+                    "세션이 만료되었습니다. 로그인후 다시 시도해주세요.",
+                  );
+                }
+                return alert(
+                  "서버에 문제가 발생하였습니다. 관리자에게 문의해주세요.",
+                );
+              }
+              alert("회원 탈퇴를 취소하였습니다.");
+            }}
           />
         </div>
       </div>

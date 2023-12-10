@@ -38,7 +38,7 @@ export const authOptions = {
           console.log("해당 유저 없음");
           return null;
         }
-        console.log("있음", user);
+        // console.log("있음", user);
         return user;
       },
     }),
