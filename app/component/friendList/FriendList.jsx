@@ -51,14 +51,6 @@ export default function FriendList({
     setFriendList([...friendList, newFriend]);
   };
 
-  useEffect(() => {
-    instance.get("/summoner").then((res) => {
-      if (res.data.code === 200) {
-        setFriendList(res.data.result);
-      }
-    });
-  }, []);
-
   const onClickDeleteFriendBtn = (no) => {
     const newFriendList = friendList.filter((v) => v.no !== no);
     setFriendList([...newFriendList]);
