@@ -65,7 +65,7 @@ function Modal({ closeModal, onAddFriend }) {
     <div className={styles.modal}>
       <div className={styles.modal_content_text_div}>
         <div>추가할 유저의 닉네임과 태그라인을 입력해주세요.</div>
-        <div>(태그라인 생략시 태그라인은 KR1으로 검색합니다.)</div>
+        <div>(태그라인 생략시 태그라인은 KR1으로 검색됩니다.)</div>
         <div />
       </div>
       <div className={styles.input_div}>
