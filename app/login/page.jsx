@@ -24,14 +24,18 @@ export default function Login() {
   }
 
   const onChangeIdHandler = (event) => {
-    setId(event.target.value);
+    if (event.target.value.length < 21) setId(event.target.value);
   };
   const onChangePasswordHandler = (event) => {
-    setPassword(event.target.value);
+    if (event.target.value.length < 21) {
+      setPassword(event.target.value);
+    }
   };
 
   const onChangeConfirmHandler = (event) => {
-    setConfirmPassword(event.target.value);
+    if (event.target.value.length < 21) {
+      setConfirmPassword(event.target.value);
+    }
   };
 
   const onClickLoginBtnHandler = async (event) => {
@@ -58,6 +62,14 @@ export default function Login() {
     if (!id || !password || !confirmPassword) return;
     if (password !== confirmPassword) {
       return alert("비밀번호가 일치하지 않습니다.");
+    }
+    const regExp = /^[a-zA-Z0-9]*$/;
+    if (!regExp.test(id)) {
+      return alert("아이디는 영문, 숫자만 사용 가능합니다.");
+    }
+
+    if (!regExp.test(password)) {
+      return alert("비밀번호는 영문, 숫자만 사용 가능합니다.");
     }
 
     const response = await instance.post("/user", {
@@ -180,9 +192,19 @@ export default function Login() {
             </div>
             <div className={styles.content_wrapper_register}>
               <div className={styles.content}>
-                <span className={styles.name_span}>계정 이름</span>
+                <span className={styles.name_span}>
+                  계정 이름{" "}
+                  <span className={styles.validation_text}>
+                    (영문, 숫자 허용. 6글자 이상 20글자 이하.)
+                  </span>
+                </span>
                 <input type="text" value={id} onChange={onChangeIdHandler} />
-                <span className={styles.password_span}>비밀번호</span>
+                <span className={styles.password_span}>
+                  비밀번호{" "}
+                  <span className={styles.validation_text}>
+                    (영문, 숫자 허용. 6글자 이상 20글자 이하.)
+                  </span>
+                </span>
                 <input
                   type="password"
                   value={password}
@@ -195,7 +217,12 @@ export default function Login() {
                   onChange={onChangeConfirmHandler}
                 />
                 <div className={styles.login_btn_wrapper}>
-                  {id && password && confirmPassword ? (
+                  {id &&
+                  id.length > 5 &&
+                  password &&
+                  password.length > 5 &&
+                  confirmPassword &&
+                  confirmPassword.length > 5 ? (
                     <input
                       className={styles.login_btn_enabled}
                       type="button"

@@ -87,6 +87,10 @@
     justify-content: center;
 }
 
+.validation_text {
+    font-size: 14px;
+}
+
 .content {
     width: 330px;
     height: 100%;
