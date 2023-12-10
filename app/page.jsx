@@ -22,7 +22,7 @@ export default function Home() {
   const [emptyTeam2, setEmptyTeam2] = useState([0, 0, 0, 0, 0]);
 
   useEffect(() => {
-    instance.get("/api/summoner").then((res) => {
+    instance.get("/summoner").then((res) => {
       if (res.data.code === 200) {
         setFriendList(res.data.result);
       }
@@ -36,7 +36,7 @@ export default function Home() {
     setEmptyTeam1([0, 0, 0, 0, 0]);
     setEmptyTeam2([0, 0, 0, 0, 0]);
 
-    instance.get("/api/summoner").then((res) => {
+    instance.get("/summoner").then((res) => {
       if (res.data.code === 200) {
         setFriendList(res.data.result);
       }

@@ -31,7 +31,7 @@ function Modal({ closeModal, onAddFriend }) {
       handledTagLine = "KR1";
     }
 
-    const apiRequest = await instance.post("/api/summoner", {
+    const apiRequest = await instance.post("/summoner", {
       nickname,
       tagLine: handledTagLine,
     });

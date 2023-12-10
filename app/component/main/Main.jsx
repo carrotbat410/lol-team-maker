@@ -175,7 +175,7 @@ export function Main({
                   return alert("팀 생성을 위해 10명을 채워주세요.");
                 }
 
-                const result = await instance.post("/api/makeResult", {
+                const result = await instance.post("/makeResult", {
                   selectedMode,
                   team1List,
                   team2List,

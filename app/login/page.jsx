@@ -60,7 +60,7 @@ export default function Login() {
       return alert("비밀번호가 일치하지 않습니다.");
     }
 
-    const response = await instance.post("/api/register", {
+    const response = await instance.post("/user", {
       id,
       password,
     });

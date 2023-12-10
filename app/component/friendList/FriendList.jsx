@@ -52,7 +52,7 @@ export default function FriendList({
   };
 
   useEffect(() => {
-    instance.get("/api/summoner").then((res) => {
+    instance.get("/summoner").then((res) => {
       if (res.data.code === 200) {
         setFriendList(res.data.result);
       }
@@ -63,7 +63,7 @@ export default function FriendList({
     const newFriendList = friendList.filter((v) => v.no !== no);
     setFriendList([...newFriendList]);
 
-    instance.delete("/api/summoner", {
+    instance.delete("/summoner", {
       data: { no },
     });
   };
