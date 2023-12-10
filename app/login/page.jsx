@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import styles from "./page.module.css";
 import { instance } from "../../lib/axios";
@@ -38,24 +38,20 @@ export default function Login() {
     }
   };
 
-  const onClickLoginBtnHandler = async (event) => {
+  const onClickLoginBtnHandler = (event) => {
     if (!id || !password) return;
-    await signIn("credentials", {
+    signIn("credentials", {
       id,
       password,
-      redirect: true,
-      callbackUrl: "/",
-    })
-      .then((res) => {
-        // console.log("login res info:", res);
-        if (res.data.code >= 400) {
-          return alert(res.data.message);
-        }
+      redirect: false,
+      // callbackUrl: "/",
+    }).then((response) => {
+      if (response.ok) {
         router.push("/");
-      })
-      .catch((err) => {
-        console.log("err info:", err);
-      });
+      } else {
+        alert("계정 이름과 비밀번호를 확인해주세요.");
+      }
+    });
   };
 
   const onClickRegisterBtnHandler = async () => {
