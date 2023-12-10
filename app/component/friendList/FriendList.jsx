@@ -164,7 +164,9 @@ export default function FriendList({
             className={styles.btn}
             type="button"
             value="문의 등록"
-            onClick={() => alert("개발중")}
+            onClick={() => {
+              window.open("https://open.kakao.com/o/suvzT5Wf");
+            }}
           />
         </div>
         <div>

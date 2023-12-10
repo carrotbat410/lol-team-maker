@@ -173,7 +173,7 @@ export default function Login() {
               <div>
                 <span
                   onClick={() => {
-                    return alert("카톡링크걸기");
+                    window.open("https://open.kakao.com/o/suvzT5Wf");
                   }}
                 >
                   문의사항이 있나요?
