@@ -103,14 +103,23 @@ export default function FriendList({
       </div>
       <div className={styles.content}>
         <div className={styles.btn_container}>
-          <input type="button" value="내전 인원 추가" onClick={openModal} />
+          <div>
+            <input
+              type="button"
+              value="내전 인원 추가"
+              onClick={openModal}
+              className={styles.btn}
+            />
+          </div>
+          <div>
+            <input
+              className={styles.btn}
+              type="button"
+              value="사용법 보기"
+              onClick={() => alert("개발중")}
+            />
+          </div>
           {/* <input type="button" value="검색 공간?" /> */}
-          <input
-            className={styles.btn}
-            type="button"
-            value="사용법 보기"
-            onClick={() => alert("개발중")}
-          />
         </div>
         <div
           className={styles.friend_list_container}
@@ -158,18 +167,22 @@ export default function FriendList({
         </div>
       </div>
       <div className={styles.footer}>
-        <input
-          className={styles.btn}
-          type="button"
-          value="문의 등록"
-          onClick={() => alert("개발중")}
-        />
-        <input
-          className={styles.btn}
-          type="button"
-          value="회원 탈퇴"
-          onClick={() => alert("개발중")}
-        />
+        <div>
+          <input
+            className={styles.btn}
+            type="button"
+            value="문의 등록"
+            onClick={() => alert("개발중")}
+          />
+        </div>
+        <div>
+          <input
+            className={styles.btn}
+            type="button"
+            value="회원 탈퇴"
+            onClick={() => alert("개발중")}
+          />
+        </div>
       </div>
       {isModalOpen && <Modal onAddFriend={addFriend} closeModal={closeModal} />}
     </div>

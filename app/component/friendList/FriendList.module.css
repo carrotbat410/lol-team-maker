@@ -39,16 +39,24 @@
 }
 
 .btn {
-    font-size: 15px;
-
-    width: 80px;
+    font-size: 14px;
+    width: 100px;
     height: 40px;
-
 
     background-color: rgba(31,26,42, 1);
     border: 2px solid rgb(48, 99, 94);
     color: rgb(174, 150, 60);
     box-shadow: 1px 1px 1px black;
+}
+
+.btn:hover {
+    /*color: red;*/
+}
+
+.btn:active {
+    margin-top: 1px;
+    margin-left: 1px;
+    box-shadow: none;
 }
 
 .content {
@@ -59,14 +67,15 @@
 }
 
 .btn_container {
-    width: 100%;
-    height: 50px;
+    margin-left: 70px;
+    margin-bottom: 5px;
 
-    /*border: 1px solid black;*/
+    width: 250px;
+    height: 50px;
 
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -80,6 +89,12 @@
     height: 40px;
 
     /*border-radius: 10px;*/
+}
+
+.btn_container input[type="button"]:active {
+    margin-top: 1px;
+    margin-left: 1px;
+    box-shadow: none;
 }
 
 .friend_list_container {
@@ -167,13 +182,18 @@
 
 
 .footer {
-    width: 100%;
+    width: 250px;
     height: 80px;
-
-    /*border: 1px solid blue;*/
 
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
+    margin-left: 70px;
+}
+
+.footer input:active {
+    margin-top: 1px;
+    margin-left: 1px;
+    box-shadow: none;
 }
