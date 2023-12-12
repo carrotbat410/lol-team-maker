@@ -83,7 +83,7 @@ export default function FriendList({
                     callbackUrl:
                       process.env.NODE_ENV === "development"
                         ? "http://localhost:3000/login"
-                        : "https://lolteammaker.vercel.app/login",
+                        : "https://lolcivilwarhelper.vercel.app/login",
                   })
                 }
               />
@@ -203,7 +203,7 @@ export default function FriendList({
                     callbackUrl:
                       process.env.NODE_ENV === "development"
                         ? "http://localhost:3000/login"
-                        : "https://lolteammaker.vercel.app/login",
+                        : "https://lolcivilwarhelper.vercel.app/login",
                   });
                   return;
                 }
