@@ -123,6 +123,12 @@ export function Main({
       </div>
       <div className={styles.result_container}>
         {resultMode ? (
+          <div />
+        ) : (
+          <div className={styles.result_container_header}>팀 미정 인원</div>
+        )}
+        {/* <div className={styles.result_container_header}>팀 미정 인원</div> */}
+        {resultMode ? (
           <div className={styles.result_mode_true_container}>
             <div>
               <input
@@ -213,7 +219,7 @@ function ContentComponent({
         onDragOver={handleDragOver}
         onDrop={handleDropTeam1}
       >
-        Team 1
+        1팀
         {team1List.map((v) => {
           if (resultMode) {
             return (
@@ -253,7 +259,7 @@ function ContentComponent({
         onDragOver={handleDragOver}
         onDrop={handleDropTeam2}
       >
-        Team 2
+        2팀
         {team2List.map((v) => {
           if (resultMode) {
             return (
