@@ -160,7 +160,6 @@ export default function FriendList({
                   value="x"
                   className={styles.friend_box_delete_btn}
                   onClick={() => onClickDeleteFriendBtn(v.no)}
-                  // TODO db에 delete 요청하는 코드 짜기
                   draggable="false"
                 />
               </div>
