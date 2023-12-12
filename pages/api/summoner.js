@@ -121,7 +121,11 @@ export default async function handler(req, res) {
         const upsertResult = await UpsertSummoner(nickname, tagLine);
         realNickname = upsertResult.name;
         if (upsertResult.errorCode) {
-          SendTelegramMessage(upsertResult.errorCode, upsertResult.message, id);
+          SendTelegramMessage(
+            upsertResult.errorCode,
+            upsertResult.errorMessage,
+            id,
+          );
 
           return res.json({
             code: 404,
@@ -139,7 +143,11 @@ export default async function handler(req, res) {
       const upsertResult = await UpsertSummoner(nickname, tagLine);
       console.log("upsertResult 결과:", upsertResult);
       if (upsertResult.errorCode) {
-        SendTelegramMessage(upsertResult.errorCode, upsertResult.message, id);
+        SendTelegramMessage(
+          upsertResult.errorCode,
+          upsertResult.errorMessage,
+          id,
+        );
 
         if (upsertResult.errorCode === 404) {
           return res.json({
