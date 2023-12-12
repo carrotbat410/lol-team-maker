@@ -1,4 +1,5 @@
 import { useState } from "react";
+import copy from "clipboard-copy";
 import styles from "./Main.module.css";
 import { handleDragStart } from "../friendList/FriendList";
 import { instance } from "../../../lib/axios";
@@ -16,6 +17,20 @@ export function Main({
   const [resultMode, setResultMode] = useState(false);
   const [finishedTeam1, setFinishedTeam1] = useState([]);
   const [finishedTeam2, setFinishedTeam2] = useState([]);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopyClick = async () => {
+    try {
+      let team1Text = "1팀:";
+      let team2Text = "2팀:";
+      for (const t of finishedTeam1) team1Text += ` ${t.nickname}`;
+      for (const t of finishedTeam2) team2Text += ` ${t.nickname}`;
+      await copy(`${team1Text}\n${team2Text}`);
+      if (!isCopied) setIsCopied(true);
+    } catch (error) {
+      console.error("Error copying to clipboard:", error);
+    }
+  };
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -131,11 +146,21 @@ export function Main({
         {resultMode ? (
           <div className={styles.result_mode_true_container}>
             <div>
-              <input
-                type="button"
-                value="결과 복사하기"
-                className={styles.copy_btn}
-              />
+              {isCopied ? (
+                <input
+                  type="button"
+                  value="복사 완료 :)"
+                  className={styles.copy_btn}
+                  onClick={handleCopyClick}
+                />
+              ) : (
+                <input
+                  type="button"
+                  value="결과 복사하기"
+                  className={styles.copy_btn}
+                  onClick={handleCopyClick}
+                />
+              )}
             </div>
             <div>
               <input
@@ -144,6 +169,7 @@ export function Main({
                 className={styles.again_btn}
                 onClick={() => {
                   setResultMode(!resultMode);
+                  setIsCopied(false);
                 }}
               />
             </div>
