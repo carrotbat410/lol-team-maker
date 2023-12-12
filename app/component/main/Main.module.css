@@ -97,7 +97,14 @@
 }
 
 .teamed_summoner_level {
-    margin-left: 10px;
+    /*border: 1px solid red;*/
+    width: 40px;
+    height: 30px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .teamed_summoner_div img {
