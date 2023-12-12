@@ -35,7 +35,7 @@
 
 .wrapper {
     width: 400px;
-    height: 500px;
+    height: 450px;
     /*background-color: rgba(31,26,42, 0.95);*/
     /*background-color: blue;*/
 
@@ -156,6 +156,21 @@
 }
 
 .description {
-    margin-top: 15px;
-    border: 1px dashed blue;
+    width: 1200px;
+    height: 30px;
+
+    position: absolute;
+    top: 500px;
+    left: -100px;
+
+    font-size: 16px;
+
+    /*border: 2px solid red;*/
+}
+
+.description span {
+    font-size: 18px;
+    text-decoration: red underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset : 5px;
 }

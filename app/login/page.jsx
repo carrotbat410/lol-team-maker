@@ -253,7 +253,8 @@ export default function Login() {
           </div>
         )}
         <div className={styles.description}>
-          ~는 내전~ 팀짜기 제공, ~팬메이드, 라이엇 공식 서비스가 아님을 밝힘.
+          롤 내전 도우미는 롤 내전 팀짜기에 대한 서비스를 무료로 제공하며, Riot
+          Games의 <span>공식 서비스가 아닌 2차 창작물</span>임을 밝힘니다.
         </div>
       </div>
     </div>
