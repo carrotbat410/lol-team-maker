@@ -121,8 +121,18 @@ export default function FriendList({
           {friendList.map((v) => {
             const tmpTier = v.tier;
             const tmpRank = v.rank;
-
-            const tier = tmpTier ? `${tmpTier} ${tmpRank}` : "UNRANKED";
+            console.log(tmpTier, tmpRank);
+            let tier;
+            if (tmpTier) {
+              if (["MASTER", "GRANDMASTER", "CHALLENGER"].includes(tmpTier)) {
+                tier = tmpTier;
+              } else {
+                tier = `${tmpTier} ${tmpRank}`;
+              }
+            } else {
+              tier = "UNRANKED";
+            }
+            // const tier = tmpTier ? `${tmpTier} ${tmpRank}` : "UNRANKED";
 
             return (
               <div

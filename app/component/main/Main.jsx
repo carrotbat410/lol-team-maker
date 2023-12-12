@@ -293,12 +293,16 @@ function ContentComponent({
 
 function TeamedSummoner({ resultMode, data }) {
   data = JSON.parse(data);
-  const noRankArr = ["MASTER", "GRANDMASTER", "CHALLENGE"];
+
   let tierString;
-  if (noRankArr.includes(data.tier)) {
-    tierString = data.tier;
+  if (data.tier) {
+    if (["MASTER", "GRANDMASTER", "CHALLENGER"].includes(data.tier)) {
+      tierString = data.tier;
+    } else {
+      tierString = `${data.tier} ${data.rank}`;
+    }
   } else {
-    tierString = `${data.tier} ${data.rank}`;
+    tierString = "UNRANKED";
   }
 
   const wins = data.wins || 0;
