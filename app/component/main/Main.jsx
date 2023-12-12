@@ -26,7 +26,12 @@ export function Main({
       for (const t of finishedTeam1) team1Text += ` ${t.nickname}`;
       for (const t of finishedTeam2) team2Text += ` ${t.nickname}`;
       await copy(`${team1Text}\n${team2Text}`);
-      if (!isCopied) setIsCopied(true);
+      if (!isCopied) {
+        setIsCopied(true);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 1500);
+      }
     } catch (error) {
       console.error("Error copying to clipboard:", error);
     }
