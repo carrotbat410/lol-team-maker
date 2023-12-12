@@ -5,10 +5,6 @@ import DB from "./db";
 const riotUrl = process.env.RIOT_URL;
 const apiKey = process.env.RIOT_DEV_API_KEY;
 
-// export function GetRiotApiKey() {
-//   return apiKey;
-// }
-
 export async function UpsertSummoner(nickname, tagLine) {
   let result = {
     errorCode: null,
@@ -25,6 +21,7 @@ export async function UpsertSummoner(nickname, tagLine) {
     realNickname = accountInfo.data.gameName;
   } catch (err) {
     result.errorCode = err.response?.data?.status.status_code || 400;
+    result.errorMessage = err.response?.data?.status.message || "에러 발생1";
   }
   if (result.errorCode) {
     return result;
@@ -36,16 +33,25 @@ export async function UpsertSummoner(nickname, tagLine) {
     );
     summonerInfo = tmpSummonerInfo.data;
   } catch (err) {
-    // console.log("error:", err.response.data?.status.status_code);
     result.errorCode = err.response?.data?.status.status_code || 400;
+    result.errorMessage = err.response?.data?.status.message || "에러 발생2";
   }
   if (result.errorCode) {
     return result;
   }
 
-  const leagueInfo = await axios.get(
-    `${riotUrl}/lol/league/v4/entries/by-summoner/${summonerInfo.id}?api_key=${apiKey}`,
-  );
+  let leagueInfo;
+  try {
+    leagueInfo = await axios.get(
+      `${riotUrl}/lol/league/v4/entries/by-summoner/${summonerInfo.id}?api_key=${apiKey}`,
+    );
+  } catch (err) {
+    result.errorCode = err.response?.data?.status.status_code || 400;
+    result.errorMessage = err.response?.data?.status.message || "에러 발생3";
+  }
+  if (result.errorCode) {
+    return result;
+  }
 
   result = summonerInfo;
   result.name = realNickname;

@@ -6,6 +6,7 @@ import DB from "./utils/db";
 import { IsUpdateNeeded } from "./utils/apiUtils";
 import { UpsertSummoner } from "./utils/riot";
 import { authOptions } from "./auth/[...nextauth]";
+import { SendTelegramMessage } from "./utils/webhook";
 
 dayjs.extend(timezone); // use plugin
 dayjs.extend(utc); // use plugin
@@ -120,6 +121,8 @@ export default async function handler(req, res) {
         const upsertResult = await UpsertSummoner(nickname, tagLine);
         realNickname = upsertResult.name;
         if (upsertResult.errorCode) {
+          SendTelegramMessage(upsertResult.errorCode, upsertResult.message, id);
+
           return res.json({
             code: 404,
             message: "User Not Found",
@@ -136,6 +139,8 @@ export default async function handler(req, res) {
       const upsertResult = await UpsertSummoner(nickname, tagLine);
       console.log("upsertResult 결과:", upsertResult);
       if (upsertResult.errorCode) {
+        SendTelegramMessage(upsertResult.errorCode, upsertResult.message, id);
+
         if (upsertResult.errorCode === 404) {
           return res.json({
             code: 404,
