@@ -108,7 +108,7 @@ export default function FriendList({
               className={styles.btn}
               type="button"
               value="사용법 보기"
-              onClick={() => alert("개발중")}
+              onClick={() => alert("개발중인 기능입니다.")}
             />
           </div>
           {/* <input type="button" value="검색 공간?" /> */}
@@ -217,6 +217,16 @@ export default function FriendList({
                 );
               }
               alert("회원 탈퇴를 취소하였습니다.");
+            }}
+          />
+        </div>
+        <div>
+          <input
+            type="button"
+            className={styles.btn}
+            value="패치 노트"
+            onClick={() => {
+              alert("개발중인 기능입니다.");
             }}
           />
         </div>
