@@ -124,7 +124,7 @@ export default function FriendList({
               className={styles.btn}
               type="button"
               value="사용법 보기"
-              onClick={() => setIsDescModalOpen(true)}
+              onClick={openDescModal}
             />
           </div>
           {/* <input type="button" value="검색 공간?" /> */}
@@ -137,7 +137,7 @@ export default function FriendList({
           {friendList.map((v) => {
             const tmpTier = v.tier;
             const tmpRank = v.rank;
-            console.log(tmpTier, tmpRank);
+
             let tier;
             if (tmpTier) {
               if (["MASTER", "GRANDMASTER", "CHALLENGER"].includes(tmpTier)) {
@@ -210,7 +210,7 @@ export default function FriendList({
                 )
               ) {
                 const result = await instance.delete("/user");
-                console.log("result.data info:", result.data);
+
                 const { code } = result.data;
                 if (code === 200) {
                   alert("이용해주셔서 감사합니다.");
