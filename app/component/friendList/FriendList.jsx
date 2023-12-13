@@ -4,6 +4,7 @@ import styles from "./FriendList.module.css";
 import Modal from "../modal/Modal";
 import { instance } from "../../../lib/axios";
 import DescriptionModal from "../descriptionModal/DescriptionModal";
+import PatchModal from "../patch/Patch";
 
 export const handleDragStart = (event) => {
   console.log("드래그 시작");
@@ -38,12 +39,16 @@ export default function FriendList({
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDescModalOpen, setIsDescModalOpen] = useState(false);
+  const [isPatchModalOpen, setIsPatchModalOpen] = useState(false);
   const openModal = () => {
     if (friendList.length >= 30) {
       return alert("친구 추가는 최대 30명까지 가능합니다.");
     }
     if (isDescModalOpen) {
       setIsDescModalOpen(false);
+    }
+    if (isPatchModalOpen) {
+      setIsPatchModalOpen(false);
     }
     setIsModalOpen(true);
   };
@@ -56,11 +61,28 @@ export default function FriendList({
     if (isModalOpen) {
       setIsModalOpen(false);
     }
+    if (isPatchModalOpen) {
+      setIsPatchModalOpen(false);
+    }
     setIsDescModalOpen(true);
   };
 
   const closeDescModal = () => {
     setIsDescModalOpen(false);
+  };
+
+  const openPatchModal = () => {
+    if (isModalOpen) {
+      setIsModalOpen(false);
+    }
+    if (isDescModalOpen) {
+      setIsDescModalOpen(false);
+    }
+    setIsPatchModalOpen(true);
+  };
+
+  const closePatchModal = () => {
+    setIsPatchModalOpen(false);
   };
 
   const addFriend = (newFriend) => {
@@ -240,15 +262,18 @@ export default function FriendList({
             type="button"
             className={styles.btn}
             value="패치 노트"
-            onClick={() => {
-              alert("개발중인 기능입니다.");
-            }}
+            onClick={openPatchModal}
           />
         </div>
       </div>
-      {isModalOpen && <Modal onAddFriend={addFriend} closeModal={closeModal} />}
+      {isModalOpen ? (
+        <Modal onAddFriend={addFriend} closeModal={closeModal} />
+      ) : null}
       {isDescModalOpen ? (
         <DescriptionModal closeDescModal={closeDescModal} />
+      ) : null}
+      {isPatchModalOpen ? (
+        <PatchModal closePatchModal={closePatchModal} />
       ) : null}
     </div>
   );

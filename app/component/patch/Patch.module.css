@@ -1,0 +1,19 @@
+.modal div{
+    box-sizing: border-box;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*background-color: #1F1A2A;*/
+    background-color: #1f232a;
+
+    width: 600px;
+    height: 700px;
+
+
+    /*border: 1px solid red;*/
+    border: 2px solid rgb(48, 99, 94);
+}
