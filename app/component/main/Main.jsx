@@ -93,8 +93,8 @@ export function Main({
               setSelectedMode(event.target.value);
             }}
           >
-            <option value="random">랜덤</option>
-            <option value="balance">밸런스있게</option>
+            <option value="random">Random</option>
+            <option value="balance">Balance</option>
             {/* <option value="goldBalance">황금밸런스</option> */}
           </select>
         </div>
