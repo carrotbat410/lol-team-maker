@@ -1,0 +1,102 @@
+.modal div{
+    box-sizing: border-box;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*background-color: #1F1A2A;*/
+    background-color: #1f232a;
+
+    width: 600px;
+    height: 700px;
+
+
+    /*border: 1px solid red;*/
+    border: 2px solid rgb(48, 99, 94);
+}
+
+.header {
+    /*border: 1px solid red;*/
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.title {
+    font-size: 25px;
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.close_btn_div {
+    /*border: 1px solid red;*/
+    width: 50px;
+    height: 50px;
+
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*justify-content: center;*/
+}
+
+.close_btn {
+    font-size: 38px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background: none;
+    border: none;
+    color: white;
+
+}
+
+.close_btn:active {
+    margin-top: 1px;
+    margin-left: 1px;
+}
+
+.image_div {
+    border: 1px solid red;
+    width: 100%;
+    height: 400px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.description_div {
+    border: 1px solid blue;
+    width: 100%;
+    height: 180px;
+    padding: 30px;
+}
+
+.btn_div {
+    border: 1px solid red;
+    width: 100%;
+    height: 70px;
+
+    font-size: 40px;
+    text-align: center;
+}
+
+.btn_div button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 40px;
+}

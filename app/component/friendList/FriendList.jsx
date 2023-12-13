@@ -3,6 +3,7 @@ import { signOut } from "next-auth/react";
 import styles from "./FriendList.module.css";
 import Modal from "../modal/Modal";
 import { instance } from "../../../lib/axios";
+import DescriptionModal from "../descriptionModal/DescriptionModal";
 
 export const handleDragStart = (event) => {
   console.log("드래그 시작");
@@ -36,15 +37,30 @@ export default function FriendList({
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDescModalOpen, setIsDescModalOpen] = useState(false);
   const openModal = () => {
     if (friendList.length >= 30) {
       return alert("친구 추가는 최대 30명까지 가능합니다.");
+    }
+    if (isDescModalOpen) {
+      setIsDescModalOpen(false);
     }
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const openDescModal = () => {
+    if (isModalOpen) {
+      setIsModalOpen(false);
+    }
+    setIsDescModalOpen(true);
+  };
+
+  const closeDescModal = () => {
+    setIsDescModalOpen(false);
   };
 
   const addFriend = (newFriend) => {
@@ -108,7 +124,7 @@ export default function FriendList({
               className={styles.btn}
               type="button"
               value="사용법 보기"
-              onClick={() => alert("개발중인 기능입니다.")}
+              onClick={() => setIsDescModalOpen(true)}
             />
           </div>
           {/* <input type="button" value="검색 공간?" /> */}
@@ -231,6 +247,9 @@ export default function FriendList({
         </div>
       </div>
       {isModalOpen && <Modal onAddFriend={addFriend} closeModal={closeModal} />}
+      {isDescModalOpen ? (
+        <DescriptionModal closeDescModal={closeDescModal} />
+      ) : null}
     </div>
   );
 }
