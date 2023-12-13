@@ -8,6 +8,12 @@ const db = knex({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
   },
+
+  pool: {
+    min: 0,
+    max: 10,
+  },
+  acquireConnectionTimeout: 10000,
 });
 
 export default function DB() {
