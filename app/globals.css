@@ -1,7 +1,13 @@
+/** {*/
+/*    box-sizing: border-box;*/
+/*}*/
+
 body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    /*box-sizing: border-box; <- 이렇게 적용하면 전체에 제대로 적용 안되니*/
+    /* 위에 처럼 선택자(*)사용해서 적용하기 */
+
 
     color: white;
 }
