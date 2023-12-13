@@ -51,7 +51,7 @@ export default function Home() {
     const addedSummonerCnt =
       team1List.length + team2List.length + noTeamList.length;
     if (addedSummonerCnt === 10 && droppedSummoner.from === "friend") {
-      return alert(`현재 인원:${addedSummonerCnt}`);
+      return alert(`내전 인원이 전부 찼습니다.`);
     }
 
     // console.log("Dropped into the designated area!", droppedSummoner);
