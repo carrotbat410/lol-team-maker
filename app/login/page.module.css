@@ -36,7 +36,7 @@
 
 .wrapper {
     width: 1000px;
-    height: 530px;
+    height: 550px;
     /*background-color: rgba(31,26,42, 0.95);*/
     /*background-color: blue;*/
 
@@ -170,7 +170,7 @@
 
 .description {
     width: 1200px;
-    height: 30px;
+    height: 60px;
 
     /*position: absolute;*/
     /*top: 500px;*/

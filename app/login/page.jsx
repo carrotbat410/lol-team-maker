@@ -264,8 +264,10 @@ export default function Login() {
           </div>
         )}
         <div className={styles.description}>
-          롤 내전 도우미는 롤 내전 팀짜기에 대한 서비스를 무료로 제공하며, Riot
-          Games의 <span>공식 서비스가 아닌 2차 창작물</span>임을 밝힘니다.
+          - 롤 내전 도우미는 롤 내전 팀짜기에 대한 서비스를 무료로 제공하며,
+          Riot Games의 <span>공식 서비스가 아닌 2차 창작물</span>임을 밝힘니다.
+          <br />- 현재 모바일 환경은 지원하지 않습니다. PC에서의 이용을
+          권장합니다.
         </div>
       </div>
     </div>
