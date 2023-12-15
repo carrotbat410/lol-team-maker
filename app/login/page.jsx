@@ -255,6 +255,10 @@ export default function Login() {
                 >
                   로그인 화면으로 돌아가기
                 </span>
+                <br />
+                <div className={styles.register_description}>
+                  비밀번호는 안전하게 암호화하여 저장합니다.
+                </div>
               </div>
             </div>
           </div>

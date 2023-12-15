@@ -162,6 +162,12 @@
     color: royalblue;
 }
 
+.footer .register_description {
+    /*border: 1px solid red;*/
+    margin-top: 35px;
+    font-size: 15px;
+}
+
 .description {
     width: 1200px;
     height: 30px;
@@ -177,7 +183,7 @@
 
 .description span {
     font-size: 18px;
-    text-decoration: red underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset : 5px;
+    /*text-decoration: red underline;*/
+    /*text-decoration-thickness: 2px;*/
+    /*text-underline-offset : 5px;*/
 }
