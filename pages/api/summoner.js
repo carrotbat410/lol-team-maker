@@ -25,6 +25,42 @@ export default async function handler(req, res) {
   if (method === "GET") {
     const db = DB();
 
+    // 로그 저장 추가
+    try {
+      console.log("localStorage찾자");
+      let ip;
+      let message;
+      if (req.headers["x-forwarded-for"]) {
+        ip = req.headers["x-forwarded-for"];
+        message = "x-forwarded-for";
+      } else {
+        ip = req.connection.remoteAddress;
+        message = "remoteAddress";
+      }
+
+      const nowDate = dayjs().tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss");
+      const startDate = dayjs(nowDate).format("YYYY-MM-DD 00:00:00");
+      const endDate = dayjs(nowDate).format("YYYY-MM-DD 23:59:59");
+
+      const existingSession = await db("session_logs")
+        .select("no")
+        .where("created_at", ">=", startDate)
+        .where("created_at", "<=", endDate)
+        .first();
+
+      if (!existingSession) {
+        await db("session_logs").insert({
+          ip,
+          message,
+          created_at: nowDate,
+        });
+        SendTelegramMessage(200, "누구 접속함");
+      }
+    } catch (err) {
+      console.log("session_logs 저장 중 에러 발생:", err);
+      SendTelegramMessage(500, "session_logs 저장 중 에러 발생");
+    }
+
     const result = await db("friends as f")
       .where("f.id", id)
       .joinRaw(
