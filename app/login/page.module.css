@@ -35,16 +35,20 @@
 
 
 .wrapper {
-    width: 400px;
-    height: 450px;
+    width: 1000px;
+    height: 530px;
     /*background-color: rgba(31,26,42, 0.95);*/
     /*background-color: blue;*/
 
     position: absolute;
     top: 300px;
-    left: 200px;
+    left: 100px;
 
     /*border: 3px solid red;*/
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .login_box {
@@ -54,6 +58,8 @@
 
     border: 1px solid black;
     box-shadow: 3px 3px 5px black;
+
+    margin-left: 100px;
 }
 
 .header {
@@ -160,9 +166,9 @@
     width: 1200px;
     height: 30px;
 
-    position: absolute;
-    top: 500px;
-    left: -100px;
+    /*position: absolute;*/
+    /*top: 500px;*/
+    /*left: -100px;*/
 
     font-size: 16px;
 
