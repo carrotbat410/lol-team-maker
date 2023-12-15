@@ -55,6 +55,21 @@ export default function Login() {
     });
   };
 
+  const onClickSampleLoginBtnHandler = () => {
+    signIn("credentials", {
+      id: "test1",
+      password: "asd123",
+      redirect: false,
+      // callbackUrl: "/",
+    }).then((response) => {
+      if (response.ok) {
+        router.push("/");
+      } else {
+        // console.log("error:")
+      }
+    });
+  };
+
   const onClickRegisterBtnHandler = async () => {
     if (!id || !password || !confirmPassword) return;
     if (password !== confirmPassword) {
@@ -128,6 +143,14 @@ export default function Login() {
                   onChange={onChangePasswordHandler}
                 />
                 <div className={styles.login_btn_wrapper}>
+                  <div className={styles.sample_login_btn_wrapper}>
+                    <input
+                      className={styles.sample_login_btn}
+                      type="button"
+                      value="샘플 계정으로 로그인"
+                      onClick={onClickSampleLoginBtnHandler}
+                    />
+                  </div>
                   {id && password ? (
                     <input
                       className={styles.login_btn_enabled}
