@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 import styles from "./FriendList.module.css";
 import Modal from "../modal/Modal";
 import { instance } from "../../../lib/axios";
@@ -182,11 +183,13 @@ export default function FriendList({
                 onDragEnd={handleDragEnd}
               >
                 <div className={styles.friend_box_profile}>
-                  <img
+                  <Image
                     draggable="false"
                     src={v.icon_img_url}
                     alt="profile_img"
                     className={styles.profile_img}
+                    width={35}
+                    height={35}
                   />
                 </div>
                 <div className={styles.friend_box_content} draggable="false">

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
+import Image from "next/image";
 import styles from "./page.module.css";
 import { instance } from "../../lib/axios";
 
@@ -88,7 +89,13 @@ export default function Login() {
 
   return (
     <div className={styles.background}>
-      <img src="/images/logo.png" className={styles.logo} />
+      <Image
+        width={400}
+        height={250}
+        src="/images/logo.png"
+        className={styles.logo}
+        alt="log image"
+      />
       <video
         autoPlay
         loop

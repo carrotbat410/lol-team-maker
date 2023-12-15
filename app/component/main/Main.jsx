@@ -1,5 +1,6 @@
 import { useState } from "react";
 import copy from "clipboard-copy";
+import Image from "next/image";
 import styles from "./Main.module.css";
 import { handleDragStart } from "../friendList/FriendList";
 import { instance } from "../../../lib/axios";
@@ -358,7 +359,13 @@ function TeamedSummoner({ resultMode, data }) {
         data={JSON.stringify(data)}
       >
         <div className={styles.teamed_summoner_level}>{data.level}</div>
-        <img src={data.icon_img_url} draggable={false} />
+        <Image
+          src={data.icon_img_url}
+          draggable={false}
+          width={35}
+          height={35}
+          alt="profile_img"
+        />
         <div className={styles.teamed_summoner_nickname}>{data.nickname}</div>
         <div className={styles.teamed_summoner_tier}>
           <div>{data.rank ? tierString : "UNRANKED"}</div>
@@ -376,7 +383,13 @@ function TeamedSummoner({ resultMode, data }) {
       onDragStart={handleDragStart}
     >
       <div className={styles.teamed_summoner_level}>{data.level}</div>
-      <img src={data.icon_img_url} draggable={false} />
+      <Image
+        src={data.icon_img_url}
+        draggable={false}
+        width={35}
+        height={35}
+        alt="profile_img"
+      />
       <div className={styles.teamed_summoner_nickname}>{data.nickname}</div>
       <div className={styles.teamed_summoner_tier}>
         <div>{data.rank ? tierString : "UNRANKED"}</div>

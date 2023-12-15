@@ -11,6 +11,16 @@ const nextConfig = {
 
     return config;
   },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ddragon.leagueoflegends.com",
+        port: "",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
