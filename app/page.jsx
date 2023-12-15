@@ -3,10 +3,16 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import dayjs from "dayjs"; // use plugin
+import utc from "dayjs/plugin/utc.js";
+import timezone from "dayjs/plugin/timezone.js";
 import styles from "./page.module.css";
 import FriendList from "./component/friendList/FriendList";
 import { Main } from "./component/main/Main";
 import { instance } from "../lib/axios";
+
+dayjs.extend(timezone); // use plugin
+dayjs.extend(utc);
 
 export default function Home() {
   const router = useRouter();
@@ -22,11 +28,35 @@ export default function Home() {
   const [emptyTeam2, setEmptyTeam2] = useState([0, 0, 0, 0, 0]);
 
   useEffect(() => {
-    instance.get("/summoner").then((res) => {
-      if (res.data.code === 200) {
-        setFriendList(res.data.result);
+    let firstConnection = false;
+    const logDate = localStorage.getItem("logDate");
+
+    const nowDate = dayjs().tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss");
+    const endDate = dayjs(nowDate).format("YYYY-MM-DD 23:59:59");
+
+    if (logDate) {
+      if (logDate > endDate) {
+        // console.log("만료됨");
+        localStorage.setItem("logDate", logDate);
+        firstConnection = true;
+      } else {
+        // console.log("만료 안됨");
       }
-    });
+    } else {
+      firstConnection = true;
+      localStorage.setItem("logDate", nowDate);
+    }
+    instance
+      .get(`/summoner`, {
+        params: {
+          firstConnection,
+        },
+      })
+      .then((res) => {
+        if (res.data.code === 200) {
+          setFriendList(res.data.result);
+        }
+      });
   }, []);
 
   const onClickResetHandler = () => {
