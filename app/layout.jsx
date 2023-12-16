@@ -65,9 +65,12 @@ export default function RootLayout({ children }) {
           />
           <meta
             property="og:url"
-            content="https://lolcivilwarhelper.vercel.app/"
+            content="https://lolcivilwarhelper.vercel.app"
           />
-          {/* <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> */}
+          <link
+            rel="apple-touch-icon"
+            href="https://lolcivilwarhelper.vercel.app/favicon.ico"
+          />
           {/* <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> */}
           <title>롤 내전 도우미</title>
         </head>
