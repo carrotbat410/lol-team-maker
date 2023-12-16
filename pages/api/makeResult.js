@@ -16,7 +16,8 @@ function BalanceMode(team1List, team2List, noTeamList) {
   const m = 5 - team1List.length; // m(team1부족한 인원 수)
   let totalMmrSum = 0;
   let team1MmrSum = 0;
-  let max = 0;
+  // let max = 0;
+  let min = 1000;
   for (const x of team1List) totalMmrSum += x.mmr;
   for (const x of team2List) totalMmrSum += x.mmr;
   for (const x of noTeamList) totalMmrSum += x.mmr;
@@ -33,9 +34,9 @@ function BalanceMode(team1List, team2List, noTeamList) {
     if (L === m) {
       const tmpTeam2MmrSum = totalMmrSum - mmrSum;
       console.log(`team1Mmr:${mmrSum} || team2Mmr:${tmpTeam2MmrSum}`);
-      if (max < Math.abs(totalMmrSum - mmrSum)) {
-        max = Math.abs(totalMmrSum - mmrSum);
-        console.log("더 밸런스있는거 발견- team2MmrSum:", max);
+      if (min > Math.abs(totalMmrSum - mmrSum)) {
+        min = Math.abs(totalMmrSum - mmrSum);
+        console.log("더 밸런스있는거 발견- team2MmrSum:", min);
 
         // const clonedTeam1 = team1List.slice()
         const clonedTeam1 = team1List.map((v) => {
