@@ -135,7 +135,8 @@ export default function FriendList({
         .catch((err) => {
           console.log("갱신 중 에러", err);
         });
-      return alert("갱신 가능");
+      // return alert("갱신 가능");
+      return;
     }
     return alert("갱신 불가능");
   };

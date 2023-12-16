@@ -260,12 +260,10 @@ export default async function handler(req, res) {
 
     const db = DB();
 
-    console.log("1");
     const userInfo = await db("summoner_sessions")
       .where("nickname", nickname)
       .where("tagLine", tagLine)
       .first();
-    console.log("2");
 
     if (!userInfo) {
       return res.json({
@@ -282,6 +280,7 @@ export default async function handler(req, res) {
       )
     ) {
       console.log("갱신 시간 아직 안됨", userInfo.renewaled_at);
+      SendTelegramMessage(204, userInfo);
       return res.json({
         code: 204,
         message: "already renewed user",
