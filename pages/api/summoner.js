@@ -272,6 +272,23 @@ export default async function handler(req, res) {
       });
     }
 
+    const tmp = IsUpdateNeeded(
+      dayjs(userInfo.renewaled_at)
+        .tz("Asia/Seoul")
+        .format("YYYY-MM-DD HH:mm:ss"),
+    );
+
+    return res.json({
+      code: 200,
+      result: {
+        tmp,
+        tmpFormat: dayjs(userInfo.renewaled_at)
+          .tz("Asia/Seoul")
+          .format("YYYY-MM-DD HH:mm:ss"),
+        renewaled_at: userInfo.renewaled_at,
+      },
+    });
+
     if (
       !IsUpdateNeeded(
         dayjs(userInfo.renewaled_at)
