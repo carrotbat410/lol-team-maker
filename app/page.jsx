@@ -1,5 +1,7 @@
 "use client";
 
+import Head from "next/head";
+
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -143,28 +145,43 @@ export default function Home() {
   }, [session, status]);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.left_wrapper}>
-        <Main
-          onDrop={handleDrop}
-          team1List={team1List}
-          setTeam1List={setTeam1List}
-          team2List={team2List}
-          setTeam2List={setTeam2List}
-          noTeamList={noTeamList}
-          setNoTeamList={setNoTeamList}
-          onClickResetHandler={onClickResetHandler}
-          emptyTeam1={emptyTeam1}
-          emptyTeam2={emptyTeam2}
+    <div>
+      <Head>
+        <title>My page title</title>
+        <meta property="og:title" content="The Rock" />
+        <meta property="og:description" content="The Rock Description" />
+        <meta
+          property="og:url"
+          content="https://www.imdb.com/title/tt0117500/"
         />
-      </div>
-      <div className={styles.right_wrapper}>
-        <FriendList
-          onDrop={handleDrop}
-          user={user}
-          friendList={friendList}
-          setFriendList={setFriendList}
+        <meta
+          property="og:image"
+          content="https://ia.media-imdb.com/images/rock.jpg"
         />
+      </Head>
+      <div className={styles.wrapper}>
+        <div className={styles.left_wrapper}>
+          <Main
+            onDrop={handleDrop}
+            team1List={team1List}
+            setTeam1List={setTeam1List}
+            team2List={team2List}
+            setTeam2List={setTeam2List}
+            noTeamList={noTeamList}
+            setNoTeamList={setNoTeamList}
+            onClickResetHandler={onClickResetHandler}
+            emptyTeam1={emptyTeam1}
+            emptyTeam2={emptyTeam2}
+          />
+        </div>
+        <div className={styles.right_wrapper}>
+          <FriendList
+            onDrop={handleDrop}
+            user={user}
+            friendList={friendList}
+            setFriendList={setFriendList}
+          />
+        </div>
       </div>
     </div>
   );
