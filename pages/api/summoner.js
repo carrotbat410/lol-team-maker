@@ -280,7 +280,7 @@ export default async function handler(req, res) {
       )
     ) {
       console.log("갱신 시간 아직 안됨", userInfo.renewaled_at);
-      SendTelegramMessage(204, userInfo);
+      SendTelegramMessage(204, userInfo.renewaled_at);
       return res.json({
         code: 204,
         message: "already renewed user",
