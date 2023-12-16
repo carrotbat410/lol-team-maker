@@ -171,6 +171,22 @@
     /*border: none;*/
 }
 
+.friend_box_renewal_btn {
+    width: 30px;
+    height: 30px;
+    background: none;
+    font-size: 20px;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+
+    background-image: url("/images/update_icon.png");
+    /*background-color: white;*/
+}
+
 .profile_img {
 
     border-radius: 30px;

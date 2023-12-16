@@ -6,6 +6,7 @@ import Modal from "../modal/Modal";
 import { instance } from "../../../lib/axios";
 import DescriptionModal from "../descriptionModal/DescriptionModal";
 import PatchModal from "../patch/Patch";
+import updateIcon from "../../../public/images/update_icon.png";
 
 export const handleDragStart = (event) => {
   console.log("드래그 시작");
@@ -98,6 +99,8 @@ export default function FriendList({
       data: { no },
     });
   };
+
+  const onClickRenwalFriendBtn = () => {};
 
   const handleDragEnd = (event) => {
     // event.target.style.display = "none";
@@ -196,13 +199,26 @@ export default function FriendList({
                   <div>{v.nickname}</div>
                   <div>{tier}</div>
                 </div>
-                <input
-                  type="button"
-                  value="x"
+                <div
                   className={styles.friend_box_delete_btn}
                   onClick={() => onClickDeleteFriendBtn(v.no)}
                   draggable="false"
-                />
+                >
+                  ✕
+                </div>
+                <div
+                  className={styles.friend_box_renewal_btn}
+                  onClick={() => onClickRenwalFriendBtn(v.no)}
+                  draggable="false"
+                >
+                  <Image
+                    src={updateIcon}
+                    alt="renewal button for user info"
+                    width={30}
+                    height={30}
+                    draggable="false"
+                  />
+                </div>
               </div>
             );
           })}
