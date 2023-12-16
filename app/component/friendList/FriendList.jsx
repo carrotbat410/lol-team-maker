@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import dayjs from "dayjs";
 import styles from "./FriendList.module.css";
 import Modal from "../modal/Modal";
 import { instance } from "../../../lib/axios";
 import DescriptionModal from "../descriptionModal/DescriptionModal";
 import PatchModal from "../patch/Patch";
 import updateIcon from "../../../public/images/update_icon.png";
+import { IsUpdateNeeded } from "../../../pages/api/utils/apiUtils";
 
 export const handleDragStart = (event) => {
   console.log("드래그 시작");
@@ -100,7 +102,43 @@ export default function FriendList({
     });
   };
 
-  const onClickRenwalFriendBtn = () => {};
+  const onClickRenwalFriendBtn = (userName, no, renewaledAt) => {
+    if (
+      IsUpdateNeeded(
+        dayjs(renewaledAt).tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss"),
+      )
+    ) {
+      const [nickname, tagLine] = userName.split("#");
+      instance
+        .patch("/summoner", { nickname, tagLine })
+        .then((res) => {
+          console.log("res:", res.data);
+          const { code } = res.data;
+          if (code === 200) {
+            const renewaledFriend = res.data.result;
+            renewaledFriend.no = no;
+            renewaledFriend.level = renewaledFriend.summonerLevel;
+            const newFriendList = friendList.map((friend) => {
+              if (friend.no === no) {
+                return renewaledFriend;
+              }
+              return friend;
+            });
+            console.log("newFriendList:", newFriendList);
+            setFriendList(newFriendList);
+          } else {
+            // else if (code === 204) {}
+            // else if (code === 404) {}
+            // TODO 더 없나? && 이렇게 처리 하는 상황이 오려나?
+          }
+        })
+        .catch((err) => {
+          console.log("갱신 중 에러", err);
+        });
+      return alert("갱신 가능");
+    }
+    return alert("갱신 불가능");
+  };
 
   const handleDragEnd = (event) => {
     // event.target.style.display = "none";
@@ -164,6 +202,12 @@ export default function FriendList({
             const tmpTier = v.tier;
             const tmpRank = v.rank;
 
+            const isPossibleRenewal = !!IsUpdateNeeded(
+              dayjs(v.renewaled_at)
+                .tz("Asia/Seoul")
+                .format("YYYY-MM-DD HH:mm:ss"),
+            );
+
             let tier;
             if (tmpTier) {
               if (["MASTER", "GRANDMASTER", "CHALLENGER"].includes(tmpTier)) {
@@ -206,19 +250,23 @@ export default function FriendList({
                 >
                   ✕
                 </div>
-                <div
-                  className={styles.friend_box_renewal_btn}
-                  onClick={() => onClickRenwalFriendBtn(v.no)}
-                  draggable="false"
-                >
-                  <Image
-                    src={updateIcon}
-                    alt="renewal button for user info"
-                    width={30}
-                    height={30}
+                {isPossibleRenewal ? (
+                  <div
+                    className={styles.friend_box_renewal_btn}
+                    onClick={() =>
+                      onClickRenwalFriendBtn(v.nickname, v.no, v.renewaled_at)
+                    }
                     draggable="false"
-                  />
-                </div>
+                  >
+                    <Image
+                      src={updateIcon}
+                      alt="renewal button for user info"
+                      width={30}
+                      height={30}
+                      draggable="false"
+                    />
+                  </div>
+                ) : null}
               </div>
             );
           })}

@@ -252,5 +252,86 @@ export default async function handler(req, res) {
     await db("friends").where("id", id).where("no", no).delete();
   }
 
+  if (method === "PATCH") {
+    const { nickname, tagLine } = req.body;
+    if (!nickname || !tagLine) {
+      return res.json({ code: 400, message: "Bad Request" });
+    }
+
+    const db = DB();
+
+    console.log("1");
+    const userInfo = await db("summoner_sessions")
+      .where("nickname", nickname)
+      .where("tagLine", tagLine)
+      .first();
+    console.log("2");
+
+    if (!userInfo) {
+      return res.json({
+        code: 404,
+        message: "already deleted user",
+      });
+    }
+
+    if (
+      !IsUpdateNeeded(
+        dayjs(userInfo.renewaled_at)
+          .tz("Asia/Seoul")
+          .format("YYYY-MM-DD HH:mm:ss"),
+      )
+    ) {
+      return res.json({
+        code: 204,
+        message: "already renewed user",
+      });
+    }
+
+    const upsertResult = await UpsertSummoner(nickname, tagLine);
+    console.log("upsertResult:", upsertResult);
+
+    if (upsertResult.errorCode) {
+      SendTelegramMessage(
+        upsertResult.errorCode,
+        upsertResult.errorMessage,
+        id,
+      );
+
+      if (upsertResult.errorCode === 404) {
+        return res.json({
+          code: 404,
+          message: "User Not Found",
+        });
+      }
+      return res.json({
+        code: 400,
+        message: "Bad Request",
+      });
+    }
+
+    delete upsertResult.id;
+
+    upsertResult.nickname = `${nickname}#${tagLine}`;
+    upsertResult.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${upsertResult.profileIconId}.png`;
+    upsertResult.from = "friend";
+    if (upsertResult.created_at) {
+      upsertResult.created_at = dayjs(upsertResult.created_at)
+        .tz("Asia/Seoul")
+        .format("YYYY-MM-DD HH:mm:ss");
+    }
+
+    if (upsertResult.renewaled_at) {
+      upsertResult.renewaled_at = dayjs(upsertResult.renewaled_at)
+        .tz("Asia/Seoul")
+        .format("YYYY-MM-DD HH:mm:ss");
+    }
+
+    return res.json({
+      code: 200,
+      message: "ok",
+      result: upsertResult,
+    });
+  }
+
   return res.send("Not Allowed Method");
 }

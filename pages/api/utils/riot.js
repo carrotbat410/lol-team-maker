@@ -108,6 +108,7 @@ export async function UpsertSummoner(nickname, tagLine) {
     result.mmr = mmr;
   }
 
+  result.renewaled_at = dayjs().format("YYYY-MM-DD HH:mm:ss");
   await db("summoner_sessions")
     .insert({
       nickname: realNickname,
@@ -119,7 +120,7 @@ export async function UpsertSummoner(nickname, tagLine) {
       main_position: "tmp",
       icon_id: result.profileIconId,
       level: result.summonerLevel,
-      renewaled_at: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+      renewaled_at: result.renewaled_at,
       mmr,
     })
     .onConflict(["nickname", "tagLine"])
