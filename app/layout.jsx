@@ -52,7 +52,10 @@ export default function RootLayout({ children }) {
             name="google-site-verification"
             content="zpqMeJo6gDqt-wfxgyYwTaxTkbfN8nFIM2oJt3XmHG4"
           />
-
+          <meta
+            name="naver-site-verification"
+            content="dd4149668ace286f33596182023d3a71914aebf3"
+          />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="롤 내전 도우미" />
           <meta
@@ -71,7 +74,6 @@ export default function RootLayout({ children }) {
             rel="apple-touch-icon"
             href="https://lolcivilwarhelper.vercel.app/favicon.ico"
           />
-          {/* <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> */}
           <title>롤 내전 도우미</title>
         </head>
         <body>{children}</body>
