@@ -18,6 +18,11 @@ const nextFont = IBM_Plex_Sans_KR({
 //   description: "롤 내전할떄, 팀짜는것에 도움주기 위한 사이트",
 // };
 
+const currentDomain =
+  process.env.NODE_ENV !== "production"
+    ? "http://localhost:3000"
+    : "https://lolcivilwarhelper.vercel.app";
+
 export default function RootLayout({ children }) {
   const globalCss = {
     // background: "#151b21",
@@ -46,6 +51,21 @@ export default function RootLayout({ children }) {
           <meta
             name="google-site-verification"
             content="zpqMeJo6gDqt-wfxgyYwTaxTkbfN8nFIM2oJt3XmHG4"
+          />
+
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="롤 내전 도우미" />
+          <meta
+            property="og:description"
+            content="내전 팀짜기 서비스를 이용해보세요!"
+          />
+          <meta
+            property="og:image"
+            content={`${currentDomain}/images/timo.jpeg`}
+          />
+          <meta
+            property="og:url"
+            content="https://lolcivilwarhelper.vercel.app/"
           />
           {/* <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> */}
           {/* <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> */}
