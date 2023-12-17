@@ -58,12 +58,10 @@ export default function Home() {
           console.log("변환후");
 
           for (const x of res.data.result) {
-            x.renewaled_at = dayjs(x.renewaled_at)
-              .tz("Asia/Seoul")
-              .format("YYYY-MM-DD HH:mm:ss");
-            x.created_at = dayjs(x.created_at)
-              .tz("Asia/Seoul")
-              .format("YYYY-MM-DD HH:mm:ss");
+            x.renewaled_at = dayjs(x.renewaled_at).format(
+              "YYYY-MM-DD HH:mm:ss",
+            );
+            x.created_at = dayjs(x.created_at).format("YYYY-MM-DD HH:mm:ss");
           }
           console.log(res.data.code);
           setFriendList(res.data.result);

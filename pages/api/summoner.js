@@ -147,9 +147,7 @@ export default async function handler(req, res) {
     if (sessionData) {
       if (
         IsUpdateNeeded(
-          dayjs(sessionData.renewaled_at)
-            .tz("Asia/Seoul")
-            .format("YYYY-MM-DD HH:mm:ss"),
+          dayjs(sessionData.renewaled_at).format("YYYY-MM-DD HH:mm:ss"),
         )
       ) {
         //* case-갱신한지 오래됨) 갱신후 친구테이블에 추가
@@ -275,9 +273,7 @@ export default async function handler(req, res) {
 
     if (
       !IsUpdateNeeded(
-        dayjs(userInfo.renewaled_at)
-          .tz("Asia/Seoul")
-          .format("YYYY-MM-DD HH:mm:ss"),
+        dayjs(userInfo.renewaled_at).format("YYYY-MM-DD HH:mm:ss"),
       )
     ) {
       // console.log("갱신 시간 아직 안됨", userInfo.renewaled_at);
@@ -316,15 +312,15 @@ export default async function handler(req, res) {
     upsertResult.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${upsertResult.profileIconId}.png`;
     upsertResult.from = "friend";
     if (upsertResult.created_at) {
-      upsertResult.created_at = dayjs(upsertResult.created_at)
-        .tz("Asia/Seoul")
-        .format("YYYY-MM-DD HH:mm:ss");
+      upsertResult.created_at = dayjs(upsertResult.created_at).format(
+        "YYYY-MM-DD HH:mm:ss",
+      );
     }
 
     if (upsertResult.renewaled_at) {
-      upsertResult.renewaled_at = dayjs(upsertResult.renewaled_at)
-        .tz("Asia/Seoul")
-        .format("YYYY-MM-DD HH:mm:ss");
+      upsertResult.renewaled_at = dayjs(upsertResult.renewaled_at).format(
+        "YYYY-MM-DD HH:mm:ss",
+      );
     }
 
     return res.json({

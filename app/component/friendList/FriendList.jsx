@@ -103,17 +103,7 @@ export default function FriendList({
   };
 
   const onClickRenwalFriendBtn = (userName, no, renewaledAt) => {
-    console.log("renewaledAt:", renewaledAt);
-    console.log(
-      "dayjs",
-      dayjs(renewaledAt).tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss"),
-    );
-
-    if (
-      IsUpdateNeeded(
-        dayjs(renewaledAt).tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss"),
-      )
-    ) {
+    if (IsUpdateNeeded(dayjs(renewaledAt).format("YYYY-MM-DD HH:mm:ss"))) {
       const [nickname, tagLine] = userName.split("#");
       instance
         .patch("/summoner", { nickname, tagLine })
@@ -210,9 +200,7 @@ export default function FriendList({
             const tmpRank = v.rank;
 
             const isPossibleRenewal = !!IsUpdateNeeded(
-              dayjs(v.renewaled_at)
-                .tz("Asia/Seoul")
-                .format("YYYY-MM-DD HH:mm:ss"),
+              dayjs(v.renewaled_at).format("YYYY-MM-DD HH:mm:ss"),
             );
 
             let tier;
