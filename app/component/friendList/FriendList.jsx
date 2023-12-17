@@ -103,6 +103,12 @@ export default function FriendList({
   };
 
   const onClickRenwalFriendBtn = (userName, no, renewaledAt) => {
+    console.log("renewaledAt:", renewaledAt);
+    console.log(
+      "dayjs",
+      dayjs(renewaledAt).tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss"),
+    );
+
     if (
       IsUpdateNeeded(
         dayjs(renewaledAt).tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss"),
