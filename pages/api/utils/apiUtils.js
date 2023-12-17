@@ -10,9 +10,12 @@ export function IsUpdateNeeded(renewaledAt) {
   const nowDateObject = dayjs().tz("Asia/Seoul");
   console.log("nowDateObject", nowDateObject);
   console.log("renewaledAt", renewaledAt);
-  const diff = nowDateObject.diff(renewaledAt, "day");
-  SendTelegramMessage(200, nowDateObject);
+  const diff = nowDateObject.diff(renewaledAt, "hours");
   console.log("diff:", diff);
+
+  if (diff >= 25) {
+    SendTelegramMessage(200, diff);
+  }
 
   if (diff > 0 || diff == "NaN") return true; // 하루 지나서 갱신해야함
 
