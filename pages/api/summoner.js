@@ -71,7 +71,7 @@ export default async function handler(req, res) {
         "INNER JOIN summoner_sessions as ss ON ss.tagLine = f.tagLine AND ss.nickname = f.friend_nickname",
       )
       .orderBy("f.created_at", "asc");
-
+    return res.json({ code: 200, message: "ok", result });
     for (const r of result) {
       r.nickname = `${r.nickname}#${r.tagLine}`;
       delete r.tagLine;
