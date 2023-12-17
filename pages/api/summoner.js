@@ -84,10 +84,12 @@ export default async function handler(req, res) {
       }
 
       if (r.renewaled_at) {
+        console.log("수정전", r.renewaled_at);
         r.renewaled_at = dayjs(r.renewaled_at)
           .tz("Asia/Seoul")
           .format("YYYY-MM-DD HH:mm:ss");
       }
+      console.log("수정 후", r.renewaled_at);
       r.from = "friend";
     }
 
