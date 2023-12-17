@@ -10,6 +10,7 @@ import { SendTelegramMessage } from "./utils/webhook";
 
 dayjs.extend(timezone); // use plugin
 dayjs.extend(utc); // use plugin
+dayjs.tz.setDefault("Asia/Seoul");
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions); // TODO expires 검사
