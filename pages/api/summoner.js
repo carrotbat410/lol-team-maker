@@ -10,7 +10,6 @@ import { SendTelegramMessage } from "./utils/webhook";
 
 dayjs.extend(timezone); // use plugin
 dayjs.extend(utc); // use plugin
-dayjs.tz.setDefault("Asia/Seoul");
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions); // TODO expires 검사
@@ -280,7 +279,7 @@ export default async function handler(req, res) {
       // SendTelegramMessage(204, userInfo.renewaled_at);
       return res.json({
         code: 204,
-        message: "already renewed user",
+        message: `already renewed user (renewaled_at:${userInfo.renewaled_at})`,
       });
     }
 

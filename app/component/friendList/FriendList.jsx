@@ -103,7 +103,7 @@ export default function FriendList({
   };
 
   const onClickRenwalFriendBtn = (userName, no, renewaledAt) => {
-    if (IsUpdateNeeded(dayjs(renewaledAt).format("YYYY-MM-DD HH:mm:ss"))) {
+    if (IsUpdateNeeded(renewaledAt)) {
       const [nickname, tagLine] = userName.split("#");
       instance
         .patch("/summoner", { nickname, tagLine })
