@@ -1,10 +1,18 @@
 import dayjs from "dayjs";
+// import utc from "dayjs/plugin/utc.js";
+// import timezone from "dayjs/plugin/timezone.js"; // use plugin
 import { SendTelegramMessage } from "./webhook";
 
-export function IsUpdateNeeded(renewaledAt) {
-  const nowDateObject = dayjs();
+// dayjs.extend(timezone); // use plugin
+// dayjs.extend(utc);
 
+export function IsUpdateNeeded(renewaledAt) {
+  const nowDateObject = dayjs().tz("Asia/Seoul");
+  console.log("nowDateObject", nowDateObject);
+  console.log("renewaledAt", renewaledAt);
   const diff = nowDateObject.diff(renewaledAt, "day");
+  SendTelegramMessage(200, nowDateObject);
+  console.log("diff:", diff);
 
   if (diff > 0 || diff == "NaN") return true; // 하루 지나서 갱신해야함
 
