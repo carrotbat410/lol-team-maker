@@ -83,9 +83,7 @@ export default async function handler(req, res) {
       }
 
       if (r.renewaled_at) {
-        r.renewaled_at = dayjs(r.renewaled_at)
-          .tz("Asia/Seoul")
-          .format("YYYY-MM-DD HH:mm:ss");
+        r.renewaled_at = dayjs(r.renewaled_at).format("YYYY-MM-DD HH:mm:ss");
       }
       r.from = "friend";
     }
