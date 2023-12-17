@@ -79,9 +79,7 @@ export default async function handler(req, res) {
       delete r.id;
       r.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${r.icon_id}.png`;
       if (r.created_at) {
-        r.created_at = dayjs(r.created_at)
-          .tz("Asia/Seoul")
-          .format("YYYY-MM-DD HH:mm:ss");
+        r.created_at = dayjs(r.created_at).format("YYYY-MM-DD HH:mm:ss");
       }
 
       if (r.renewaled_at) {
@@ -237,9 +235,9 @@ export default async function handler(req, res) {
     newFriend.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${newFriend.icon_id}.png`;
     newFriend.nickname = `${newFriend.nickname}#${tagLine}`;
     newFriend.from = "friend";
-    newFriend.renewaled_at = dayjs(newFriend.renewaled_at)
-      .tz("Asia/Seoul")
-      .format("YYYY-MM-DD HH:mm:ss");
+    newFriend.renewaled_at = dayjs(newFriend.renewaled_at).format(
+      "YYYY-MM-DD HH:mm:ss",
+    );
 
     return res.json({
       code: 200,
