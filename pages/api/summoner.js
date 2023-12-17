@@ -237,6 +237,9 @@ export default async function handler(req, res) {
     newFriend.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${newFriend.icon_id}.png`;
     newFriend.nickname = `${newFriend.nickname}#${tagLine}`;
     newFriend.from = "friend";
+    newFriend.renewaled_at = dayjs(newFriend.renewaled_at)
+      .tz("Asia/Seoul")
+      .format("YYYY-MM-DD HH:mm:ss");
 
     return res.json({
       code: 200,
