@@ -280,6 +280,10 @@ export default async function handler(req, res) {
       return res.json({
         code: 204,
         message: `already renewed user (renewaled_at:${userInfo.renewaled_at})`,
+        tmp: dayjs(userInfo.renewaled_at).format("YYYY-MM-DD HH:mm:ss"),
+        if: !IsUpdateNeeded(
+          dayjs(userInfo.renewaled_at).format("YYYY-MM-DD HH:mm:ss"),
+        ),
       });
     }
 
