@@ -277,13 +277,19 @@ export default async function handler(req, res) {
     ) {
       // console.log("갱신 시간 아직 안됨", userInfo.renewaled_at);
       // SendTelegramMessage(204, userInfo.renewaled_at);
+
+      const nowDateObject = dayjs();
+      const diff = nowDateObject.diff(
+        dayjs(userInfo.renewaled_at).format("YYYY-MM-DD HH:mm:ss"),
+        "hours",
+      );
+
       return res.json({
         code: 204,
-        message: `already renewed user (renewaled_at:${userInfo.renewaled_at})`,
-        tmp: dayjs(userInfo.renewaled_at).format("YYYY-MM-DD HH:mm:ss"),
-        if: !IsUpdateNeeded(
-          dayjs(userInfo.renewaled_at).format("YYYY-MM-DD HH:mm:ss"),
-        ),
+        message: `already renewed user (renewaled_at:${dayjs(
+          userInfo.renewaled_at,
+        ).format("YYYY-MM-DD HH:mm:ss")})`,
+        diff,
       });
     }
 
