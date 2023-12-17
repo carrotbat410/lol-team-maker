@@ -1,10 +1,14 @@
 import axios from "axios";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc.js";
+import timezone from "dayjs/plugin/timezone.js";
 import DB from "./db";
 
 const riotUrl = process.env.RIOT_URL;
 const apiKey = process.env.RIOT_DEV_API_KEY;
 
+dayjs.extend(timezone); // use plugin
+dayjs.extend(utc); // use plugin
 export async function UpsertSummoner(nickname, tagLine) {
   let result = {
     errorCode: null,
@@ -108,7 +112,7 @@ export async function UpsertSummoner(nickname, tagLine) {
     result.mmr = mmr;
   }
 
-  const nowDate = dayjs().format("YYYY-MM-DD HH:mm:ss");
+  const nowDate = dayjs().tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss");
 
   await db("summoner_sessions")
     .insert({
