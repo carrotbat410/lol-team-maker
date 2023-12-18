@@ -4,9 +4,18 @@
     finishedTeam2: team2List
   }
 
-  const result = {};
-  result.finishedTeam1 = team1List;
-  result.finishedTeam2 = team2List;
+  const result = {
+  finishedTeam1
+  finishedTeam1MmrSum
+  finishedTeam1MmrAvg
+  finishedTeam1TierRank
+
+  finishedTeam2
+  finishedTeam2MmrSum
+  finishedTeam2MmrAvg
+  finishedTeam2TierRank
+  };
+
   return result;
 */
 
@@ -102,7 +111,6 @@ function BalanceMode(team1List, team2List, noTeamList) {
 
 const RandomMode = (team1List, team2List, noTeamList) => {
   const needCnt = 5 - team1List.length;
-  // console.log("needCnt", needCnt);
 
   for (let i = 0; i < needCnt; i++) {
     const randomCnt = parseInt(Math.random() * noTeamList.length);
@@ -116,6 +124,22 @@ const RandomMode = (team1List, team2List, noTeamList) => {
   result.finishedTeam1 = team1List;
   result.finishedTeam2 = team2List;
 
+  const finishedTeam1MmrSum = team1List.reduce(
+    (acc, summoner) => acc + summoner.mmr,
+    0,
+  );
+  const finishedTeam2MmrSum = team2List.reduce(
+    (acc, summoner) => acc + summoner.mmr,
+    0,
+  );
+  result.finishedTeam1MmrSum = finishedTeam1MmrSum;
+  result.finishedTeam2MmrSum = finishedTeam2MmrSum;
+  result.finishedTeam1MmrAvg = Math.round(finishedTeam1MmrSum / 5);
+  result.finishedTeam2MmrAvg = Math.round(finishedTeam2MmrSum / 5);
+  result.finishedTeam1TierRank = TierCalculate(result.finishedTeam1MmrAvg);
+  result.finishedTeam2TierRank = TierCalculate(result.finishedTeam2MmrAvg);
+
+  console.log("RandomMode result", result);
   return result;
 };
 
