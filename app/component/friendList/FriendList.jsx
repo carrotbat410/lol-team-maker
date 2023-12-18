@@ -243,7 +243,13 @@ export default function FriendList({
                 </div>
                 <div className={styles.friend_box_content} draggable="false">
                   <div>{v.nickname}</div>
-                  <div>{tier}</div>
+                  <SelectBox
+                    options={OPTIONS}
+                    mmr={v.mmr}
+                    friendList={friendList}
+                    setFriendList={setFriendList}
+                    nickname={v.nickname}
+                  />
                 </div>
                 <div
                   className={styles.friend_box_delete_btn}
@@ -345,5 +351,82 @@ export default function FriendList({
         <PatchModal closePatchModal={closePatchModal} />
       ) : null}
     </div>
+  );
+}
+
+const OPTIONS = [
+  { mmr: "0", tierString: "UNRANKED" },
+  { mmr: "1", tierString: "IRON 4" },
+  { mmr: "2", tierString: "IRON 3" },
+  { mmr: "3", tierString: "IRON 2" },
+  { mmr: "4", tierString: "IRON 1" },
+  { mmr: "5", tierString: "BRONZE 4" },
+  { mmr: "6", tierString: "BRONZE 3" },
+  { mmr: "7", tierString: "BRONZE 2" },
+  { mmr: "8", tierString: "BRONZE 1" },
+  { mmr: "9", tierString: "SILVER 4" },
+  { mmr: "10", tierString: "SILVER 3" },
+  { mmr: "11", tierString: "SILVER 2" },
+  { mmr: "12", tierString: "SILVER 1" },
+  { mmr: "13", tierString: "GOLD 4" },
+  { mmr: "14", tierString: "GOLD 3" },
+  { mmr: "15", tierString: "GOLD 2" },
+  { mmr: "16", tierString: "GOLD 1" },
+  { mmr: "17", tierString: "PLATINUM 4" },
+  { mmr: "18", tierString: "PLATINUM 3" },
+  { mmr: "19", tierString: "PLATINUM 2" },
+  { mmr: "20", tierString: "PLATINUM 1" },
+  { mmr: "21", tierString: "EMERALD 4" },
+  { mmr: "22", tierString: "EMERALD 3" },
+  { mmr: "23", tierString: "EMERALD 2" },
+  { mmr: "24", tierString: "EMERALD 1" },
+  { mmr: "25", tierString: "DIAMOND 4" },
+  { mmr: "26", tierString: "DIAMOND 3" },
+  { mmr: "27", tierString: "DIAMOND 2" },
+  { mmr: "28", tierString: "DIAMOND 1" },
+  { mmr: "29", tierString: "MASTER" },
+  { mmr: "30", tierString: "GRANDMASTER" },
+  { mmr: "31", tierString: "CHALLENGER" },
+];
+
+function SelectBox({ options, mmr, friendList, setFriendList, nickname }) {
+  const onChangeHandler = (event) => {
+    const selectedMmr = event.target.value;
+
+    const selectedTier = options.find(
+      (option) => option.mmr === event.target.value,
+    )?.tierString;
+
+    const [tier, rank] = selectedTier.split(" ");
+
+    const newFriendList = friendList.map((v) => {
+      if (v.nickname === nickname) {
+        v.mmr = selectedMmr;
+        if (selectedMmr === 0) {
+          v.tier = null;
+          v.rank = null;
+        } else {
+          v.tier = tier;
+          v.rank = rank;
+        }
+        return v;
+      }
+      return v;
+    });
+    setFriendList(newFriendList);
+  };
+
+  return (
+    <select
+      defaultValue={mmr}
+      onChange={onChangeHandler}
+      className={styles.tier_select_box}
+    >
+      {options.map((option) => (
+        <option key={option.mmr} value={option.mmr}>
+          {option.tierString}
+        </option>
+      ))}
+    </select>
   );
 }
