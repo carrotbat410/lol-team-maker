@@ -8,7 +8,6 @@ import { instance } from "../../../lib/axios";
 import DescriptionModal from "../descriptionModal/DescriptionModal";
 import PatchModal from "../patch/Patch";
 import updateIcon from "../../../public/images/update_icon.png";
-import { IsUpdateNeeded } from "../../../pages/api/utils/apiUtils";
 
 export const handleDragStart = (event) => {
   console.log("드래그 시작");
@@ -23,6 +22,18 @@ export default function FriendList({
   setFriendList,
 }) {
   const id = user.id || undefined;
+
+  const IsUpdateNeeded = (renewaledAt) => {
+    const nowDateObject = dayjs();
+    console.log("nowDateObject", nowDateObject);
+    console.log("renewaledAt", renewaledAt);
+    const diff = nowDateObject.diff(renewaledAt, "hours");
+    console.log("diff:", diff);
+
+    if (diff >= 24 || diff == "NaN") return true; // 하루 지나서 갱신해야함
+
+    return false; // 갱신할 필요 없음
+  };
 
   const handleDragOver = (event) => {
     event.preventDefault();
