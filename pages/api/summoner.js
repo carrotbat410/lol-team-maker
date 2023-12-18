@@ -271,7 +271,7 @@ export default async function handler(req, res) {
     }
 
     const handledRenewaledAt =
-      process.env.NODE_ENV !== "production"
+      process.env.NODE_ENV === "production"
         ? dayjs(userInfo.renewaled_at)
             .add(9, "hours")
             .format("YYYY-MM-DD HH:mm:ss")
