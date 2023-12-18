@@ -42,14 +42,36 @@ function DescriptionText({ pageNo }) {
       <div className={styles.patch_log_div}>
         <h3 className={styles.patch_log_title}>
           <span className={styles.patch_version}>0.2 패치</span>&nbsp;&nbsp;
-          <span className={styles.created_at}>(작성일 : 2023-12-16)</span>
+          <span className={styles.created_at}>(패치 예상일: 2023-12-19)</span>
         </h3>
         <ul>
-          <li>팀 섞는 모드 개선</li>
+          <li>티어 변경 기능 추가</li>
           <ul>
             <li>
-              Balance 모드일떄, 가장 전력 차이가 적게 나는 결과 3개 중 1개를
-              보여주도록 수정될 예정입니다.
+              "현 시즌 UNRANKED인 유저(전 시즌 MASTER)가 포함된 경우, IRON4보다
+              더 전력이 약한 유저로 측정하는 상황"에 대한 해결책으로, 티어 변경
+              기능을 추가할 예정입니다.
+            </li>
+          </ul>
+        </ul>
+        <h3 className={styles.patch_log_title}>
+          <span className={styles.patch_version}>0.3 패치</span>&nbsp;&nbsp;
+          <span className={styles.created_at}>(패치 예상일: 미정)</span>
+        </h3>
+        <ul>
+          <li>Balance 모드 결과의 경우의 수 추가</li>
+          <ul>
+            <li>
+              Balance 모드일떄, 가장 전력 차이가 적게 나는 상위 결과 5개 중
+              1개를 보여주도록 수정될 예정입니다.
+            </li>
+          </ul>
+          <br />
+          <li>Gold Balance 모드 추가</li>
+          <ul>
+            <li>
+              가장 전력 차이가 적게 나는 최상위 결과 1개만 보여주는 모드를
+              추가할 예정입니다.
             </li>
           </ul>
           <br />
