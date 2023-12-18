@@ -6,7 +6,7 @@ dayjs.extend(timezone); // use plugin
 dayjs.extend(utc); // use plugin
 
 export function IsUpdateNeeded(renewaledAt) {
-  const nowDateObject = dayjs().tz("Asia/Seoul");
+  const nowDateObject = dayjs();
   console.log("nowDateObject", nowDateObject);
   console.log("renewaledAt", renewaledAt);
   const diff = nowDateObject.diff(renewaledAt, "hours");
