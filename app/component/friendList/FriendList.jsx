@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import dayjs from "dayjs";
@@ -40,7 +40,6 @@ export default function FriendList({
   };
 
   const handleDropFriend = (event) => {
-    // event.target.style.display = "none";
     event.preventDefault();
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
@@ -119,7 +118,6 @@ export default function FriendList({
       instance
         .patch("/summoner", { nickname, tagLine })
         .then((res) => {
-          console.log("res:", res.data);
           const { code } = res.data;
           if (code === 200) {
             const renewaledFriend = res.data.result;
@@ -134,8 +132,9 @@ export default function FriendList({
             console.log("newFriendList:", newFriendList);
             setFriendList(newFriendList);
           } else {
-            // else if (code === 204) {}
-            // else if (code === 404) {}
+            // else if (code === 204) {백엔드에서 renewaled정보 주고, 프론트애서 이걸로 갈아 끼는 코드}
+            // else if (code === 404) {프론트에서 갱신 버튼만 없애기(새로고침하면 없어지도록)}
+            // else if (code === 400) {알럿?으로 서버에러, 잠시후 다시 시도해달라하기}
             // TODO 더 없나? && 이렇게 처리 하는 상황이 오려나?
           }
         })
