@@ -10,33 +10,51 @@
   return result;
 */
 
+function TierCalculate(avgMmr) {
+  if (avgMmr === 0) return "UNRANKED";
+  if (avgMmr === 29) return "MASTER";
+  if (avgMmr === 30) return "GRANDMASTER";
+  if (avgMmr === 31) return "CHALLENGER";
+
+  let avgTier;
+  if (avgMmr <= 4) avgTier = "IRON";
+  else if (avgMmr <= 8) avgTier = "BRONZE";
+  else if (avgMmr <= 12) avgTier = "SILVER";
+  else if (avgMmr <= 16) avgTier = "GOLD";
+  else if (avgMmr <= 20) avgTier = "PLATINUM";
+  else if (avgMmr <= 24) avgTier = "EMERALD";
+  else if (avgMmr <= 28) avgTier = "DIAMOND";
+
+  const avgRank = 5 - (avgMmr % 4);
+  return `${avgTier} ${avgRank}`;
+}
+
 function BalanceMode(team1List, team2List, noTeamList) {
   console.log("BalanceMode 실행됨");
   const n = noTeamList.length; // n(noTeamList 인원수)
   const m = 5 - team1List.length; // m(team1부족한 인원 수)
   let totalMmrSum = 0;
   let team1MmrSum = 0;
-  // let max = 0;
   let min = 1000;
-  for (const x of team1List) totalMmrSum += x.mmr;
+  for (const x of team1List) {
+    totalMmrSum += x.mmr;
+    team1MmrSum += x.mmr;
+  }
   for (const x of team2List) totalMmrSum += x.mmr;
   for (const x of noTeamList) totalMmrSum += x.mmr;
-  for (const x of team1List) team1MmrSum += x.mmr;
 
-  // console.log("totalMmrSum:", totalMmrSum);
-  // console.log("team1MmrSum:", team1MmrSum);
   const result = {};
   const tmp = Array.from({ length: m }, () => 0);
 
   // console.log(team1List, `필요한 인원 수-${m} : 대기 인원 수 -${n}`);
 
-  function DFS(L, s, mmrSum) {
+  function DFS(L, s, tmpTeam1MmrSum) {
     if (L === m) {
-      const tmpTeam2MmrSum = totalMmrSum - mmrSum;
-      console.log(`team1Mmr:${mmrSum} || team2Mmr:${tmpTeam2MmrSum}`);
-      if (min > Math.abs(totalMmrSum - mmrSum)) {
-        min = Math.abs(totalMmrSum - mmrSum);
-        console.log("더 밸런스있는거 발견- team2MmrSum:", min);
+      const tmpTeam2MmrSum = totalMmrSum - tmpTeam1MmrSum;
+      console.log(`team1Mmr:${tmpTeam1MmrSum} || team2Mmr:${tmpTeam2MmrSum}`);
+      if (min > Math.abs(tmpTeam1MmrSum - tmpTeam2MmrSum)) {
+        min = Math.abs(tmpTeam1MmrSum - tmpTeam2MmrSum);
+        console.log("(더 밸런스있는거 발견) 두 팀간의 mmr 차이:", min);
 
         // const clonedTeam1 = team1List.slice()
         const clonedTeam1 = team1List.map((v) => {
@@ -52,26 +70,24 @@ function BalanceMode(team1List, team2List, noTeamList) {
 
         const remainingNoTeam = noTeamList.filter((v, i) => {
           return !tmp.includes(i);
-          // if (!tmp.includes(i)) return v;
         });
-        console.log("team2List:", team2List);
-        console.log("remainingNoTeam:", remainingNoTeam);
-        result.finishedTeam2 = [...team2List, ...remainingNoTeam];
-      }
 
-      // // const clonedTeam1 = team1List.slice()
-      // const clonedTeam1 = team1List.map((v) => {
-      //   return v.nickname;
-      // });
-      //
-      // for (const i of tmp) {
-      //   clonedTeam1.push(noTeamList[i].nickname);
-      // }
-      // console.log(`만들어진 팀: ${mmrSum}-${clonedTeam1}`);
+        result.finishedTeam2 = [...team2List, ...remainingNoTeam];
+
+        result.finishedTeam1MmrSum = tmpTeam1MmrSum;
+        result.finishedTeam2MmrSum = tmpTeam2MmrSum;
+
+        const finishedTeam1MmrAvg = Math.round(tmpTeam1MmrSum / 5);
+        const finishedTeam2MmrAvg = Math.round(tmpTeam2MmrSum / 5);
+        result.finishedTeam1MmrAvg = finishedTeam1MmrAvg;
+        result.finishedTeam2MmrAvg = finishedTeam2MmrAvg;
+        result.finishedTeam1TierRank = TierCalculate(finishedTeam1MmrAvg);
+        result.finishedTeam2TierRank = TierCalculate(finishedTeam2MmrAvg);
+      }
     } else {
       for (let i = s; i < n; i++) {
         tmp[L] = i;
-        DFS(L + 1, i + 1, mmrSum + noTeamList[i].mmr);
+        DFS(L + 1, i + 1, tmpTeam1MmrSum + noTeamList[i].mmr);
       }
     }
   }
