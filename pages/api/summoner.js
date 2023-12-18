@@ -270,17 +270,10 @@ export default async function handler(req, res) {
       });
     }
 
-    const handledRenewaledAt =
-      process.env.NODE_ENV !== "production"
-        ? dayjs(userInfo.renewaled_at)
-            .add(9, "hours")
-            .format("YYYY-MM-DD HH:mm:ss")
-        : dayjs(userInfo.renewaled_at).format("YYYY-MM-DD HH:mm:ss");
-
+    const handledRenewaledAt = dayjs(userInfo.renewaled_at).format(
+      "YYYY-MM-DD HH:mm:ss",
+    );
     if (!IsUpdateNeeded(handledRenewaledAt)) {
-      // console.log("갱신 시간 아직 안됨", userInfo.renewaled_at);
-      // SendTelegramMessage(204, userInfo.renewaled_at);
-
       const nowDateObject = dayjs();
       const diff = nowDateObject.diff(handledRenewaledAt, "hours");
 
