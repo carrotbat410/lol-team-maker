@@ -54,16 +54,6 @@ export default function Home() {
       })
       .then((res) => {
         if (res.data.code === 200) {
-          console.log("처음 받아오는 곳에서 문제인가:", res.data.result);
-
-          for (const x of res.data.result) {
-            x.renewaled_at = dayjs(x.renewaled_at).format(
-              "YYYY-MM-DD HH:mm:ss",
-            );
-            x.created_at = dayjs(x.created_at).format("YYYY-MM-DD HH:mm:ss");
-          }
-          console.log("변환후");
-          console.log(res.data.result);
           setFriendList(res.data.result);
         }
       });
