@@ -96,7 +96,7 @@ export function Main({
           >
             <option value="random">Random</option>
             <option value="balance">Balance</option>
-            {/* <option value="goldBalance">황금밸런스</option> */}
+            <option value="goldenBalance">Golden Balance</option>
           </select>
         </div>
         <div className={styles.reset_btn_div}>
