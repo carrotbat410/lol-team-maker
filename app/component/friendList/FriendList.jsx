@@ -427,7 +427,7 @@ function SelectBox({ options, mmr, friendList, setFriendList, nickname }) {
 
     const newFriendList = friendList.map((v) => {
       if (v.nickname === nickname) {
-        v.mmr = newSelectedMmr;
+        v.mmr = parseInt(newSelectedMmr);
         if (!v.rank) v.rank = null;
         if (newSelectedMmr === "0") {
           v.tier = null;
