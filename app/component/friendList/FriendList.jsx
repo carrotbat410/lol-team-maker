@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import dayjs from "dayjs";
@@ -390,19 +390,26 @@ const OPTIONS = [
 ];
 
 function SelectBox({ options, mmr, friendList, setFriendList, nickname }) {
+  const [selectedMmr, setSelectedMmr] = useState(mmr);
+
+  useEffect(() => {
+    setSelectedMmr(mmr);
+  }, [mmr]);
+
   const onChangeHandler = (event) => {
-    const selectedMmr = event.target.value;
+    const newSelectedMmr = event.target.value;
+    setSelectedMmr(newSelectedMmr);
 
     const selectedTier = options.find(
-      (option) => option.mmr === event.target.value,
+      (option) => option.mmr === newSelectedMmr,
     )?.tierString;
-
-    const [tier, rank] = selectedTier.split(" ");
+    const [tier, rank] = selectedTier?.split(" ") || [null, null];
 
     const newFriendList = friendList.map((v) => {
       if (v.nickname === nickname) {
-        v.mmr = selectedMmr;
-        if (selectedMmr === 0) {
+        v.mmr = newSelectedMmr;
+        if (!v.rank) v.rank = null;
+        if (newSelectedMmr === "0") {
           v.tier = null;
           v.rank = null;
         } else {
@@ -418,7 +425,7 @@ function SelectBox({ options, mmr, friendList, setFriendList, nickname }) {
 
   return (
     <select
-      defaultValue={mmr}
+      value={selectedMmr}
       onChange={onChangeHandler}
       className={styles.tier_select_box}
     >

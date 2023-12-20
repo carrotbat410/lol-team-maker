@@ -69,7 +69,7 @@ export default function Home() {
     setEmptyTeam1([0, 0, 0, 0, 0]);
     setEmptyTeam2([0, 0, 0, 0, 0]);
 
-    setFriendList([...friendListForReset]);
+    setFriendList(JSON.parse(JSON.stringify(friendListForReset)));
   };
 
   const handleDrop = (droppedSummoner) => {
