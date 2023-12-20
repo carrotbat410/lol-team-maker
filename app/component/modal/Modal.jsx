@@ -2,7 +2,12 @@ import { useState } from "react";
 import styles from "./Modal.module.css";
 import { instance } from "../../../lib/axios";
 
-function Modal({ closeModal, onAddFriend }) {
+function Modal({
+  closeModal,
+  onAddFriend,
+  friendListForReset,
+  setFriendListForReset,
+}) {
   // TODO 모달창 띄우면 뒷배경 검하게 + 클릭 안되도록 수정하기
   // const imageTrue = true;
 
@@ -42,6 +47,7 @@ function Modal({ closeModal, onAddFriend }) {
       console.log("200 message:", result.message);
       setAddUserCode(200);
       onAddFriend(result.newFriend);
+      setFriendListForReset([...friendListForReset, result.newFriend]);
       // return alert("추가되었습니다.");
     } else if (result.code === 401) {
       setAddUserCode(401);

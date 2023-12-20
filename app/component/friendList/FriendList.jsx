@@ -20,6 +20,8 @@ export default function FriendList({
   user,
   friendList,
   setFriendList,
+  friendListForReset,
+  setFriendListForReset,
 }) {
   const id = user.id || undefined;
 
@@ -103,6 +105,8 @@ export default function FriendList({
   const onClickDeleteFriendBtn = (no) => {
     const newFriendList = friendList.filter((v) => v.no !== no);
     setFriendList([...newFriendList]);
+    const newFriendListForReset = friendListForReset.filter((v) => v.no !== no);
+    setFriendListForReset([...newFriendListForReset]);
 
     instance.delete("/summoner", {
       data: { no },
@@ -128,6 +132,17 @@ export default function FriendList({
             });
             console.log("newFriendList:", newFriendList);
             setFriendList(newFriendList);
+
+            const newFriendListForReset = friendListForReset.map((friend) => {
+              if (friend.nickname === userName) {
+                return renewaledFriend;
+              }
+              return friend;
+            });
+
+            setFriendListForReset(
+              JSON.parse(JSON.stringify(newFriendListForReset)),
+            );
           } else {
             // else if (code === 204) {백엔드에서 renewaled정보 주고, 프론트애서 이걸로 갈아 끼는 코드}
             // else if (code === 404) {프론트에서 갱신 버튼만 없애기(새로고침하면 없어지도록)}
@@ -342,7 +357,12 @@ export default function FriendList({
         </div>
       </div>
       {isModalOpen ? (
-        <Modal onAddFriend={addFriend} closeModal={closeModal} />
+        <Modal
+          onAddFriend={addFriend}
+          closeModal={closeModal}
+          friendListForReset={friendListForReset}
+          setFriendListForReset={setFriendListForReset}
+        />
       ) : null}
       {isDescModalOpen ? (
         <DescriptionModal closeDescModal={closeDescModal} />

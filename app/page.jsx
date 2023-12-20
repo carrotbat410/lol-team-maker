@@ -163,6 +163,8 @@ export default function Home() {
           user={user}
           friendList={friendList}
           setFriendList={setFriendList}
+          friendListForReset={friendListForReset}
+          setFriendListForReset={setFriendListForReset}
         />
       </div>
     </div>
