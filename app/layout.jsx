@@ -58,6 +58,7 @@ export default function RootLayout({ children }) {
             content="dd4149668ace286f33596182023d3a71914aebf3"
           />
           <meta property="og:type" content="website" />
+          <meta name="title" content="롤 내전 도우미" />
           <meta property="og:title" content="롤 내전 도우미" />
           <meta
             property="og:description"
