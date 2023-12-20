@@ -24,6 +24,7 @@ export default function Home() {
   const [team2List, setTeam2List] = useState([]);
   const [noTeamList, setNoTeamList] = useState([]);
   const [friendList, setFriendList] = useState([]);
+  const [friendListForReset, setFriendListForReset] = useState([]);
   const [emptyTeam1, setEmptyTeam1] = useState([0, 0, 0, 0, 0]);
   const [emptyTeam2, setEmptyTeam2] = useState([0, 0, 0, 0, 0]);
 
@@ -54,7 +55,9 @@ export default function Home() {
       })
       .then((res) => {
         if (res.data.code === 200) {
-          setFriendList(res.data.result);
+          const data = res.data.result;
+          setFriendList([...data]);
+          setFriendListForReset(JSON.parse(JSON.stringify(data)));
         }
       });
   }, []);
@@ -66,11 +69,7 @@ export default function Home() {
     setEmptyTeam1([0, 0, 0, 0, 0]);
     setEmptyTeam2([0, 0, 0, 0, 0]);
 
-    instance.get("/summoner").then((res) => {
-      if (res.data.code === 200) {
-        setFriendList(res.data.result);
-      }
-    });
+    setFriendList([...friendListForReset]);
   };
 
   const handleDrop = (droppedSummoner) => {

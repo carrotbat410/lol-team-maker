@@ -405,6 +405,9 @@ function SelectBox({ options, mmr, friendList, setFriendList, nickname }) {
         if (selectedMmr === 0) {
           v.tier = null;
           v.rank = null;
+        } else if (!rank) {
+          v.tier = tier;
+          v.rank = null;
         } else {
           v.tier = tier;
           v.rank = rank;

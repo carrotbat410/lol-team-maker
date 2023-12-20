@@ -104,13 +104,6 @@ export function Main({
             type="button"
             value="리셋"
             onClick={() => {
-              if (
-                !team1List.length &&
-                !team2List.length &&
-                !noTeamList.length
-              ) {
-                return;
-              }
               onClickResetHandler();
               if (resultMode === true) setResultMode(false);
             }}
