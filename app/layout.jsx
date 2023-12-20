@@ -40,6 +40,7 @@ export default function RootLayout({ children }) {
     <SessionProvider>
       <html lang="ko" style={globalCss} className={nextFont.className}>
         <head>
+          <title>롤 내전 도우미</title>
           <meta charSet="utf-8" />
           <link rel="icon" href="./favicon.ico" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -74,7 +75,6 @@ export default function RootLayout({ children }) {
             rel="apple-touch-icon"
             href="https://lolcivilwarhelper.vercel.app/favicon.ico"
           />
-          <title>롤 내전 도우미</title>
         </head>
         <body>{children}</body>
       </html>
