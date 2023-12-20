@@ -155,6 +155,11 @@
     align-items: center;
 }
 
+.long_nickname {
+    font-size: 13px;
+}
+
+
 .tier_select_box {
     text-align: center;
     width: 130px;
