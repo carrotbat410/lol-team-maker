@@ -333,7 +333,7 @@ function TeamedSummoner({ resultMode, data }) {
       tierString = `${data.tier} ${data.rank}`;
     }
   } else {
-    tierString = "UNRANKED";
+    tierString = null;
   }
 
   const wins = data.wins || 0;
@@ -361,7 +361,7 @@ function TeamedSummoner({ resultMode, data }) {
         />
         <div className={styles.teamed_summoner_nickname}>{data.nickname}</div>
         <div className={styles.teamed_summoner_tier}>
-          <div>{data.rank ? tierString : "UNRANKED"}</div>
+          <div>{tierString || "UNRANKED"}</div>
           <div>{`승률: ${winsRate}%`}</div>
         </div>
       </div>
@@ -385,7 +385,7 @@ function TeamedSummoner({ resultMode, data }) {
       />
       <div className={styles.teamed_summoner_nickname}>{data.nickname}</div>
       <div className={styles.teamed_summoner_tier}>
-        <div>{data.rank ? tierString : "UNRANKED"}</div>
+        <div>{tierString || "UNRANKED"}</div>
         <div>{`승률: ${winsRate}%`}</div>
       </div>
     </div>
