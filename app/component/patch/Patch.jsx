@@ -19,7 +19,7 @@ function PatchModal({ closePatchModal }) {
         <div className={styles.close_btn_div} />
         <span className={styles.title}>
           패치 노트&nbsp;
-          <span className={styles.now_version}>(현재 버전: 0.2)</span>
+          <span className={styles.now_version}>(현재 버전: 0.3)</span>
         </span>
         <div className={styles.close_btn_div}>
           <button className={styles.close_btn} onClick={closePatchModal}>
@@ -56,7 +56,7 @@ function DescriptionText({ pageNo }) {
         </ul>
         <h3 className={styles.patch_log_title}>
           <span className={styles.patch_version}>#0.3 패치</span>&nbsp;&nbsp;
-          <span className={styles.created_at}>(패치 예상일: 2023-12-20)</span>
+          {/* <span className={styles.created_at}>(패치 예상일: 2023-12-20)</span> */}
         </h3>
         <ul>
           <li>Balance 모드 결과의 경우의 수 추가</li>
