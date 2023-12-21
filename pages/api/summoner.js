@@ -57,7 +57,7 @@ export default async function handler(req, res) {
             message,
             created_at: nowDate,
           });
-          SendTelegramMessage(200, "유저 접속함");
+          SendTelegramMessage(200, `유저 접속함 ip:${ip}`);
         }
       }
     } catch (err) {
