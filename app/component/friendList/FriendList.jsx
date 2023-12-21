@@ -257,7 +257,7 @@ export default function FriendList({
                   />
                 </div>
                 <div className={styles.friend_box_content} draggable="false">
-                  {v.nickname.length > 15 ? (
+                  {v.nickname.length > 16 ? (
                     <div className={styles.long_nickname}>{v.nickname}</div>
                   ) : (
                     <div>{v.nickname}</div>
