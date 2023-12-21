@@ -157,17 +157,45 @@
 
 .result_mode_true_container {
     /*border: 1px solid blue;*/
-    width: 350px;
+    border: 1px solid rosybrown;
+    width: 550px;
     height: 330px;
+
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-between;*/
+    align-items: center;
+}
+
+.info_wrapper {
+    /*border: 1px solid red;*/
+    width: 450px;
+    height: 280px;
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /*align-items: flex-end;*/
 }
 
-.result_mode_true_container div {
+.team_info {
+    /*border: 1px solid red;*/
+    height: 200px;
+    width: 300px
+}
+
+.team_info_div {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.btns_wrapper {
     /*border: 1px solid blue;*/
+    width: 350px;
+    height: 65px;
+
+    display: flex;
+    justify-content: space-between;
+
 }
 
 .result_mode_true_container input[type="button"] {
@@ -180,7 +208,7 @@
 
     box-shadow: 2px 2px 2px black;
 
-    margin-top: 260px;
+    /*margin-top: 260px;*/
 }
 
 .result_mode_true_container input[type="button"]:hover {
@@ -188,7 +216,7 @@
 }
 
 .result_mode_true_container input[type="button"]:active {
-    margin-top: 261px;
+    margin-top: 1px;
     margin-left: 1px;
     box-shadow: none;
 }

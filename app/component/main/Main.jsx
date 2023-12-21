@@ -18,6 +18,8 @@ export function Main({
   const [resultMode, setResultMode] = useState(false);
   const [finishedTeam1, setFinishedTeam1] = useState([]);
   const [finishedTeam2, setFinishedTeam2] = useState([]);
+  const [finishedTeam1TierRank, setFinishedTeam1TierRank] = useState("");
+  const [finishedTeam2TierRank, setFinishedTeam2TierRank] = useState("");
   const [isCopied, setIsCopied] = useState(false);
 
   const handleCopyClick = async () => {
@@ -144,7 +146,21 @@ export function Main({
         {/* <div className={styles.result_container_header}>팀 미정 인원</div> */}
         {resultMode ? (
           <div className={styles.result_mode_true_container}>
-            <div>
+            <div className={styles.info_wrapper}>
+              <div className={styles.team_info}>
+                <div className={styles.team_info_div}>1팀 정보</div>
+                <div className={styles.team_info_div}>
+                  평균 티어: GRAND{finishedTeam1TierRank}
+                </div>
+              </div>
+              <div className={styles.team_info}>
+                <div className={styles.team_info_div}>2팀 정보</div>
+                <div className={styles.team_info_div}>
+                  평균 티어: GRAND{finishedTeam2TierRank}
+                </div>
+              </div>
+            </div>
+            <div className={styles.btns_wrapper}>
               {isCopied ? (
                 <input
                   type="button"
@@ -160,8 +176,6 @@ export function Main({
                   onClick={handleCopyClick}
                 />
               )}
-            </div>
-            <div>
               <input
                 type="button"
                 value="다시 하기"
@@ -216,6 +230,13 @@ export function Main({
                   setFinishedTeam1(result.data.result.finishedTeam1);
                   setFinishedTeam2(result.data.result.finishedTeam2);
                   setResultMode(!resultMode);
+
+                  setFinishedTeam1TierRank(
+                    result.data.result.finishedTeam1TierRank,
+                  );
+                  setFinishedTeam2TierRank(
+                    result.data.result.finishedTeam2TierRank,
+                  );
                 }
               }}
             />

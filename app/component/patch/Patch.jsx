@@ -62,7 +62,7 @@ function DescriptionText({ pageNo }) {
           <li>Balance 모드 결과의 경우의 수 추가</li>
           <ul>
             <li>
-              Balance 모드일떄, 가장 전력 차이가 적게 나는 상위 결과 5개 중
+              Balance 모드일떄, 가장 전력 차이가 적게 나는 상위 결과 최대10개 중
               1개를 보여주도록 수정될 예정입니다.
             </li>
           </ul>
