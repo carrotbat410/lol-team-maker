@@ -144,10 +144,9 @@ export default function FriendList({
               JSON.parse(JSON.stringify(newFriendListForReset)),
             );
           } else {
-            // else if (code === 204) {백엔드에서 renewaled정보 주고, 프론트애서 이걸로 갈아 끼는 코드}
+            // TODO 이 부분 처리하기 else if (code === 204) {백엔드에서 renewaled정보 주고, 프론트애서 이걸로 갈아 끼는 코드}
             // else if (code === 404) {프론트에서 갱신 버튼만 없애기(새로고침하면 없어지도록)}
             // else if (code === 400) {알럿?으로 서버에러, 잠시후 다시 시도해달라하기}
-            // TODO 더 없나? && 이렇게 처리 하는 상황이 오려나?
           }
         })
         .catch((err) => {
