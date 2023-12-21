@@ -109,7 +109,7 @@ export default function Login() {
         height={250}
         src="/images/logo.png"
         className={styles.logo}
-        alt="log image"
+        alt="lolCivilWarHelper logo image"
       />
       <video
         autoPlay
