@@ -2,13 +2,17 @@
 
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
-import { Gothic_A1, IBM_Plex_Sans_KR } from "next/font/google";
+import { Gothic_A1, IBM_Plex_Sans_KR, Noto_Sans_KR } from "next/font/google";
 
 // const nextFont = Gothic_A1({
 //   subsets: ["latin"],
 //   weight: ["300"],
 // });
-const nextFont = IBM_Plex_Sans_KR({
+// const nextFont = IBM_Plex_Sans_KR({
+//   subsets: ["latin"],
+//   weight: ["400"],
+// });
+const nextFont = Noto_Sans_KR({
   subsets: ["latin"],
   weight: ["400"],
 });
