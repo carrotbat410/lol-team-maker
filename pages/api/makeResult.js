@@ -109,7 +109,7 @@ function BalanceMode(team1List, team2List, noTeamList) {
 }
 
 function BalanceMode2(team1List, team2List, noTeamList) {
-  const numberCases = 6; // 경우의 수 갯수
+  const numberCases = 10; // 경우의 수 갯수
   const n = noTeamList.length; // n(noTeamList 인원수)
   const m = 5 - team1List.length; // m(team1부족한 인원 수)
   let totalMmrSum = 0;
@@ -175,7 +175,7 @@ function BalanceMode2(team1List, team2List, noTeamList) {
           }
         }
         if (idx) {
-          console.log("더 적은거 발견함, min:", tmpMin);
+          // console.log("더 적은거 발견함, min:", tmpMin);
           result.splice(idx, 0, { min: tmpMin, ...tmpResult });
           result.pop();
         }
@@ -194,7 +194,7 @@ function BalanceMode2(team1List, team2List, noTeamList) {
     randomNumber = GetRandomNumber(result.length);
   }
   //! 테스트용 코드
-  // console.log(randomNumber - 1, "번쨰 결과 당첨");
+  // console.log(randomNumber, "번쨰 결과 당첨");
   // for (let i = 0; i < result.length; i++) {
   //   const cnt = i + 1;
   //   console.log(
