@@ -48,6 +48,7 @@ export default async function handler(req, res) {
           .select("no")
           .where("created_at", ">=", startDate)
           .where("created_at", "<=", endDate)
+          .where("ip", ip)
           .first();
 
         if (!existingSession) {
