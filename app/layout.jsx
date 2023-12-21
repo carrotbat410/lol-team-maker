@@ -44,14 +44,17 @@ export default function RootLayout({ children }) {
     <SessionProvider>
       <html lang="ko" style={globalCss} className={nextFont.className}>
         <head>
-          <title>롤 내전 도우미</title>
+          <title>
+            롤 내전 도우미 - 라이엇 데이터 연동을 통해 편리한 내전 팀 짜기
+            서비스를 제공
+          </title>
           <meta charSet="utf-8" />
           <link rel="icon" href="./favicon.ico" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="theme-color" content="#000000" />
           <meta
             name="description"
-            content="롤 내전 도우미는 내전 팀짜기 서비스를 제공하는 사이트 입니다."
+            content="롤 내전 도우미는 밸런스있게 팀짜기 서비스를 제공하는 사이트 입니다."
           />
           <meta
             name="google-site-verification"
@@ -62,11 +65,14 @@ export default function RootLayout({ children }) {
             content="dd4149668ace286f33596182023d3a71914aebf3"
           />
           <meta property="og:type" content="website" />
-          <meta name="title" content="롤 내전 도우미" />
+          <meta
+            name="title"
+            content="롤 내전 도우미 - 내전할 떄 유용하게 사용할 수 있는 밸런스있게 팀 짜기 서비스를 제공합니다."
+          />
           <meta property="og:title" content="롤 내전 도우미" />
           <meta
             property="og:description"
-            content="내전 팀짜기 서비스를 이용해보세요!"
+            content="내전할 떄 유용한, 밸런스있게 팀 짜기 서비스를 이용해보세요!"
           />
           <meta
             property="og:image"
@@ -80,14 +86,19 @@ export default function RootLayout({ children }) {
             rel="apple-touch-icon"
             href="https://lolcivilwarhelper.vercel.app/favicon.ico"
           />
+          <link
+            rel="canonical"
+            href="https://lolcivilwarhelper.vercel.app"
+            key="canonical"
+          />
         </head>
         <body>
           {children}
           <div style={{ display: "none" }}>
             <h1>롤 내전 도우미</h1>
-            <h1>롤 내전 팀짜기</h1>
-            <h1>롤 내전 팀 메이커</h1>
-            <h1>롤 내전 팀 밸런스</h1>
+            <h2>롤 내전 팀짜기</h2>
+            <h3>롤 내전 팀 메이커</h3>
+            <h4>롤 내전 팀 밸런스</h4>
           </div>
         </body>
       </html>
