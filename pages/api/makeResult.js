@@ -18,6 +18,7 @@
 
   return result;
 */
+import { GetRandomNumber } from "./utils/apiUtils";
 
 function TierCalculate(avgMmr) {
   if (avgMmr === 0) return "UNRANKED";
@@ -107,6 +108,123 @@ function BalanceMode(team1List, team2List, noTeamList) {
   return result;
 }
 
+function BalanceMode2(team1List, team2List, noTeamList) {
+  const numberCases = 6; // 경우의 수 갯수
+  const n = noTeamList.length; // n(noTeamList 인원수)
+  const m = 5 - team1List.length; // m(team1부족한 인원 수)
+  let totalMmrSum = 0;
+  let team1MmrSum = 0;
+
+  for (const x of team1List) {
+    totalMmrSum += x.mmr;
+    team1MmrSum += x.mmr;
+  }
+  for (const x of team2List) totalMmrSum += x.mmr;
+  for (const x of noTeamList) totalMmrSum += x.mmr;
+
+  const tmpResult = {};
+  const result = [];
+  const userIndexFromNoTeamToTeam1 = Array.from({ length: m }, () => 0);
+
+  function DFS(L, s, tmpTeam1MmrSum) {
+    if (L === m) {
+      // 결과부터 만들기
+      const tmpTeam2MmrSum = totalMmrSum - tmpTeam1MmrSum;
+      const tmpMin = Math.abs(tmpTeam1MmrSum - tmpTeam2MmrSum);
+
+      const clonedTeam1 = team1List.map((v) => {
+        return v;
+      });
+
+      for (const i of userIndexFromNoTeamToTeam1) {
+        clonedTeam1.push(noTeamList[i]);
+      }
+      tmpResult.finishedTeam1 = clonedTeam1;
+
+      const remainingNoTeam = noTeamList.filter((v, i) => {
+        return !userIndexFromNoTeamToTeam1.includes(i);
+      });
+
+      tmpResult.finishedTeam2 = [...team2List, ...remainingNoTeam];
+
+      tmpResult.finishedTeam1MmrSum = tmpTeam1MmrSum;
+      tmpResult.finishedTeam2MmrSum = tmpTeam2MmrSum;
+
+      const finishedTeam1MmrAvg = Math.round(tmpTeam1MmrSum / 5);
+      const finishedTeam2MmrAvg = Math.round(tmpTeam2MmrSum / 5);
+      tmpResult.finishedTeam1MmrAvg = finishedTeam1MmrAvg;
+      tmpResult.finishedTeam2MmrAvg = finishedTeam2MmrAvg;
+      tmpResult.finishedTeam1TierRank = TierCalculate(finishedTeam1MmrAvg);
+      tmpResult.finishedTeam2TierRank = TierCalculate(finishedTeam2MmrAvg);
+
+      if (result.length < numberCases) {
+        // 5개 이하면 그냥 넣기(정렬은 하기)
+        result.push({
+          min: tmpMin,
+          ...tmpResult,
+        });
+        if (result.length === numberCases) result.sort((a, b) => a.min - b.min);
+      } else if (result.length === numberCases) {
+        // 5개 이상이면 비교하고 넣기
+        let idx = null;
+        for (let i = result.length - 1; i >= 0; i--) {
+          if (tmpMin > result[result.length - 1].min) {
+            break;
+          } else if (tmpMin < result[i].min) {
+            idx = i;
+          }
+        }
+        if (idx) {
+          console.log("더 적은거 발견함, min:", tmpMin);
+          result.splice(idx, 0, { min: tmpMin, ...tmpResult });
+          result.pop();
+        }
+      }
+    } else {
+      for (let i = s; i < n; i++) {
+        userIndexFromNoTeamToTeam1[L] = i;
+        DFS(L + 1, i + 1, tmpTeam1MmrSum + noTeamList[i].mmr);
+      }
+    }
+  }
+
+  DFS(0, 0, team1MmrSum);
+  let randomNumber = GetRandomNumber(numberCases);
+  if (result.length < randomNumber) {
+    randomNumber = GetRandomNumber(result.length);
+  }
+  //! 테스트용 코드
+  // console.log(randomNumber - 1, "번쨰 결과 당첨");
+  // for (let i = 0; i < result.length; i++) {
+  //   const cnt = i + 1;
+  //   console.log(
+  //     `---------------------------${cnt}번쨰 결과----------------------------------`,
+  //   );
+  //
+  //   result[i].finishedTeam1 = result[i].finishedTeam1.map((v) => {
+  //     return {
+  //       nickname: v.nickname,
+  //       tier: v.tier,
+  //       rank: v.rank,
+  //       mmr: v.mmr,
+  //     };
+  //   });
+  //
+  //   result[i].finishedTeam2 = result[i].finishedTeam2.map((v) => {
+  //     return {
+  //       nickname: v.nickname,
+  //       tier: v.tier,
+  //       rank: v.rank,
+  //       mmr: v.mmr,
+  //     };
+  //   });
+  //
+  //   console.log(result[i]);
+  // }
+
+  return result[randomNumber - 1];
+}
+
 function GoldenBalanceMode(team1List, team2List, noTeamList) {
   console.log("GoldenBalanceMode 실행됨");
   const n = noTeamList.length; // n(noTeamList 인원수)
@@ -129,7 +247,6 @@ function GoldenBalanceMode(team1List, team2List, noTeamList) {
   function DFS(L, s, tmpTeam1MmrSum) {
     if (L === m) {
       const tmpTeam2MmrSum = totalMmrSum - tmpTeam1MmrSum;
-      console.log(`team1Mmr:${tmpTeam1MmrSum} || team2Mmr:${tmpTeam2MmrSum}`);
       if (min > Math.abs(tmpTeam1MmrSum - tmpTeam2MmrSum)) {
         min = Math.abs(tmpTeam1MmrSum - tmpTeam2MmrSum);
         console.log("(더 밸런스있는거 발견) 두 팀간의 mmr 차이:", min);
@@ -171,8 +288,27 @@ function GoldenBalanceMode(team1List, team2List, noTeamList) {
   }
 
   DFS(0, 0, team1MmrSum);
-  // console.log("finishedTeam1 info:", result.finishedTeam1);
-  console.log("finishedTeam2 info:", result.finishedTeam2.length);
+
+  //! 테스트용 코드
+  // result.finishedTeam1 = result.finishedTeam1.map((v) => {
+  //   return {
+  //     nickname: v.nickname,
+  //     tier: v.tier,
+  //     rank: v.rank,
+  //     mmr: v.mmr,
+  //   };
+  // });
+  //
+  // result.finishedTeam2 = result.finishedTeam2.map((v) => {
+  //   return {
+  //     nickname: v.nickname,
+  //     tier: v.tier,
+  //     rank: v.rank,
+  //     mmr: v.mmr,
+  //   };
+  // });
+  // console.log("golden balance result:", result);
+
   return result;
 }
 
@@ -238,8 +374,7 @@ export default async function handler(req, res) {
     if (selectedMode === "random") {
       result = RandomMode(team1List, team2List, noTeamList);
     } else if (selectedMode === "balance") {
-      result = BalanceMode(team1List, team2List, noTeamList);
-      // result = RandomMode(team1List, team2List, noTeamList);
+      result = BalanceMode2(team1List, team2List, noTeamList);
     } else if (selectedMode === "goldenBalance") {
       result = GoldenBalanceMode(team1List, team2List, noTeamList);
     }

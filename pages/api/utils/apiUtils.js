@@ -13,3 +13,7 @@ export function IsUpdateNeeded(renewaledAt) {
 
   return false; // 갱신할 필요 없음
 }
+
+export function GetRandomNumber(maxNumber = 10) {
+  return Math.floor(Math.random() * maxNumber) + 1;
+}
