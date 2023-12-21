@@ -196,7 +196,7 @@ export default function FriendList({
           <div>
             <input
               type="button"
-              value="내전 인원 추가"
+              value="인원 추가"
               onClick={openModal}
               className={styles.btn}
             />

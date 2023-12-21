@@ -1,6 +1,6 @@
 .background {
-    width: 1600px;
-    height: 800px;
+    width: 100vw;
+    height: 100vh;
 
     /*background-color: bisque;*/
 }
@@ -155,8 +155,8 @@
     background: linear-gradient(Navajowhite 1%, Orange);
     color: white;
 
-    font-size: 15px;
-    width: 140px;
+    font-size: 14px;
+    width: 160px;
 }
 
 .footer {
