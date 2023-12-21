@@ -64,7 +64,11 @@ export async function UpsertSummoner(nickname, tagLine) {
     // 데이터가 있다면,
     for (const d of leagueInfo.data) {
       if (d.queueType === "RANKED_SOLO_5x5") {
-        d.rank = d.rank.length;
+        if (d.rank === "I") d.rank = 1;
+        else if (d.rank === "II") d.rank = 2;
+        else if (d.rank === "III") d.rank = 3;
+        else if (d.rank === "IV") d.rank = 4;
+        else d.rank = null;
         result = { ...result, ...d };
       }
     }
