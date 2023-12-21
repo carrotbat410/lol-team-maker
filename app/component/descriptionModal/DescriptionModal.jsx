@@ -5,6 +5,7 @@ import desc1 from "../../../public/images/desc1.png";
 import desc2 from "../../../public/images/desc2.png";
 import desc3 from "../../../public/images/desc3.png";
 import desc4 from "../../../public/images/desc4.png";
+import desc5 from "../../../public/images/desc5.png";
 
 function DescriptionModal({ closeDescModal }) {
   const [pageNo, setPageNo] = useState(1);
@@ -14,7 +15,7 @@ function DescriptionModal({ closeDescModal }) {
     setPageNo(pageNo - 1);
   };
   const onClickRightBtn = () => {
-    if (pageNo === 4) return;
+    if (pageNo === 5) return;
     setPageNo(pageNo + 1);
   };
 
@@ -34,7 +35,7 @@ function DescriptionModal({ closeDescModal }) {
       </div>
       <DescriptionText pageNo={pageNo} />
       <div className={styles.btn_div}>
-        <button onClick={onClickLeftBtn}>◁</button> <span>{pageNo}</span> / 4{" "}
+        <button onClick={onClickLeftBtn}>◁</button> <span>{pageNo}</span> / 5{" "}
         <button onClick={onClickRightBtn}>▷</button>
       </div>
     </div>
@@ -49,7 +50,7 @@ function DescriptionImage({ pageNo }) {
   let height;
   if (pageNo === 1) {
     image = desc1;
-    width = 350;
+    width = 360;
     height = 350;
   } else if (pageNo === 2) {
     image = desc2;
@@ -57,12 +58,16 @@ function DescriptionImage({ pageNo }) {
     height = 300;
   } else if (pageNo === 3) {
     image = desc3;
-    width = 430;
-    height = 300;
+    width = 330;
+    height = 200;
   } else if (pageNo === 4) {
     image = desc4;
     width = 580;
     height = 300;
+  } else if (pageNo === 5) {
+    image = desc5;
+    width = 500;
+    height = 100;
   }
 
   return (
@@ -85,7 +90,6 @@ function DescriptionText({ pageNo }) {
             <br />
             추가 버튼을 클릭하여 내전에 참여할 유저의 정보를 불러옵니다.
           </li>
-          <li>내전에 참여하는 총 10명의 유저의 정보를 불러옵니다.</li>
         </ul>
       </div>
     );
@@ -100,10 +104,12 @@ function DescriptionText({ pageNo }) {
           </li>
           <li>총 10명의 인원을 배치해야 합니다.</li>
           <li>
-            A유저와 B유저가 같은팀인 상태의 결과를 얻으려면, 같은 팀에 배정하면
-            됩니다.
+            A유저, B유저가 같은팀인 결과를 얻으려면, 같은 팀에 배치하면 됩니다.
           </li>
         </ul>
+        <div className={styles.description_tip_div}>
+          TIP - 불러온 유저의 티어를 필요시에 임의로 변경할 수 있습니다.
+        </div>
       </div>
     );
   }
@@ -111,18 +117,19 @@ function DescriptionText({ pageNo }) {
     return (
       <div className={styles.description_div}>
         <ul>
-          <li>왼쪽 상단의 모드를 선택합니다.</li>
-          <ul>
-            <li>Random : 팀을 무작위로 섞습니다.</li>
-            <li>
-              Balance(패치 예정) : 티어의 차이가 가장 적은 결과를 반환합니다.
-            </li>
-            {/* <li>Golden Balance(추가 예정) : 흠...</li> */}
-          </ul>
+          <li>
+            왼쪽 상단의 모드를 선택합니다.
+            <br />
+            Random : 팀을 무작위로 섞습니다.
+            <br />
+            Balance : 전력 차이가 적게 나는 최상위 결과 최대10개 중 1개를
+            반환합니다.
+            <br />
+            Golden Balance : 전력 차이가 적게 나는 최상위 결과 1개를 반환합니다.
+          </li>
         </ul>
         <div className={styles.description_tip_div}>
-          * Balance Mode 측정 기준 ( 개선될 예정이며, 자세한 사항은 패치노트를
-          확인해주세요 )
+          * 전력 측정 기준
           <br />
           &nbsp;&nbsp;&nbsp;UNRAKED = 0점&nbsp;&nbsp;&nbsp;IRON 4 =
           1점&nbsp;&nbsp; ... &nbsp;&nbsp;DIAMOND 2 =
@@ -144,6 +151,19 @@ function DescriptionText({ pageNo }) {
             있습니다.
           </li>
         </ul>
+      </div>
+    );
+  }
+  if (pageNo === 5) {
+    return (
+      <div className={styles.description_div}>
+        <ul>
+          <li>갱신된지 24시간이 지나면 갱신하기 버튼이 생깁니다.</li>
+        </ul>
+        <div className={styles.description_tip_div}>
+          TIP - 24시간이 지나도 갱신버튼이 안생긴다면, 다른 유저에 의해 이미
+          갱신되었을수도 있습니다.
+        </div>
       </div>
     );
   }
