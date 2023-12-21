@@ -81,7 +81,15 @@ export default function RootLayout({ children }) {
             href="https://lolcivilwarhelper.vercel.app/favicon.ico"
           />
         </head>
-        <body>{children}</body>
+        <body>
+          {children}
+          <div style={{ display: "none" }}>
+            <h1>롤 내전 도우미</h1>
+            <h1>롤 내전 팀짜기</h1>
+            <h1>롤 내전 팀 메이커</h1>
+            <h1>롤 내전 팀 밸런스</h1>
+          </div>
+        </body>
       </html>
     </SessionProvider>
   );
