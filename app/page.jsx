@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs"; // use plugin
 import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
+import isBetween from "dayjs/plugin/isBetween";
 import styles from "./page.module.css";
 import FriendList from "./component/friendList/FriendList";
 import { Main } from "./component/main/Main";
@@ -13,6 +14,7 @@ import { instance } from "../lib/axios";
 
 dayjs.extend(timezone); // use plugin
 dayjs.extend(utc);
+dayjs.extend(isBetween); // 플러그인 사용
 
 export default function Home() {
   const router = useRouter();
@@ -31,17 +33,17 @@ export default function Home() {
   useEffect(() => {
     let firstConnection = false;
     const logDate = localStorage.getItem("logDate");
-
+    const startDate = dayjs().tz("Asia/Seoul").startOf("day");
+    const endDate = dayjs().tz("Asia/Seoul").endOf("day");
     const nowDate = dayjs().tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss");
-    const endDate = dayjs(nowDate).format("YYYY-MM-DD 23:59:59");
-
     if (logDate) {
-      if (logDate > endDate) {
-        // console.log("만료됨");
-        localStorage.setItem("logDate", logDate);
-        firstConnection = true;
-      } else {
+      const isLogDateBetween = dayjs(logDate).isBetween(startDate, endDate);
+      if (isLogDateBetween) {
         // console.log("만료 안됨");
+      } else {
+        // console.log("만료됨 새로 갱신하기");
+        localStorage.setItem("logDate", nowDate);
+        firstConnection = true;
       }
     } else {
       firstConnection = true;
