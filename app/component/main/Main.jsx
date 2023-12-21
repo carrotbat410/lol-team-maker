@@ -150,13 +150,13 @@ export function Main({
               <div className={styles.team_info}>
                 <div className={styles.team_info_div}>1팀 정보</div>
                 <div className={styles.team_info_div}>
-                  평균 티어: GRAND{finishedTeam1TierRank}
+                  평균 티어: {finishedTeam1TierRank}
                 </div>
               </div>
               <div className={styles.team_info}>
                 <div className={styles.team_info_div}>2팀 정보</div>
                 <div className={styles.team_info_div}>
-                  평균 티어: GRAND{finishedTeam2TierRank}
+                  평균 티어: {finishedTeam2TierRank}
                 </div>
               </div>
             </div>
