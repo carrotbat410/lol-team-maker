@@ -141,6 +141,15 @@ function BalanceMode2(team1List, team2List, noTeamList) {
       }
       tmpResult.finishedTeam1 = clonedTeam1;
 
+      if (result.length === numberCases) {
+        console.log(
+          "tmpMin",
+          tmpMin,
+          "마지막 결과의 min:",
+          result[result.length - 1].min,
+        );
+      }
+
       const remainingNoTeam = noTeamList.filter((v, i) => {
         return !userIndexFromNoTeamToTeam1.includes(i);
       });
@@ -158,26 +167,49 @@ function BalanceMode2(team1List, team2List, noTeamList) {
       tmpResult.finishedTeam2TierRank = TierCalculate(finishedTeam2MmrAvg);
 
       if (result.length < numberCases) {
-        // 5개 이하면 그냥 넣기(정렬은 하기)
+        // numberCases개 이하면 그냥 넣기(정렬은 하기)
         result.push({
           min: tmpMin,
           ...tmpResult,
         });
-        if (result.length === numberCases) result.sort((a, b) => a.min - b.min);
+        console.log(result.length, "개 넣었음");
+        if (result.length === numberCases) {
+          result.sort((a, b) => a.min - b.min);
+          console.log("정렬 함:", result);
+        }
       } else if (result.length === numberCases) {
         // 5개 이상이면 비교하고 넣기
         let idx = null;
+        let isBestResult = false;
         for (let i = result.length - 1; i >= 0; i--) {
-          if (tmpMin > result[result.length - 1].min) {
-            break;
-          } else if (tmpMin < result[i].min) {
+          if (tmpMin < result[i].min) {
+            console.log(
+              "tmpMin < result[i].min:",
+              tmpMin < result[i].min,
+              "tmpMin:",
+              tmpMin,
+              "result[i].min",
+              result[i].min,
+            );
             idx = i;
+            isBestResult = true;
+          } else {
+            break;
           }
         }
-        if (idx) {
-          // console.log("더 적은거 발견함, min:", tmpMin);
+        if (isBestResult) {
+          const forConsole = result.map((v) => {
+            return v.min;
+          });
+          console.log("idx 발견", idx, forConsole);
+          // console.log("더 적은거 발견함, tmp:", tmpMin);
           result.splice(idx, 0, { min: tmpMin, ...tmpResult });
           result.pop();
+          const forConsole2 = result.map((v) => {
+            return v.min;
+          });
+          console.log("바뀐결과", idx, forConsole2);
+          // console.log("교체 결과")
         }
       }
     } else {
