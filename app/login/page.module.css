@@ -23,13 +23,13 @@
 
 /* 레이오버 */
 .logo {
-    width: 400px;
-    height: 250px;
+    width: 450px;
+    height: 200px;
     z-index: 1;
 
     position: absolute;
-    top: 90px;
-    left: 200px;
+    top: 110px;
+    left: 180px;
     background-size: cover;
 }
 
