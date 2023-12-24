@@ -1,7 +1,13 @@
 import CryptoJS from "crypto-js";
 import { getServerSession } from "next-auth";
-import DB from "./utils/db";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc.js";
+import timezone from "dayjs/plugin/timezone.js";
 import { authOptions } from "./auth/[...nextauth]";
+import DB from "./utils/db";
+
+dayjs.extend(timezone); // use plugin
+dayjs.extend(utc); // use plugin
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -33,6 +39,7 @@ export default async function handler(req, res) {
     const inData = {
       id,
       password: hashedPassword,
+      created_at: dayjs().tz("Asia/Seoul").format("YYYY-MM-DD HH:mm:ss"),
     };
 
     await db("users").insert(inData);
