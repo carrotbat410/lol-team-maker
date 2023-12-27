@@ -134,7 +134,7 @@ export default async function handler(req, res) {
     }
 
     const sessionData = await db("summoner_sessions")
-      .where("tagLine", tagLine)
+      .whereRaw("BINARY tagLine = ?", [tagLine])
       .andWhereRaw('LOWER(REPLACE(nickname, " ", "")) = ?', [
         nickname.toLowerCase().replace(/\s/g, ""),
       ])
