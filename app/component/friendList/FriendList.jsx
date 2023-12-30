@@ -143,9 +143,16 @@ export default function FriendList({
             setFriendListForReset(
               JSON.parse(JSON.stringify(newFriendListForReset)),
             );
-          } else {
-            // TODO 이 부분 처리하기 else if (code === 204) {백엔드에서 renewaled정보 주고, 프론트애서 이걸로 갈아 끼는 코드}
+          } else if (code === 404) {
+            return alert(
+              "더 이상 존재하지 않는 유저입니다. 삭제후 이용하시길 바랍니다.",
+            );
             // else if (code === 404) {프론트에서 갱신 버튼만 없애기(새로고침하면 없어지도록)}
+          } else {
+            return alert(
+              "갱신중 에러가 발생했습니다. 관리자에게 문의바랍니다.",
+            );
+            // TODO 이 부분 처리하기 else if (code === 204) {백엔드에서 renewaled정보 주고, 프론트애서 이걸로 갈아 끼는 코드}
             // else if (code === 400) {알럿?으로 서버에러, 잠시후 다시 시도해달라하기}
           }
         })
