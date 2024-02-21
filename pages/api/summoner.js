@@ -119,14 +119,14 @@ export default async function handler(req, res) {
 
     const existingFriend = await db("friends")
       .where("id", id)
-      .andWhereRaw('LOWER(REPLACE(friend_nickname, " ", "")) = ?', [
+      .andWhereRaw('REPLACE(friend_nickname, " ", "") = ?', [
         nickname.toLowerCase().replace(/\s/g, ""),
       ])
       .where("tagLine", tagLine)
       .first();
 
     if (existingFriend) {
-      console.log("친구 있음;", existingFriend);
+      // console.log("친구 있음;", existingFriend);
       return res.json({
         code: 409,
         message: "Already added a friend",
