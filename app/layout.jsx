@@ -25,7 +25,7 @@ const nextFont = Noto_Sans_KR({
 const currentDomain =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:3000"
-    : "https://lolcivilwarhelper.vercel.app";
+    : "https://lolcivilwarhelper2.vercel.app";
 
 export default function RootLayout({ children }) {
   const globalCss = {

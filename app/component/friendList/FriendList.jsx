@@ -188,7 +188,7 @@ export default function FriendList({
                     callbackUrl:
                       process.env.NODE_ENV === "development"
                         ? "http://localhost:3000/login"
-                        : "https://lolcivilwarhelper.vercel.app/login",
+                        : "https://lolcivilwarhelper2.vercel.app/login",
                   })
                 }
               />
@@ -340,7 +340,7 @@ export default function FriendList({
                     callbackUrl:
                       process.env.NODE_ENV === "development"
                         ? "http://localhost:3000/login"
-                        : "https://lolcivilwarhelper.vercel.app/login",
+                        : "https://lolcivilwarhelper2.vercel.app/login",
                   });
                   return;
                 }
