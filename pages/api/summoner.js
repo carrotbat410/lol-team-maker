@@ -77,7 +77,7 @@ export default async function handler(req, res) {
       delete r.tagLine;
       delete r.friend_nickname;
       delete r.id;
-      r.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/profileicon/${r.icon_id}.png`;
+      r.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/profileicon/${r.icon_id}.png`;
       if (r.created_at) {
         r.created_at = dayjs(r.created_at).format("YYYY-MM-DD HH:mm:ss");
       }
