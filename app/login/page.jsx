@@ -17,8 +17,6 @@ export default function Login() {
 
   const session = useSession();
 
-  alert("현재 점검중입니다. [예상 점검 완료일- 4월 12일 오후6시]");
-
   if (session && session.status !== "loading") {
     if (session.status === "authenticated") {
       router.push("/");
