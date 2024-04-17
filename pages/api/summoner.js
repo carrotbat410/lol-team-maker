@@ -77,7 +77,7 @@ export default async function handler(req, res) {
       delete r.tagLine;
       delete r.friend_nickname;
       delete r.id;
-      r.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/14.6.1/img/profileicon/${r.icon_id}.png`;
+      r.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/14.8.1/img/profileicon/${r.icon_id}.png`;
       if (r.created_at) {
         r.created_at = dayjs(r.created_at).format("YYYY-MM-DD HH:mm:ss");
       }
@@ -228,7 +228,7 @@ export default async function handler(req, res) {
       });
     }
 
-    newFriend.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/profileicon/${newFriend.icon_id}.png`;
+    newFriend.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/14.8.1/img/profileicon/${newFriend.icon_id}.png`;
     newFriend.nickname = `${newFriend.nickname}#${tagLine}`;
     newFriend.from = "friend";
     newFriend.renewaled_at = dayjs(newFriend.renewaled_at).format(
@@ -314,7 +314,7 @@ export default async function handler(req, res) {
     delete upsertResult.id;
 
     upsertResult.nickname = `${nickname}#${tagLine}`;
-    upsertResult.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/14.3.1/img/profileicon/${upsertResult.profileIconId}.png`;
+    upsertResult.icon_img_url = `https://ddragon.leagueoflegends.com/cdn/14.8.1/img/profileicon/${upsertResult.profileIconId}.png`;
     upsertResult.from = "friend";
     if (upsertResult.created_at) {
       upsertResult.created_at = dayjs(upsertResult.created_at).format(
