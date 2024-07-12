@@ -70,7 +70,6 @@ export default function RootLayout({ children }) {
             content="롤 내전 도우미 - 내전할 떄 유용하게 사용할 수 있는 밸런스있게 팀 짜기 서비스를 제공합니다."
           />
           <meta property="og:title" content="롤 내전 도우미" />
-          <meta property="og:site_name" content="롤 내전 도우미">
           <meta
             property="og:description"
             content="내전할 떄 유용한, 밸런스있게 팀 짜기 서비스를 이용해보세요!"
