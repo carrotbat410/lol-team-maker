@@ -12,6 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoginBox, setIsLoginBox] = useState(true);
+  const [portfolio, setPortfolio] = useState(false)
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -24,24 +25,10 @@ export default function Login() {
     }
   }
 
-  useEffect(() => {
-    const portfolio = searchParams.get("portfolio");
-    if (portfolio === "true") {
-      signIn("credentials", {
-        id: "test2",
-        password: "asd123",
-        redirect: false,
-        // callbackUrl: "/",
-      }).then((response) => {
-        if (response.ok) {
-          router.push("/");
-        } else {
-          alert("샘플 계정으로 로그인해주시길 바랍니다.");
-        }
-      });
-    }
+useEffect(() => {
+    const isPortfolio = searchParams.get("portfolio");
+    if (isPortfolio === "true") setPortfolio(true);
   });
-
 
   const onChangeIdHandler = (event) => {
     if (event.target.value.length < 21) setId(event.target.value);
@@ -75,8 +62,13 @@ export default function Login() {
   };
 
   const onClickSampleLoginBtnHandler = () => {
+    let id = null;
+
+    if(portfolio == true) id = "test2"
+    else id = "test1"
+
     signIn("credentials", {
-      id: "test1",
+      id: id,
       password: "asd123",
       redirect: false,
       // callbackUrl: "/",
@@ -166,7 +158,7 @@ export default function Login() {
                     <input
                       className={styles.sample_login_btn}
                       type="button"
-                      value="샘플 계정으로 로그인"
+                      value={portfolio == true ? "포폴용 계정으로 로그인" :"샘플 계정으로 로그인"}
                       onClick={onClickSampleLoginBtnHandler}
                     />
                   </div>
