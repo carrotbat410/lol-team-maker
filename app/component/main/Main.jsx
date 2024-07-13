@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import copy from "clipboard-copy";
 import Image from "next/image";
 import styles from "./Main.module.css";
 import { handleDragStart } from "../friendList/FriendList";
 import { instance } from "../../../lib/axios";
+import desc1 from "../../../public/images/desc1.webp";
+import desc2 from "../../../public/images/desc2.webp";
+import desc3 from "../../../public/images/desc3.webp";
+import desc4 from "../../../public/images/desc4.webp";
+import desc5 from "../../../public/images/desc5.webp";
 
 export function Main({
   onDrop,
@@ -21,6 +26,7 @@ export function Main({
   const [finishedTeam1TierRank, setFinishedTeam1TierRank] = useState("");
   const [finishedTeam2TierRank, setFinishedTeam2TierRank] = useState("");
   const [isCopied, setIsCopied] = useState(false);
+  const [isAfterTwoSeconds, setIsAfterTwoSeconds] = useState(false);
 
   const handleCopyClick = async () => {
     try {
@@ -85,8 +91,28 @@ export function Main({
     onDrop(data);
   };
 
+  useEffect(() => {
+    setTimeout(function(){
+        setIsAfterTwoSeconds(true)
+    }, 2000);
+  }, []);
+
   return (
     <div className={styles.wrapper}>
+
+      {isAfterTwoSeconds && (
+        <div>
+          {/* for Preload images */}
+          <div style={{ display: "none" }}>
+            <Image src={desc1} alt="desc1" priority />
+            <Image src={desc2} alt="desc2" priority />
+            <Image src={desc3} alt="desc3" priority />
+            <Image src={desc4} alt="desc4" priority />
+            <Image src={desc5} alt="desc5" priority />
+          </div>
+        </div>
+      )}
+
       <div className={styles.setting_container}>
         <div className={styles.mode_select_div}>
           <span>모드 선택</span>
