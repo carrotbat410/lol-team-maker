@@ -1,11 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import { instance } from "../../lib/axios";
+import { SendTelegramMessage } from "../../pages/api/utils/webhook";
 
 export default function Login() {
   const [id, setId] = useState("");
@@ -14,7 +15,7 @@ export default function Login() {
   const [isLoginBox, setIsLoginBox] = useState(true);
 
   const router = useRouter();
-
+  const searchParams = useSearchParams();
   const session = useSession();
 
   if (session && session.status !== "loading") {
@@ -23,6 +24,27 @@ export default function Login() {
       console.log("로그인 되어있음, session info:", session.data.user);
     }
   }
+
+  useEffect(() => {
+    const portfolio = searchParams.get("portfolio");
+    if (portfolio === "true") {
+      SendTelegramMessage(200, "-----portfolio 접속-----");
+      signIn("credentials", {
+        id: "test2",
+        password: "asd123",
+        redirect: false,
+        // callbackUrl: "/",
+      }).then((response) => {
+        if (response.ok) {
+          router.push("/");
+        } else {
+          SendTelegramMessage(400, "-----portfolio 실패-----");
+          alert("계정 이름과 비밀번호를 확인해주세요.");
+        }
+      });
+    }
+  });
+
 
   const onChangeIdHandler = (event) => {
     if (event.target.value.length < 21) setId(event.target.value);

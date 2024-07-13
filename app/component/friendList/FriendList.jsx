@@ -325,6 +325,9 @@ export default function FriendList({
               if (id === "test1") {
                 return alert("test계정은 탈퇴가 불가능합니다.");
               }
+              if (id === "test2") {
+                return alert("포트폴리오용 계정이므로 탈퇴가 불가능합니다.");
+              }
 
               if (
                 confirm(
