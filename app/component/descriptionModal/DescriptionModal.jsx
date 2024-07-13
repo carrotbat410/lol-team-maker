@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "./DescriptionModal.module.css";
-import desc1 from "../../../public/images/desc1.png";
-import desc2 from "../../../public/images/desc2.png";
-import desc3 from "../../../public/images/desc3.png";
-import desc4 from "../../../public/images/desc4.png";
-import desc5 from "../../../public/images/desc5.png";
+import desc1 from "../../../public/images/desc1.webp";
+import desc2 from "../../../public/images/desc2.webp";
+import desc3 from "../../../public/images/desc3.webp";
+import desc4 from "../../../public/images/desc4.webp";
+import desc5 from "../../../public/images/desc5.webp";
 
 function DescriptionModal({ closeDescModal }) {
   const [pageNo, setPageNo] = useState(1);

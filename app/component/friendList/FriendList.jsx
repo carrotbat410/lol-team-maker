@@ -7,7 +7,7 @@ import Modal from "../modal/Modal";
 import { instance } from "../../../lib/axios";
 import DescriptionModal from "../descriptionModal/DescriptionModal";
 import PatchModal from "../patch/Patch";
-import updateIcon from "../../../public/images/update_icon.png";
+import updateIcon from "../../../public/images/update_icon.webp";
 
 export const handleDragStart = (event) => {
   console.log("드래그 시작");

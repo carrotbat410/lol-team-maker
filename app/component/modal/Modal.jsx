@@ -79,7 +79,7 @@ function Modal({
           <span>닉네임</span>
           <input
             className={styles.nickname_input_bar}
-            // style={{ backgroundImage: "url(/images/icon_reading_glasses.png)"}}
+            // style={{ backgroundImage: "url(/images/icon_reading_glasses.webp)"}}
             placeholder="e.g. Hide on bush"
             type="text"
             value={nickname}
@@ -89,7 +89,7 @@ function Modal({
               //   imageTrue = false;
               // } else if (!imageTrue && event.target.value.length === 0) {
               //   event.target.style.backgroundImage =
-              //     "url(/images/icon_reading_glasses.png)";
+              //     "url(/images/icon_reading_glasses.webp)";
               //   // js로 접근시 /public 생략한 위 경로로 접근해야함
               //   imageTrue = true;
               // }

@@ -107,7 +107,7 @@ export default function Login() {
       <Image
         width={400}
         height={250}
-        src="/images/logo.png"
+        src="/images/logo.webp"
         className={styles.logo}
         alt="lolCivilWarHelper logo image"
       />
