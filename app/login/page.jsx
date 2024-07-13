@@ -6,7 +6,6 @@ import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import { instance } from "../../lib/axios";
-import { SendTelegramMessage } from "../../pages/api/utils/webhook";
 
 export default function Login() {
   const [id, setId] = useState("");
@@ -28,7 +27,6 @@ export default function Login() {
   useEffect(() => {
     const portfolio = searchParams.get("portfolio");
     if (portfolio === "true") {
-      SendTelegramMessage(200, "-----portfolio 접속-----");
       signIn("credentials", {
         id: "test2",
         password: "asd123",
@@ -38,8 +36,7 @@ export default function Login() {
         if (response.ok) {
           router.push("/");
         } else {
-          SendTelegramMessage(400, "-----portfolio 실패-----");
-          alert("계정 이름과 비밀번호를 확인해주세요.");
+          alert("샘플 계정으로 로그인해주시길 바랍니다.");
         }
       });
     }

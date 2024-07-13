@@ -57,7 +57,8 @@ export default async function handler(req, res) {
             message,
             created_at: nowDate,
           });
-          SendTelegramMessage(200, `유저 접속함 ip:${ip}`);
+          if(id == "test2") SendTelegramMessage(200, `----portfolio 접속----`);
+          else SendTelegramMessage(200, `유저 접속함 id: ${id}`);
         }
       }
     } catch (err) {
