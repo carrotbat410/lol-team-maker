@@ -327,12 +327,13 @@ export default async function handler(req, res) {
     }
 
     let result = {};
+    const shuffledNoTeamListArray = shuffleArray(noTeamList);
     if (selectedMode === "random") {
-      result = RandomMode(team1List, team2List, noTeamList);
+      result = RandomMode(team1List, team2List, shuffledNoTeamListArray);
     } else if (selectedMode === "balance") {
-      result = BalanceMode2(team1List, team2List, noTeamList);
+      result = BalanceMode2(team1List, team2List, shuffledNoTeamListArray);
     } else if (selectedMode === "goldenBalance") {
-      result = GoldenBalanceMode(team1List, team2List, noTeamList);
+      result = GoldenBalanceMode(team1List, team2List, shuffledNoTeamListArray);
     }
 
     return res.json({
@@ -344,4 +345,12 @@ export default async function handler(req, res) {
   }
 
   return res.send("Not Allowed Method");
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
