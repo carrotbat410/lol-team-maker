@@ -20,7 +20,8 @@
     "next-auth": "^4.23.2",
     "react": "^18",
     "react-dom": "^18",
-    "sharp": "^0.33.4"
+    "sharp": "^0.33.4",
+    "sweetalert2": "^11.12.4"
   },
   "devDependencies": {
     "eslint": "^8.51.0",

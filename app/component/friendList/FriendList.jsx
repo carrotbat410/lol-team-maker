@@ -364,7 +364,7 @@ export default function FriendList({
           <input
             type="button"
             className={styles.btn}
-            value="패치 노트"
+            value="공지 사항"
             onClick={openPatchModal}
           />
         </div>

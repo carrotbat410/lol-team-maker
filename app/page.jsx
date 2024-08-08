@@ -11,6 +11,7 @@ import styles from "./page.module.css";
 import FriendList from "./component/friendList/FriendList";
 import { Main } from "./component/main/Main";
 import { instance } from "../lib/axios";
+import Swal from "sweetalert2";
 
 dayjs.extend(timezone); // use plugin
 dayjs.extend(utc);
@@ -134,12 +135,27 @@ export default function Home() {
 
   useEffect(() => {
     if (status === "authenticated" && session?.user) {
+      // alert("공지 사항 필독 바랍니다!");
+      Swal.fire({
+        title: "",
+        text: "공지 사항 필독 바랍니다!",
+        icon: "info",
+        confirmButtonText: "확인",
+      });
       setUser({ ...session.user });
     } else if (status === "loading") {
       // 로딩 중에 할 작업
     } else {
-      alert("로그인 후 이용 가능합니다.");
-      router.push("/login");
+      Swal.fire({
+        title: "로그인 필요",
+        text: "로그인 후 이용 가능합니다.",
+        icon: "warning",
+        confirmButtonText: "확인",
+      }).then(() => {
+        router.push("/login");
+      });
+      // alert("로그인 후 이용 가능합니다.");
+      // router.push("/login");
     }
   }, [session, status]);
 
