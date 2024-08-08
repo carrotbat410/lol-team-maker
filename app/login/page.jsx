@@ -291,7 +291,7 @@ useEffect(() => {
                 </span>
                 <br />
                 <div className={styles.register_description}>
-                  비밀번호는 안전하게 암호화하여 저장합니다.
+                  비밀번호는 개발자도 모르게 암호화하여 저장됩니다.
                 </div>
               </div>
             </div>
@@ -299,9 +299,8 @@ useEffect(() => {
         )}
         <div className={styles.description}>
           - 롤 내전 도우미는 롤 내전 팀짜기에 대한 서비스를 무료로 제공하며,
-          Riot Games의 <span>공식 서비스가 아닌 2차 창작물</span>임을 밝힘니다.
-          <br />- 현재 모바일 환경은 지원하지 않습니다. PC에서의 이용을
-          권장합니다.
+          Riot Games의 <span>공식 서비스가 아닌 2차 창작물</span>임을 밝힘니다.<br/>
+          - 현재 모바일 환경은 지원하지 않습니다. <span>PC 크롬 브라우저에서 이용</span>을 권장합니다.
         </div>
       </div>
     </div>
