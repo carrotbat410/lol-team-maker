@@ -19,7 +19,7 @@ function PatchModal({ closePatchModal }) {
         <div className={styles.close_btn_div} />
         <span className={styles.title}>
           공지 사항&nbsp;
-          <span className={styles.now_version}>(작성일: 2024-08-10)</span>
+          <span className={styles.now_version}>(작성일: 2024-08-08)</span>
         </span>
         <div className={styles.close_btn_div}>
           <button className={styles.close_btn} onClick={closePatchModal}>
