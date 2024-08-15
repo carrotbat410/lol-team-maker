@@ -35,7 +35,8 @@ function TierCalculate(avgMmr) {
   else if (avgMmr <= 24) avgTier = "EMERALD";
   else if (avgMmr <= 28) avgTier = "DIAMOND";
 
-  const avgRank = 4 - (avgMmr % 4);
+  const remainMmr = avgMmr % 4;
+  const avgRank = remainMmr === 0 ? 1 : 5 - remainMmr;
   return `${avgTier} ${avgRank}`;
 }
 
