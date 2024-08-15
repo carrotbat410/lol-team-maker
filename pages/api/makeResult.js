@@ -308,8 +308,8 @@ const RandomMode = (team1List, team2List, noTeamList) => {
 
 
 function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
-  console.log();console.log();console.log();console.log();
-  console.log("---------------------새로운 요청-------------------------------------")
+  // console.log();console.log();console.log();console.log();
+  // console.log("---------------------새로운 요청-------------------------------------")
   //#1 한쪽만 배치된 라이너 넣기
   let team1BatchResult = {
     t: null, //{}
@@ -429,7 +429,7 @@ function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
       // console.log("team1MmrSum:", team1MmrSum);
       // console.log("team2MmrSum:", team2MmrSum);
       if(tmpMmrDiff < minMmrDiff) {
-        console.log("차이 적은거 발견", tmpMmrDiff, " < (기존)", minMmrDiff);
+        // console.log("차이 적은거 발견", tmpMmrDiff, " < (기존)", minMmrDiff);
         minMmrDiff = tmpMmrDiff;
 
         result.mmrDiff = minMmrDiff;
@@ -446,7 +446,7 @@ function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
 
         result.finishedTeam1 = tmpTeam1BatchResult;
         result.finishedTeam2 = tmpTeam2BatchResult;
-        console.log("발견해서 나온 결과", result);
+        // console.log("발견해서 나온 결과", result);
       }
     } else {
       for(let i = 0; i < 2; i++) {
@@ -458,7 +458,7 @@ function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
 
   DFS(0);
   // console.log("new result -----------------------------------")
-  console.log("최종결과:",result);
+  // console.log("최종결과:",result);
   return result;
 }
 
@@ -506,26 +506,25 @@ export default async function handler(req, res) {
         });
       }
 
-      function removeUnwantedProperties(list) {
-        for (const u of list) {
-          delete u.id;
-          delete u.tagLine;
-          delete u.tier;
-          delete u.rank;
-          delete u.level;
-          delete u.wins;
-          delete u.losses;
-          delete u.iconId;
-          delete u.updatedAt;
-          delete u.tagLine;
+      // function removeUnwantedProperties(list) {
+      //   for (const u of list) {
+      //     delete u.id;
+      //     delete u.tagLine;
+      //     delete u.tier;
+      //     delete u.rank;
+      //     delete u.level;
+      //     delete u.wins;
+      //     delete u.losses;
+      //     delete u.iconId;
+      //     delete u.updatedAt;
+      //     delete u.tagLine;
+      //   }
+      // }
 
-        }
-      }
-
-      //! 보기편하려고 임시로 필요없는 속성들을 제거함
-      removeUnwantedProperties(team1List);
-      removeUnwantedProperties(team2List);
-      removeUnwantedProperties(noTeamList);
+      //! 디버깅용! - 보기편하려고 임시로 필요없는 속성들을 제거함
+      // removeUnwantedProperties(team1List);
+      // removeUnwantedProperties(team2List);
+      // removeUnwantedProperties(noTeamList);
 
       result = GoldenBalanceModeWithMainLine(team1List, team2List, shuffledNoTeamListArray);
     }
