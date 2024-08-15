@@ -306,6 +306,161 @@ const RandomMode = (team1List, team2List, noTeamList) => {
   return result;
 };
 
+
+function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
+  console.log();console.log();console.log();console.log();
+  console.log("---------------------새로운 요청-------------------------------------")
+  //#1 한쪽만 배치된 라이너 넣기
+  let team1BatchResult = {
+    t: null, //{}
+    j: null,
+    m: null,
+    a: null,
+    s: null
+  };
+  let team2BatchResult = {
+    t: null,
+    j: null,
+    m: null,
+    a: null,
+    s: null
+  };
+  let noTeamBatchResult = {
+    t: [],
+    j: [],
+    m: [],
+    a: [],
+    s: []
+  };
+  let batchStatus = {
+    t: 0,
+    j: 0,
+    m: 0,
+    a: 0,
+    s: 0,
+  }
+  for(const u of team1List) {
+    team1BatchResult[u.line] = u;
+    batchStatus[u.line]++;
+  }
+  for(const u of team2List) {
+    team2BatchResult[u.line] = u;
+    batchStatus[u.line]++;
+  }
+  const lineKeys = ["t", "j", "m", "a", "s"];
+
+  //비어있는 라인 채우기
+  for(const userLine of lineKeys) {
+    if(team1BatchResult[userLine] && !team2BatchResult[userLine]) {
+      // console.log("team2에는 배치안됨. 배치하기")
+      for(const u of noTeamList) if(u.line === userLine) {
+        team2BatchResult[userLine] = u;
+        batchStatus[userLine]++;
+      }
+    } else if(!team1BatchResult[userLine] && team2BatchResult[userLine]) {
+      // console.log("team2에는 배치안됨. 배치하기")
+      for(const u of noTeamList) if(u.line === userLine) {
+        team1BatchResult[userLine] = u;
+        batchStatus[userLine]++;
+      }
+    }
+  }
+
+  for(const userLine of lineKeys) {
+    if(batchStatus[userLine] == 0) {
+      //해당 유저들 noTeamBatchResult에 넣기
+      for(const user of noTeamList) {
+        if(user.line == userLine) noTeamBatchResult[userLine].push(user);
+      }
+    }
+  }
+
+  //#2 배치 안된 라인 파악하기
+  let noBatchedLineArr = [];
+  for(const line of lineKeys) if(batchStatus[line] == 0) noBatchedLineArr.push(line);
+
+
+  // console.log("team1BatchResult", team1BatchResult);
+  // console.log("team2BatchResult", team2BatchResult);
+  // console.log("noTeamBatchResult", noTeamBatchResult);
+  // console.log("batchStatus", batchStatus);
+  //#3 DFS실행
+  /**
+   * 배치 안된 라인수 만큼의 길이를 가진 tmp배열 만들기 e.g. const tmp = [0, 0]
+   * if DFS L == noBatchedLineArr.length이면,
+   * for(let i = 0; i < noBatchedLineArr.length; i++) 돌면서
+   * const line = noBatchedLineArr[i];
+   * team1[line]에는 tmp인덱스에 해당하는 유저를, team2[line]에는 1-tmp인덱스에 해당하는 유저를 넣기.
+   *
+   * 다 채웠으면, 판별하는 로직 동작
+   */
+  const n = noBatchedLineArr.length;
+  let tmpTeam1IdxArr = Array.from({ length: n }, () => 0);
+  let minMmrDiff = 1000;
+  let result = {};
+  function DFS(L) {
+    if(L === n) {
+      //tmp완성되었으니 유저들 분배하기
+      // console.log("tmpTeam1IdxArr:", tmpTeam1IdxArr);
+      for(let i = 0; i < n; i++) {
+        const line = noBatchedLineArr[i];
+        const team1Idx = tmpTeam1IdxArr[i];
+        team1BatchResult[line] = noTeamBatchResult[line][team1Idx];
+        team2BatchResult[line] = noTeamBatchResult[line][1- team1Idx];
+      }
+      // console.log("L == n 도착. 배치 결과-----");
+      // console.log("team1BatchResult: ", team1BatchResult);
+      // console.log("team2BatchResult: ", team2BatchResult);
+
+      //mmr 합산하기
+      let team1MmrSum = 0;
+      let team2MmrSum = 0;
+      for(const line of lineKeys) {
+        team1MmrSum += team1BatchResult[line].mmr;
+        team2MmrSum += team2BatchResult[line].mmr;
+      }
+      const tmpMmrDiff = Math.abs(team1MmrSum - team2MmrSum);
+
+      //mmr 결과 비교하고, 더 밸런스있는 결과면 result값 채우기
+      // console.log("team1MmrSum:", team1MmrSum);
+      // console.log("team2MmrSum:", team2MmrSum);
+      if(tmpMmrDiff < minMmrDiff) {
+        console.log("차이 적은거 발견", tmpMmrDiff, " < (기존)", minMmrDiff);
+        minMmrDiff = tmpMmrDiff;
+
+        result = {};
+        console.log("result초기화함", result);
+        result.mmrDiff = minMmrDiff;
+        const finishedTeam1MmrAvg = Math.round(team1MmrSum / 5);
+        result.finishedTeam1MmrSum = team1MmrSum;
+        result.finishedTeam1MmrAvg = finishedTeam1MmrAvg;
+        result.finishedTeam1TierRank = TierCalculate(finishedTeam1MmrAvg);
+
+        result.finishedTeam2MmrSum = team2MmrSum;
+        const finishedTeam2MmrAvg = Math.round(team2MmrSum / 5);
+        result.finishedTeam2MmrAvg = finishedTeam2MmrAvg;
+        result.finishedTeam2TierRank = TierCalculate(finishedTeam2MmrAvg);
+
+
+        result.finishedTeam1 = team1BatchResult;
+        result.finishedTeam2 = team2BatchResult;
+        console.log("발견해서 나온 결과", result);
+      }
+    } else {
+      for(let i = 0; i < 2; i++) {
+        tmpTeam1IdxArr[L] = i;
+        DFS(L + 1);
+      }
+    }
+  }
+
+  DFS(0);
+  // console.log("new result -----------------------------------")
+  console.log("최종결과:",result);
+  return result;
+}
+
+
 export default async function handler(req, res) {
   const { method } = req;
 
@@ -335,6 +490,42 @@ export default async function handler(req, res) {
       result = BalanceMode2(team1List, team2List, shuffledNoTeamListArray);
     } else if (selectedMode === "goldenBalance") {
       result = GoldenBalanceMode(team1List, team2List, shuffledNoTeamListArray);
+    } else if (selectedMode === "lineBalance") {
+
+      const lines = ["t","j","m","a","s"]
+      let tmpError = false;
+      for(const u of team1List) if(u.line == null || !lines.includes(u.line)) tmpError = true;
+      for(const u of team2List) if(!tmpError && u.line == null || !lines.includes(u.line)) tmpError = true;
+      for(const u of noTeamList) if(!tmpError && u.line == null || !lines.includes(u.line)) tmpError = true;
+      if(tmpError) {
+        return res.json({
+          code: 400,
+          message: "line error",
+        });
+      }
+
+      function removeUnwantedProperties(list) {
+        for (const u of list) {
+          delete u.id;
+          delete u.tagLine;
+          delete u.tier;
+          delete u.rank;
+          delete u.level;
+          delete u.wins;
+          delete u.losses;
+          delete u.iconId;
+          delete u.updatedAt;
+          delete u.tagLine;
+
+        }
+      }
+
+      //! 보기편하려고 임시로 필요없는 속성들을 제거함
+      removeUnwantedProperties(team1List);
+      removeUnwantedProperties(team2List);
+      removeUnwantedProperties(noTeamList);
+
+      result = GoldenBalanceModeWithMainLine(team1List, team2List, shuffledNoTeamListArray);
     }
 
     return res.json({
