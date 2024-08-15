@@ -401,12 +401,16 @@ function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
   function DFS(L) {
     if(L === n) {
       //tmp완성되었으니 유저들 분배하기
+      const tmpTeam1BatchResult = JSON.parse(JSON.stringify(team1BatchResult));
+      const tmpTeam2BatchResult = JSON.parse(JSON.stringify(team2BatchResult));
       // console.log("tmpTeam1IdxArr:", tmpTeam1IdxArr);
       for(let i = 0; i < n; i++) {
         const line = noBatchedLineArr[i];
         const team1Idx = tmpTeam1IdxArr[i];
-        team1BatchResult[line] = noTeamBatchResult[line][team1Idx];
-        team2BatchResult[line] = noTeamBatchResult[line][1- team1Idx];
+        tmpTeam1BatchResult[line] = noTeamBatchResult[line][team1Idx];
+        tmpTeam2BatchResult[line] = noTeamBatchResult[line][1 - team1Idx];
+        // team1BatchResult[line] = noTeamBatchResult[line][team1Idx];
+        // team2BatchResult[line] = noTeamBatchResult[line][1- team1Idx];
       }
       // console.log("L == n 도착. 배치 결과-----");
       // console.log("team1BatchResult: ", team1BatchResult);
@@ -416,8 +420,8 @@ function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
       let team1MmrSum = 0;
       let team2MmrSum = 0;
       for(const line of lineKeys) {
-        team1MmrSum += team1BatchResult[line].mmr;
-        team2MmrSum += team2BatchResult[line].mmr;
+        team1MmrSum += tmpTeam1BatchResult[line].mmr;
+        team2MmrSum += tmpTeam2BatchResult[line].mmr;
       }
       const tmpMmrDiff = Math.abs(team1MmrSum - team2MmrSum);
 
@@ -428,8 +432,6 @@ function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
         console.log("차이 적은거 발견", tmpMmrDiff, " < (기존)", minMmrDiff);
         minMmrDiff = tmpMmrDiff;
 
-        result = {};
-        console.log("result초기화함", result);
         result.mmrDiff = minMmrDiff;
         const finishedTeam1MmrAvg = Math.round(team1MmrSum / 5);
         result.finishedTeam1MmrSum = team1MmrSum;
@@ -442,8 +444,8 @@ function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
         result.finishedTeam2TierRank = TierCalculate(finishedTeam2MmrAvg);
 
 
-        result.finishedTeam1 = team1BatchResult;
-        result.finishedTeam2 = team2BatchResult;
+        result.finishedTeam1 = tmpTeam1BatchResult;
+        result.finishedTeam2 = tmpTeam2BatchResult;
         console.log("발견해서 나온 결과", result);
       }
     } else {
