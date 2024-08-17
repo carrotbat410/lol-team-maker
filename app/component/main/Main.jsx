@@ -51,6 +51,10 @@ export function Main({
     event.preventDefault();
   };
 
+  const alertNoLine = () => {
+    return alert("주 라인 선택 후 배치해주세요.");
+  };
+
   const handleDropNoTeam = (event) => {
     // event.target.style.display = "none";
     event.preventDefault();
@@ -59,7 +63,7 @@ export function Main({
     if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
 
     if(globalSelectedMode == "lineBalance" && data.line == null) {
-      return alert("라인지정하셈");
+      return alertNoLine();
     }
 
     if (data.from === "noTeam") return; // 같은 곳에 드롭하는 경우.
@@ -79,7 +83,7 @@ export function Main({
     if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
 
     if(globalSelectedMode == "lineBalance" && data.line == null) {
-      return alert("라인지정하셈");
+      return alertNoLine();
     }
 
     if (data.from === "team1") return; // 같은 곳에 드롭하는 경우.
@@ -98,7 +102,7 @@ export function Main({
     if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
 
     if(globalSelectedMode == "lineBalance" && data.line == null) {
-      return alert("라인지정하셈");
+      return alertNoLine();
     }
 
     if (data.from === "team2") return; // 같은 곳에 드롭하는 경우.
