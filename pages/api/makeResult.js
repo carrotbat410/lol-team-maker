@@ -459,6 +459,12 @@ function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
   DFS(0);
   // console.log("new result -----------------------------------")
   // console.log("최종결과:",result);
+
+  // 만약 시간없어서 탑 정글 미드 원딜 서폿순으로 배치되기 구현에 실패한다면, 아래 코드 이용해서 api응답값을 다른 모드와 통일시키기
+  // for(const user of Object.values(result.finishedTeam1)) {
+  //   console.log("user:", user);
+  // }
+
   return result;
 }
 
