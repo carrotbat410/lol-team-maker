@@ -117,6 +117,18 @@ export function Main({
 //     }, 2000);
 //   }, []);
 
+  const lineStringReturnFunc = (data) => {
+    let lineString = null;
+    const { line } = data;
+    if(line === "t") lineString = "탑";
+    else if(line === "j") lineString = "정글";
+    else if(line === "m") lineString = "미드";
+    else if(line === "a") lineString = "원딜";
+    else if(line === "s") lineString = "서폿";
+
+    return lineString;
+  }
+
   return (
     <div className={styles.wrapper}>
 
@@ -170,6 +182,7 @@ export function Main({
             // handleDropTeam2={handleDropTeam2}
             emptyTeam1={emptyTeam1}
             emptyTeam2={emptyTeam2}
+            globalSelectedMode={globalSelectedMode}
           />
         ) : (
           <ContentComponent
@@ -181,6 +194,7 @@ export function Main({
             handleDropTeam2={handleDropTeam2}
             emptyTeam1={emptyTeam1}
             emptyTeam2={emptyTeam2}
+            globalSelectedMode={globalSelectedMode}
           />
         )}
       </div>
@@ -250,7 +264,7 @@ export function Main({
                     draggable="true"
                     onDragStart={handleDragStart}
                   >
-                    {v.nickname}
+                    {globalSelectedMode === "lineBalance" ? lineStringReturnFunc(v) + " " +  v.nickname : v.nickname}
                   </div>
                 );
               })}
@@ -307,6 +321,7 @@ function ContentComponent({
   resultMode,
   emptyTeam1,
   emptyTeam2,
+  globalSelectedMode
 }) {
   return (
     <div className={styles.content_container}>
@@ -324,6 +339,7 @@ function ContentComponent({
                 key={v.no}
                 resultMode={resultMode}
                 data={JSON.stringify(v)}
+                globalSelectedMode={globalSelectedMode}
               />
             );
           }
@@ -332,6 +348,7 @@ function ContentComponent({
               resultMode={resultMode}
               key={v.no}
               data={JSON.stringify(v)}
+              globalSelectedMode={globalSelectedMode}
             />
           );
         })}
@@ -364,6 +381,7 @@ function ContentComponent({
                 key={v.no}
                 resultMode={resultMode}
                 data={JSON.stringify(v)}
+                globalSelectedMode={globalSelectedMode}
               />
             );
           }
@@ -372,6 +390,7 @@ function ContentComponent({
               resultMode={resultMode}
               key={v.no}
               data={JSON.stringify(v)}
+              globalSelectedMode={globalSelectedMode}
             />
           );
         })}
@@ -394,7 +413,7 @@ function ContentComponent({
   );
 }
 
-function TeamedSummoner({ resultMode, data }) {
+function TeamedSummoner({ resultMode, data, globalSelectedMode }) {
   data = JSON.parse(data);
 
   let tierString;
@@ -416,6 +435,16 @@ function TeamedSummoner({ resultMode, data }) {
   else if (wins !== 0 && losses === 0) winsRate = 100;
   else winsRate = parseInt((wins / (wins + losses)) * 100);
 
+  let lineString = null;
+  if(globalSelectedMode === "lineBalance") {
+    const { line } = data;
+    if(line === "t") lineString = "탑";
+    else if(line === "j") lineString = "정글";
+    else if(line === "m") lineString = "미드";
+    else if(line === "a") lineString = "원딜";
+    else if(line === "s") lineString = "서폿";
+  }
+
   if (resultMode) {
     return (
       <div
@@ -423,7 +452,11 @@ function TeamedSummoner({ resultMode, data }) {
         key={data.no}
         data={JSON.stringify(data)}
       >
-        <div className={styles.teamed_summoner_level}>{data.level}</div>
+        {globalSelectedMode === "lineBalance" ? (
+          <div className={styles.teamed_summoner_level}>{lineString}</div>
+        ) : (
+          <div className={styles.teamed_summoner_level}>{data.level}</div>
+        )}
         <Image
           src={data.icon_img_url}
           draggable={false}
@@ -447,7 +480,11 @@ function TeamedSummoner({ resultMode, data }) {
       draggable="true"
       onDragStart={handleDragStart}
     >
-      <div className={styles.teamed_summoner_level}>{data.level}</div>
+      {globalSelectedMode === "lineBalance" ? (
+        <div className={styles.teamed_summoner_level}>{lineString}</div>
+      ) : (
+        <div className={styles.teamed_summoner_level}>{data.level}</div>
+      )}
       <Image
         src={data.icon_img_url}
         draggable={false}

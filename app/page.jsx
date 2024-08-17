@@ -30,7 +30,29 @@ export default function Home() {
   const [friendListForReset, setFriendListForReset] = useState([]);
   const [emptyTeam1, setEmptyTeam1] = useState([0, 0, 0, 0, 0]);
   const [emptyTeam2, setEmptyTeam2] = useState([0, 0, 0, 0, 0]);
+
   const [globalSelectedMode, setGlobalSelectedMode] = useState("lineBalance");
+  const [team1LineStatus, setTeam1LineStatus] = useState({
+    t: 0,
+    j: 0,
+    m: 0,
+    a: 0,
+    s: 0,
+  });
+  const [team2LineStatus, setTeam2LineStatus] = useState({
+    t: 0,
+    j: 0,
+    m: 0,
+    a: 0,
+    s: 0,
+  });
+  const [noTeamLineStatus, setNoTeamLineStatus] = useState({
+    t: 0,
+    j: 0,
+    m: 0,
+    a: 0,
+    s: 0,
+  });
 
   useEffect(() => {
     let firstConnection = false;
@@ -74,6 +96,27 @@ export default function Home() {
     setEmptyTeam2([0, 0, 0, 0, 0]);
 
     setFriendList(JSON.parse(JSON.stringify(friendListForReset)));
+    setTeam1LineStatus({
+      t: 0,
+      j: 0,
+      m: 0,
+      a: 0,
+      s: 0,
+    });
+    setTeam2LineStatus({
+      t: 0,
+      j: 0,
+      m: 0,
+      a: 0,
+      s: 0,
+    });
+    setNoTeamLineStatus({
+      t: 0,
+      j: 0,
+      m: 0,
+      a: 0,
+      s: 0,
+    });
   };
 
   const handleDrop = (droppedSummoner) => {
@@ -81,11 +124,48 @@ export default function Home() {
       return;
     }
 
-    const addedSummonerCnt =
-      team1List.length + team2List.length + noTeamList.length;
+    const addedSummonerCnt = team1List.length + team2List.length + noTeamList.length;
     if (addedSummonerCnt === 10 && droppedSummoner.from === "friend") {
       return alert(`내전 인원이 전부 찼습니다.`);
     }
+    // console.log("globalSelectedMode:", globalSelectedMode)
+    if (globalSelectedMode === "lineBalance") {
+      //TODO여기다가 검증로직 추가하면 될듯
+      const { to } = droppedSummoner;
+
+      if (to === "team1") {
+        for (const alreadyBatchedUser of team1List) {
+          if (alreadyBatchedUser.line === droppedSummoner.line)
+            return alert("한 팀에 같은 라인의 유저 2명을 배치할 수 없습니다.");
+        }
+      } else if (to === "team2") {
+        for (const alreadyBatchedUser of team2List) {
+          if (alreadyBatchedUser.line === droppedSummoner.line)
+            return alert("한 팀에 같은 라인의 유저 2명을 배치할 수 없습니다.");
+        }
+      } else if (to === "noTeam") {
+      } else if (to === "friend"){
+      }
+
+      let targetLineCnt = 0;
+      for (const key of Object.keys(team1LineStatus)) {
+        if (key === droppedSummoner.line) targetLineCnt += team1LineStatus[key];
+      }
+      for (const key of Object.keys(team2LineStatus)) {
+        if (key === droppedSummoner.line) targetLineCnt += team2LineStatus[key];
+      }
+      for (const key of Object.keys(noTeamLineStatus)) {
+        if (key === droppedSummoner.line) targetLineCnt += noTeamLineStatus[key];
+      }
+
+      if(droppedSummoner.from !== "friend") {
+        if(targetLineCnt === 3) return alert("이미 해당 라이너가 2명 존재합니다.");
+      } else {
+        if (targetLineCnt === 2) return alert("이미 해당 라이너가 2명 존재합니다.");
+      }
+    }
+
+
 
     // console.log("Dropped into the designated area!", droppedSummoner);
 
@@ -102,18 +182,33 @@ export default function Home() {
         return v.no !== droppedSummoner.no;
       });
       setNoTeamList([...deletedList]);
+      if(globalSelectedMode === "lineBalance") {
+        let cloneedTargetLineStatus = noTeamLineStatus;
+        cloneedTargetLineStatus[droppedSummoner.line] = cloneedTargetLineStatus[droppedSummoner.line] - 1;
+        setNoTeamLineStatus(cloneedTargetLineStatus);
+      }
     } else if (from === "team1") {
       const deletedList = team1List.filter((v) => {
         return v.no !== droppedSummoner.no;
       });
       setTeam1List([...deletedList]);
       setEmptyTeam1([...emptyTeam1, 0]);
+      if(globalSelectedMode === "lineBalance") {
+        let cloneedTargetLineStatus = team1LineStatus;
+        cloneedTargetLineStatus[droppedSummoner.line] = cloneedTargetLineStatus[droppedSummoner.line] - 1;
+        setTeam1LineStatus(cloneedTargetLineStatus);
+      }
     } else if (from === "team2") {
       const deletedList = team2List.filter((v) => {
         return v.no !== droppedSummoner.no;
       });
       setTeam2List([...deletedList]);
       setEmptyTeam2([...emptyTeam2, 0]);
+      if(globalSelectedMode === "lineBalance") {
+        let cloneedTargetLineStatus = team2LineStatus;
+        cloneedTargetLineStatus[droppedSummoner.line] = cloneedTargetLineStatus[droppedSummoner.line] - 1;
+        setTeam2LineStatus(cloneedTargetLineStatus);
+      }
     }
 
     // to
@@ -123,15 +218,35 @@ export default function Home() {
       setFriendList([...friendList, droppedSummoner]);
     } else if (to === "noTeam") {
       setNoTeamList([...noTeamList, droppedSummoner]);
+      if(globalSelectedMode === "lineBalance") {
+        let cloneedTargetLineStatus = noTeamLineStatus;
+        cloneedTargetLineStatus[droppedSummoner.line] = cloneedTargetLineStatus[droppedSummoner.line] + 1;
+        setNoTeamLineStatus(cloneedTargetLineStatus);
+      }
     } else if (to === "team1") {
       setTeam1List([...team1List, droppedSummoner]);
       const deletedEmpty1 = emptyTeam1.slice(1);
       setEmptyTeam1(deletedEmpty1);
+      if(globalSelectedMode === "lineBalance") {
+        let cloneedTargetLineStatus = team1LineStatus;
+        cloneedTargetLineStatus[droppedSummoner.line] = cloneedTargetLineStatus[droppedSummoner.line] + 1;
+        setTeam1LineStatus(cloneedTargetLineStatus);
+      }
     } else if (to === "team2") {
       setTeam2List([...team2List, droppedSummoner]);
       const deletedEmpty2 = emptyTeam2.slice(1);
       setEmptyTeam2(deletedEmpty2);
+      if(globalSelectedMode === "lineBalance") {
+        let cloneedTargetLineStatus = team2LineStatus;
+        cloneedTargetLineStatus[droppedSummoner.line] = cloneedTargetLineStatus[droppedSummoner.line] + 1;
+        setTeam2LineStatus(cloneedTargetLineStatus);
+      }
     }
+
+    // console.log("team1LineStatus:", team1LineStatus);
+    // console.log("team2LineStatus:", team2LineStatus);
+    // console.log("noTeamLineStatus:", noTeamLineStatus);
+
   };
 
   useEffect(() => {
