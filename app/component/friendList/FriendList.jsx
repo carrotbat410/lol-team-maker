@@ -433,6 +433,7 @@ const OPTIONS = [
 ];
 
 const LINEOPTIONS = [
+  { key: "라인 없음", value: "라인 없음" },
   { key: "탑", value: "t" },
   { key: "정글", value: "j" },
   { key: "미드", value: "m" },
@@ -497,25 +498,27 @@ function LineSelectBox({ options, line, friendList, setFriendList, nickname }) {
   }, [line]);
 
   const onChangeHandler = (event) => {
-    const newSelectedLine = event.target.value;
+    const newSelectedLine = event.target.value; // t, j, m, a, s
     setSelectedLine(newSelectedLine);
 
-    const selectedTier = options.find(
-      (option) => option.mmr === newSelectedLine,
-    )?.tierString;
-    const [tier, rank] = selectedTier?.split(" ") || [null, null];
-
+    // const selectedLine = options.find(
+    //   (option) => { // LINEOPTIONS 요소들
+    //     return option.value === newSelectedLine;
+    //   }
+    // );
+    // const { key, value } = selectedLine; // LINEOPTIONS요소들 중 하나
     const newFriendList = friendList.map((v) => {
       if (v.nickname === nickname) {
-        v.mmr = parseInt(newSelectedLine);
-        if (!v.rank) v.rank = null;
-        if (newSelectedLine === "0") {
-          v.tier = null;
-          v.rank = null;
-        } else {
-          v.tier = tier;
-          v.rank = rank;
-        }
+        v.line = newSelectedLine;
+        // v.mmr = parseInt(newSelectedLine);
+        // if (!v.rank) v.rank = null;
+        // if (newSelectedLine === "0") {
+        //   v.tier = null;
+        //   v.rank = null;
+        // } else {
+        //   v.tier = tier;
+        //   v.rank = rank;
+        // }
         return v;
       }
       return v;
