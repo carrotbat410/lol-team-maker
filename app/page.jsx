@@ -95,6 +95,8 @@ export default function Home() {
     setEmptyTeam1([0, 0, 0, 0, 0]);
     setEmptyTeam2([0, 0, 0, 0, 0]);
 
+    //! user.line = null로 변경후 리셋버튼누르면, `value` prop on `select` should not be null. 에러 뜸.
+    //! 그래서 초기에는 user.line값이 null값, 리셋함수 실행시(리셋버튼클릭 or 모드 변경)에는 "라인 미지정"값 가지고 있음.로
     for (const user of friendListForReset) user.line = "라인 미지정";
 
     setFriendList(JSON.parse(JSON.stringify(friendListForReset)));
