@@ -95,6 +95,8 @@ export default function Home() {
     setEmptyTeam1([0, 0, 0, 0, 0]);
     setEmptyTeam2([0, 0, 0, 0, 0]);
 
+    for (const user of friendListForReset) user.line = "라인 미지정";
+
     setFriendList(JSON.parse(JSON.stringify(friendListForReset)));
     setTeam1LineStatus({
       t: 0,
