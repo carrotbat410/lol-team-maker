@@ -433,7 +433,7 @@ const OPTIONS = [
 ];
 
 const LINEOPTIONS = [
-  { key: "라인 없음", value: "라인 없음" },
+  { key: "라인 미지정", value: "라인 미지정" },
   { key: "탑", value: "t" },
   { key: "정글", value: "j" },
   { key: "미드", value: "m" },
