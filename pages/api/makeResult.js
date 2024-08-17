@@ -443,9 +443,9 @@ function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
         result.finishedTeam2MmrAvg = finishedTeam2MmrAvg;
         result.finishedTeam2TierRank = TierCalculate(finishedTeam2MmrAvg);
 
-
-        result.finishedTeam1 = tmpTeam1BatchResult;
-        result.finishedTeam2 = tmpTeam2BatchResult;
+        //! 직접 사용하지 않는 값임. 자세한건 finishedTeam1 선언 부분에 주석 참고.
+        result.tmpfinishedTeam1 = tmpTeam1BatchResult;
+        result.tmpfinishedTeam2 = tmpTeam2BatchResult;
         // console.log("발견해서 나온 결과", result);
       }
     } else {
@@ -457,13 +457,14 @@ function GoldenBalanceModeWithMainLine(team1List, team2List, noTeamList) {
   }
 
   DFS(0);
-  // console.log("new result -----------------------------------")
-  // console.log("최종결과:",result);
 
-  // 만약 시간없어서 탑 정글 미드 원딜 서폿순으로 배치되기 구현에 실패한다면, 아래 코드 이용해서 api응답값을 다른 모드와 통일시키기
-  // for(const user of Object.values(result.finishedTeam1)) {
-  //   console.log("user:", user);
-  // }
+  //! 짜피 tmpFinishedTeam1에서 탑, 정글 ... 순서로 정렬되어있어 finishedTeam1에 라인 정리되어 들어가기 떄문에, 배열에 순서대로 담으면, 프론트에서 탑, 정글 ... 순서로 이쁘게 배치되더라.
+  let finishedTeam1 = [];
+  let finishedTeam2 = [];
+  Object.values(result.tmpfinishedTeam1).forEach(value => finishedTeam1.push(value));
+  Object.values(result.tmpfinishedTeam2).forEach(value => finishedTeam2.push(value));
+  result.finishedTeam1 = finishedTeam1;
+  result.finishedTeam2 = finishedTeam2;
 
   return result;
 }
