@@ -22,6 +22,7 @@ export default function FriendList({
   setFriendList,
   friendListForReset,
   setFriendListForReset,
+  globalSelectedMode,
 }) {
   const id = user.id || undefined;
 
@@ -275,6 +276,15 @@ export default function FriendList({
                     setFriendList={setFriendList}
                     nickname={v.nickname}
                   />
+                  {globalSelectedMode === "lineBalance" ? (
+                    <LineSelectBox
+                      options={LINEOPTIONS}
+                      line={v.line}
+                      friendList={friendList}
+                      setFriendList={setFriendList}
+                      nickname={v.nickname}
+                    />
+                  ) : null}
                 </div>
                 <div
                   className={styles.friend_box_delete_btn}
@@ -422,6 +432,14 @@ const OPTIONS = [
   { mmr: "31", tierString: "CHALLENGER" },
 ];
 
+const LINEOPTIONS = [
+  { key: "탑", value: "t" },
+  { key: "정글", value: "j" },
+  { key: "미드", value: "m" },
+  { key: "원딜", value: "a" },
+  { key: "서폿", value: "s" },
+];
+
 function SelectBox({ options, mmr, friendList, setFriendList, nickname }) {
   const [selectedMmr, setSelectedMmr] = useState(mmr);
 
@@ -465,6 +483,55 @@ function SelectBox({ options, mmr, friendList, setFriendList, nickname }) {
       {options.map((option) => (
         <option key={option.mmr} value={option.mmr}>
           {option.tierString}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+function LineSelectBox({ options, line, friendList, setFriendList, nickname }) {
+  const [selectedLine, setSelectedLine] = useState(line);
+
+  useEffect(() => {
+    setSelectedLine(line);
+  }, [line]);
+
+  const onChangeHandler = (event) => {
+    const newSelectedLine = event.target.value;
+    setSelectedLine(newSelectedLine);
+
+    const selectedTier = options.find(
+      (option) => option.mmr === newSelectedLine,
+    )?.tierString;
+    const [tier, rank] = selectedTier?.split(" ") || [null, null];
+
+    const newFriendList = friendList.map((v) => {
+      if (v.nickname === nickname) {
+        v.mmr = parseInt(newSelectedLine);
+        if (!v.rank) v.rank = null;
+        if (newSelectedLine === "0") {
+          v.tier = null;
+          v.rank = null;
+        } else {
+          v.tier = tier;
+          v.rank = rank;
+        }
+        return v;
+      }
+      return v;
+    });
+    setFriendList(newFriendList);
+  };
+
+  return (
+    <select
+      value={selectedLine}
+      onChange={onChangeHandler}
+      className={styles.tier_select_box}
+    >
+      {options.map((option) => (
+        <option key={option.key} value={option.value}>
+          {option.key}
         </option>
       ))}
     </select>

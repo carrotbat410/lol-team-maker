@@ -18,8 +18,9 @@ export function Main({
   onClickResetHandler,
   emptyTeam1,
   emptyTeam2,
+  globalSelectedMode,
+  setGlobalSelectedMode
 }) {
-  const [selectedMode, setSelectedMode] = useState("random");
   const [resultMode, setResultMode] = useState(false);
   const [finishedTeam1, setFinishedTeam1] = useState([]);
   const [finishedTeam2, setFinishedTeam2] = useState([]);
@@ -56,6 +57,11 @@ export function Main({
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
     if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
+
+    if(globalSelectedMode == "lineBalance" && data.line == null) {
+      return alert("라인지정하셈");
+    }
+
     if (data.from === "noTeam") return; // 같은 곳에 드롭하는 경우.
     data.to = "noTeam";
     console.log("noTeamList에서 받음 - data:", data);
@@ -71,6 +77,11 @@ export function Main({
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
     if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
+
+    if(globalSelectedMode == "lineBalance" && data.line == null) {
+      return alert("라인지정하셈");
+    }
+
     if (data.from === "team1") return; // 같은 곳에 드롭하는 경우.
     data.to = "team1";
     console.log("team1 List에서 받음 - data:", data);
@@ -85,6 +96,11 @@ export function Main({
     const droppedData = event.dataTransfer.getData("text/plain");
     const data = JSON.parse(droppedData);
     if (!data) return; // 드래그해서 전체 끌어 넣을경우 아무 반응 없도록
+
+    if(globalSelectedMode == "lineBalance" && data.line == null) {
+      return alert("라인지정하셈");
+    }
+
     if (data.from === "team2") return; // 같은 곳에 드롭하는 경우.
     data.to = "team2";
     console.log("team2 List에서 받음 - data:", data);
@@ -117,14 +133,15 @@ export function Main({
         <div className={styles.mode_select_div}>
           <span>모드 선택</span>
           <select
-            defaultValue="random"
+            defaultValue="lineBalance"
             onChange={(event) => {
-              setSelectedMode(event.target.value);
+              setGlobalSelectedMode(event.target.value);
             }}
           >
             <option value="random">Random</option>
             <option value="balance">Balance</option>
             <option value="goldenBalance">Golden Balance</option>
+            <option value="lineBalance">Line Balance</option>
           </select>
         </div>
         <div className={styles.reset_btn_div}>
@@ -247,7 +264,7 @@ export function Main({
                 }
 
                 const result = await instance.post("/makeResult", {
-                  selectedMode,
+                  selectedMode: globalSelectedMode,
                   team1List,
                   team2List,
                   noTeamList,
@@ -263,6 +280,10 @@ export function Main({
                   setFinishedTeam2TierRank(
                     result.data.result.finishedTeam2TierRank,
                   );
+                }else {
+                  if(result.data?.code == 400 && result.data.message === "line error") {
+                    return alert("새로고침후 라인을 정확히 설정해주세요.");
+                  }
                 }
               }}
             />

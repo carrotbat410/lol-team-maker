@@ -30,6 +30,7 @@ export default function Home() {
   const [friendListForReset, setFriendListForReset] = useState([]);
   const [emptyTeam1, setEmptyTeam1] = useState([0, 0, 0, 0, 0]);
   const [emptyTeam2, setEmptyTeam2] = useState([0, 0, 0, 0, 0]);
+  const [globalSelectedMode, setGlobalSelectedMode] = useState("lineBalance");
 
   useEffect(() => {
     let firstConnection = false;
@@ -173,6 +174,8 @@ export default function Home() {
           onClickResetHandler={onClickResetHandler}
           emptyTeam1={emptyTeam1}
           emptyTeam2={emptyTeam2}
+          globalSelectedMode={globalSelectedMode}
+          setGlobalSelectedMode={setGlobalSelectedMode}
         />
       </div>
       <div className={styles.right_wrapper}>
@@ -183,6 +186,8 @@ export default function Home() {
           setFriendList={setFriendList}
           friendListForReset={friendListForReset}
           setFriendListForReset={setFriendListForReset}
+          globalSelectedMode={globalSelectedMode}
+          setGlobalSelectedMode={setGlobalSelectedMode}
         />
       </div>
     </div>
