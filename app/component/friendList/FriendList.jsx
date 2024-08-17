@@ -269,22 +269,24 @@ export default function FriendList({
                   ) : (
                     <div>{v.nickname}</div>
                   )}
-                  <SelectBox
-                    options={OPTIONS}
-                    mmr={v.mmr}
-                    friendList={friendList}
-                    setFriendList={setFriendList}
-                    nickname={v.nickname}
-                  />
-                  {globalSelectedMode === "lineBalance" ? (
-                    <LineSelectBox
-                      options={LINEOPTIONS}
-                      line={v.line}
+                  <div style={{ display: "flex" }}>
+                    <SelectBox
+                      options={OPTIONS}
+                      mmr={v.mmr}
                       friendList={friendList}
                       setFriendList={setFriendList}
                       nickname={v.nickname}
                     />
-                  ) : null}
+                    {globalSelectedMode === "lineBalance" ? (
+                      <LineSelectBox
+                        options={LINEOPTIONS}
+                        line={v.line}
+                        friendList={friendList}
+                        setFriendList={setFriendList}
+                        nickname={v.nickname}
+                      />
+                    ) : null}
+                  </div>
                 </div>
                 <div
                   className={styles.friend_box_delete_btn}
