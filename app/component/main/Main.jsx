@@ -151,6 +151,15 @@ export function Main({
           <select
             defaultValue="lineBalance"
             onChange={(event) => {
+              //3개 모드 <-> lineBalance 전환시 리셋함수 실행
+              if(globalSelectedMode !== "lineBalance" && event.target.value === "lineBalance") {
+                onClickResetHandler();
+                if (resultMode === true) setResultMode(false);
+              }else if(globalSelectedMode === "lineBalance" && event.target.value !== "lineBalance") {
+                onClickResetHandler();
+                if (resultMode === true) setResultMode(false);
+              }
+
               setGlobalSelectedMode(event.target.value);
             }}
           >
