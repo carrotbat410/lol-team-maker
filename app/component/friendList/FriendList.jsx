@@ -343,7 +343,7 @@ export default function FriendList({
             value="회원 탈퇴"
             onClick={async () => {
               if (id === "test1") {
-                return alert("test계정은 탈퇴가 불가능합니다.");
+                return alert("샘플 계정은 사용 불가능한 기능입니다.");
               }
               if (id === "test2") {
                 return alert("포트폴리오용 계정이므로 탈퇴가 불가능합니다.");
