@@ -30,7 +30,7 @@ export default function FriendList({
     const nowDateObject = dayjs();
     const diff = nowDateObject.diff(renewaledAt, "hours");
 
-    if (diff >= 24 || diff == "NaN") return true; // 하루 지나서 갱신해야함
+    if (diff >= 24 || diff == "NaN") return true; // 하루가 지나서 갱신해야함
 
     return false; // 갱신할 필요 없음
   };
@@ -56,7 +56,7 @@ export default function FriendList({
   const [isPatchModalOpen, setIsPatchModalOpen] = useState(false);
   const openModal = () => {
     if (id === "test1") {
-      return alert("test계정은 사용 불가능한 기능입니다.");
+      return alert("샘플 계정은 사용 불가능한 기능입니다.");
     }
 
     if (friendList.length >= 30) {
@@ -109,7 +109,7 @@ export default function FriendList({
 
   const onClickDeleteFriendBtn = (no) => {
     if (id === "test1") {
-      return alert("test계정은 사용 불가능한 기능입니다.");
+      return alert("샘플 계정은 사용 불가능한 기능입니다.");
     }
     const newFriendList = friendList.filter((v) => v.no !== no);
     setFriendList([...newFriendList]);
@@ -183,7 +183,8 @@ export default function FriendList({
         {id ? (
           <div className={styles.header_wrapper}>
             <div className={styles.header_hello_div}>
-              <div>{`${id}님`}</div>
+              {/*<div>{`${id}`}님</div>*/}
+              <div>{id === "test1" ? "샘플 계정" : id}님</div>
               <div>즐거운 내전 되세요 :)</div>
             </div>
             <div className={styles.btn_wrapper}>
