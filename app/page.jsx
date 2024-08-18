@@ -258,7 +258,7 @@ export default function Home() {
       // alert("공지 사항 필독 바랍니다!");
       Swal.fire({
         title: "",
-        text: "공지 사항 필독 바랍니다!",
+        text: "공지 사항이 업데이트 되었습니다",
         icon: "info",
         confirmButtonText: "확인",
       });
