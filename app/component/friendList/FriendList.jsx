@@ -55,6 +55,10 @@ export default function FriendList({
   const [isDescModalOpen, setIsDescModalOpen] = useState(false);
   const [isPatchModalOpen, setIsPatchModalOpen] = useState(false);
   const openModal = () => {
+    if (id === "test1") {
+      return alert("test계정은 사용 불가능한 기능입니다.");
+    }
+
     if (friendList.length >= 30) {
       return alert("친구 추가는 최대 30명까지 가능합니다.");
     }
@@ -104,6 +108,9 @@ export default function FriendList({
   };
 
   const onClickDeleteFriendBtn = (no) => {
+    if (id === "test1") {
+      return alert("test계정은 사용 불가능한 기능입니다.");
+    }
     const newFriendList = friendList.filter((v) => v.no !== no);
     setFriendList([...newFriendList]);
     const newFriendListForReset = friendListForReset.filter((v) => v.no !== no);
