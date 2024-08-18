@@ -99,33 +99,15 @@ function DescriptionText({ pageNo }) {
       <div className={styles.description_div}>
         <ul>
           <li>
-            불러온 유저 정보를 해당 구역(1팀, 2팀, 팀 미정 인원)에
-            드래그&드랍합니다.
-          </li>
-          <li>총 10명의 인원을 배치해야 합니다.</li>
-          <li>
-            A유저, B유저가 같은팀인 결과를 얻으려면, 같은 팀에 배치하면 됩니다.
-          </li>
-        </ul>
-        <div className={styles.description_tip_div}>
-          TIP - 불러온 유저의 티어를 필요시에 임의로 변경할 수 있습니다.
-        </div>
-      </div>
-    );
-  }
-  if (pageNo === 3) {
-    return (
-      <div className={styles.description_div}>
-        <ul>
-          <li>
             왼쪽 상단의 모드를 선택합니다.
             <br />
             Random : 팀을 무작위로 섞습니다.
             <br />
-            Balance : 전력 차이가 적게 나는 최상위 결과 최대10개 중 1개를
-            반환합니다.
+            Balance : 전력 차이가 적게 나는 최상위 결과10개 중 1개를 반환합니다.
             <br />
             Golden Balance : 전력 차이가 적게 나는 최상위 결과 1개를 반환합니다.
+            <br />
+            Line Balance : 라인도 고려한  전력 차이가 적게 나는 최상위 결과 1개를 반환합니다. (라인 설정 필요!)
           </li>
         </ul>
         <div className={styles.description_tip_div}>
@@ -137,6 +119,27 @@ function DescriptionText({ pageNo }) {
           <br />
           &nbsp;&nbsp;&nbsp;MASTER = 29&nbsp;&nbsp;&nbsp;GRANDMASTER=
           30&nbsp;&nbsp;&nbsp;CHALLENGER = 31점
+        </div>
+      </div>
+    );
+  }
+  if (pageNo === 3) {
+    return (
+      <div className={styles.description_div}>
+        <ul>
+          <li>
+            불러온 유저 정보를 해당 구역(1팀, 2팀, 팀 미정 인원)에
+            드래그&드랍합니다.
+          </li>
+          <li>총 10명의 인원을 배치해야 합니다.</li>
+          <li>만약 Line Balance 모드라면, 참가 유저의 주라인을 선택해야 하며,<br/>
+            탑/미드/정글/원딜/서폿 라인별로 각각 2명이 존재해야합니다.</li>
+        </ul>
+        <div className={styles.description_tip_div}>
+          TIP - 불러온 유저의 티어를 필요시에 임의로 변경할 수 있습니다.
+        </div>
+        <div className={styles.description_tip_div}>
+          TIP - A, B유저가 같은팀인 결과를 얻으려면, 같은 팀에 배치하면 됩니다.
         </div>
       </div>
     );
