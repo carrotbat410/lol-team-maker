@@ -303,7 +303,7 @@ export default function FriendList({
                 >
                   ✕
                 </div>
-                {isPossibleRenewal ? (
+                {id != "test1" && isPossibleRenewal ? (
                   <div
                     className={styles.friend_box_renewal_btn}
                     onClick={() =>
