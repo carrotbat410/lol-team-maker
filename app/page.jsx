@@ -256,12 +256,12 @@ export default function Home() {
   useEffect(() => {
     if (status === "authenticated" && session?.user) {
       // alert("공지 사항 필독 바랍니다!");
-      Swal.fire({
-        title: "",
-        text: "공지 사항이 업데이트 되었습니다",
-        icon: "info",
-        confirmButtonText: "확인",
-      });
+      // Swal.fire({
+      //   title: "",
+      //   text: "공지 사항이 업데이트 되었습니다",
+      //   icon: "info",
+      //   confirmButtonText: "확인",
+      // });
       setUser({ ...session.user });
     } else if (status === "loading") {
       // 로딩 중에 할 작업
