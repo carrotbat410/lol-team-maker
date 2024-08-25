@@ -91,6 +91,11 @@ export default function RootLayout({ children }) {
             href="https://lolcivilwarhelper.vercel.app"
             key="canonical"
           />
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896335676316065"
+            crossOrigin="anonymous"
+          />
         </head>
         <body>
           {children}
