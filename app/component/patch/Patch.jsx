@@ -19,7 +19,7 @@ function PatchModal({ closePatchModal }) {
         <div className={styles.close_btn_div} />
         <span className={styles.title}>
           공지 사항&nbsp;
-          <span className={styles.now_version}>(수정일: 2024-08-18)</span>
+          <span className={styles.now_version}>(수정일: 2024-08-25)</span>
         </span>
         <div className={styles.close_btn_div}>
           <button className={styles.close_btn} onClick={closePatchModal}>
@@ -79,9 +79,10 @@ function DescriptionText({ pageNo }) {
         현재 모니터 화면 크기에 따라, 로그인 화면 구성이 이상한데, 이를 개선할 예정입니다.<br/>
 
         <h2>3. 버그 수정 예정</h2>
-        1. 동시에 여러 소환사정보를 갱신할 경우 이상해지는 현상<br/>
-        → 임시방편으로 새로고침하시면 됩니다. (부끄럽따!)<br/><br/>
-
+        <del>
+          1. 동시에 여러 소환사정보를 갱신할 경우 친구목록창 배치가 이상해지는 현상<br/>
+          → 임시방편으로 새로고침하시면 됩니다. (부끄럽따!)</del>
+        &nbsp;&nbsp; → 해결<br/><br/>
         2. 동시에 많은 유저들이 사용하는 경우 발생하는 에러
 
         <h2>4. 팀 분배 기준에 대한 설명 페이지 추가</h2>
