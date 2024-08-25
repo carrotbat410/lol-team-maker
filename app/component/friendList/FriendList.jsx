@@ -121,10 +121,16 @@ export default function FriendList({
     });
   };
 
-  const onClickRenwalFriendBtn = (userName, no, renewaledAt) => {
+  let isRequestInProgress = false;
+  const onClickRenwalFriendBtn = async (userName, no, renewaledAt) => {
+    if (isRequestInProgress) {
+      // 현재 요청이 진행 중이면 대기
+      return;
+    }
+    isRequestInProgress = true; // 요청 시작
     if (IsUpdateNeeded(renewaledAt)) {
       const [nickname, tagLine] = userName.split("#");
-      instance
+      await instance
         .patch("/summoner", { nickname, tagLine })
         .then((res) => {
           const { code } = res.data;
@@ -166,7 +172,9 @@ export default function FriendList({
         })
         .catch((err) => {
           console.log("갱신 중 에러", err);
+          isRequestInProgress = false; // 요청 완료
         });
+      isRequestInProgress = false; // 요청 완료
       // return alert("갱신 가능");
       return;
     }
