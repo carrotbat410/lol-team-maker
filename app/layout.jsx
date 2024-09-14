@@ -3,6 +3,7 @@
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { Gothic_A1, IBM_Plex_Sans_KR, Noto_Sans_KR } from "next/font/google";
+import Script from 'next/script';
 
 // const nextFont = Gothic_A1({
 //   subsets: ["latin"],
@@ -96,6 +97,11 @@ export default function RootLayout({ children }) {
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4896335676316065"
             crossOrigin="anonymous"
           />
+          <Script
+            id="kakao-ad-script"
+            strategy="lazyOnload"
+            src="//t1.daumcdn.net/kas/static/ba.min.js"
+          />
         </head>
         <body>
           {children}
@@ -105,6 +111,7 @@ export default function RootLayout({ children }) {
             <h3>롤 내전 팀 메이커</h3>
             <h4>롤 내전 팀 밸런스</h4>
           </div>
+          <ins className="kakao_ad_area" data-ad-unit="DAN-ORivCADP9Eqlyos9" data-ad-width="728" data-ad-height="90"/>
         </body>
       </html>
     </SessionProvider>
