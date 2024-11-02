@@ -13,7 +13,7 @@ dayjs.extend(utc); // use plugin
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions); // TODO expires 검사
-  const iconImgIconUrl = "14.15.1";
+  const iconImgIconUrl = "14.21.1";
 
   if (!session || !session.user) {
     return res.json({ code: 401, message: "Expired Session" });
