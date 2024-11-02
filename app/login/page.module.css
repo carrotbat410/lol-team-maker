@@ -51,6 +51,19 @@
     justify-content: space-between;
 }
 
+@media screen and (min-width: 2560px) {
+    .logo {
+        /* width: 450px;
+        height: 200px;
+        top: 110px;
+        left: 180px; */
+    }
+    .wrapper {
+        /* top: 300px;
+        left: 100px; */
+    }
+}
+
 .login_box {
     width: 400px;
     height: 440px;
