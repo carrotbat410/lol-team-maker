@@ -50,16 +50,16 @@ function DescriptionImage({ pageNo }) {
   let height;
   if (pageNo === 1) {
     image = desc1;
-    width = 360;
-    height = 350;
+    width = 460;
+    height = 380;
   } else if (pageNo === 2) {
     image = desc2;
     width = 580;
     height = 300;
   } else if (pageNo === 3) {
     image = desc3;
-    width = 330;
-    height = 200;
+    width = 580;
+    height = 300;
   } else if (pageNo === 4) {
     image = desc4;
     width = 580;
@@ -161,7 +161,7 @@ function DescriptionText({ pageNo }) {
     return (
       <div className={styles.description_div}>
         <ul>
-          <li>갱신된지 24시간이 지나면 갱신하기 버튼이 생깁니다.</li>
+          <li>갱신된지 24시간이 지나야 갱신하기 버튼이 생깁니다.</li>
         </ul>
         <div className={styles.description_tip_div}>
           TIP - 24시간이 지나도 갱신버튼이 안생긴다면, 다른 유저에 의해 이미
