@@ -154,22 +154,32 @@
 }
 
 .login_btn_enabled {
-    background: linear-gradient(Navajowhite 1%, Orange);
-    color: white;
+    background: linear-gradient(#ffb05b 1%, #ce4d05);
+    color: #ffffff;
+
+    border-radius: 3px;
+    border: none;
 }
 
 .login_btn_disabled {
     background: linear-gradient(lightgrey 10%, darkslategrey);
     color: lightgrey;
     border: none;
+
+    border-radius: 3px;
+    /*border: none;*/
 }
 
 .sample_login_btn_wrapper input[type="button"]{
-    background: linear-gradient(Navajowhite 1%, Orange);
-    color: white;
+    background: linear-gradient(#ffb05b 1%, #ce4d05);
+    color: #ffffff;
 
     font-size: 14px;
     width: 160px;
+    height: 32px;
+
+    border-radius: 3px;
+    /*border: none;*/
 }
 
 .footer {
