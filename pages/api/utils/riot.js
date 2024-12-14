@@ -3,12 +3,30 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc.js";
 import timezone from "dayjs/plugin/timezone.js";
 import DB from "./db";
+import { SendTelegramMessage } from "./webhook";
 
 const riotUrl = process.env.RIOT_URL;
 const apiKey = process.env.RIOT_DEV_API_KEY;
 
 dayjs.extend(timezone); // use plugin
 dayjs.extend(utc); // use plugin
+
+export async function GetLatestIconImgVersion() {
+  let version = "14.24.1";
+
+  try {
+    const response = await axios.get("https://ddragon.leagueoflegends.com/api/versions.json");
+    const latestVersion = response?.data[0];
+    if(latestVersion !== "" && latestVersion !== undefined) {
+      version = latestVersion;
+    }
+  } catch (err) {
+    SendTelegramMessage(500, "라이엇 에서 version 가져오기 실패");
+  }
+
+  return version;
+}
+
 export async function UpsertSummoner(nickname, tagLine) {
   let result = {
     errorCode: null,
