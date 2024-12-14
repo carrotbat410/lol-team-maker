@@ -149,7 +149,7 @@ export function Main({
         <div className={styles.mode_select_div}>
           <span>모드 선택</span>
           <select
-            defaultValue="lineBalance"
+            defaultValue="goldenBalance"
             onChange={(event) => {
               //3개 모드 <-> lineBalance 전환시 리셋함수 실행
               if(globalSelectedMode !== "lineBalance" && event.target.value === "lineBalance") {

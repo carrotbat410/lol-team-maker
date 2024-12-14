@@ -31,7 +31,7 @@ export default function Home() {
   const [emptyTeam1, setEmptyTeam1] = useState([0, 0, 0, 0, 0]);
   const [emptyTeam2, setEmptyTeam2] = useState([0, 0, 0, 0, 0]);
 
-  const [globalSelectedMode, setGlobalSelectedMode] = useState("lineBalance");
+  const [globalSelectedMode, setGlobalSelectedMode] = useState("goldenBalance");
   const [team1LineStatus, setTeam1LineStatus] = useState({
     t: 0,
     j: 0,
