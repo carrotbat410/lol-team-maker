@@ -26,7 +26,7 @@ export default function Login() {
   }
 
 useEffect(() => {
-  alert("250501부터 약 3개월간 서비스 중지하려합니다. 이용해주셔서 감사합니다:) \n 더 나은 서비스로 다시 만나요!! \n 카톡 문의: https://open.kakao.com/o/suvzT5Wf")
+  // alert("250501부터 약 3개월간 서비스 중지하려합니다. 이용해주셔서 감사합니다:) \n 더 나은 서비스로 다시 만나요!! \n 카톡 문의: https://open.kakao.com/o/suvzT5Wf")
     const isPortfolio = searchParams.get("portfolio");
     if (isPortfolio === "true") setPortfolio(true);
   });
