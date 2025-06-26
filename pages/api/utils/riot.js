@@ -65,7 +65,7 @@ export async function UpsertSummoner(nickname, tagLine) {
   let leagueInfo;
   try {
     leagueInfo = await axios.get(
-      `${riotUrl}/lol/league/v4/entries/by-summoner/${summonerInfo.id}?api_key=${apiKey}`,
+      `${riotUrl}/lol/league/v4/entries/by-puuid/${puuid}?api_key=${apiKey}`,
     );
   } catch (err) {
     result.errorCode = err.response?.data?.status.status_code || 400;
