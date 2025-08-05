@@ -55,8 +55,8 @@ export async function UpsertSummoner(nickname, tagLine) {
     );
     summonerInfo = tmpSummonerInfo.data;
   } catch (err) {
-    result.errorCode = err.response?.data?.status.status_code || 400;
-    result.errorMessage = err.response?.data?.status.message || "에러 발생2";
+    result.errorCode = err.response?.data?.httpStatus || 400;
+    result.errorMessage = err.response?.data?.message || "에러 발생2";
   }
   if (result.errorCode) {
     return result;
