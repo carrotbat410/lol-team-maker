@@ -26,7 +26,7 @@ export default function Login() {
   }
 
 useEffect(() => {
-  alert("안녕하세요:)\n서버 비용문제를 해결하여, 앞으로 문제없이 서비스 운영을 계속할 예정입니다. 이용해주셔서 감사합니다. 좋은 하루 되세요! \n \n 이 안내는 8월 12일 까지 유지될 예정입니다.")
+  // alert("안녕하세요:)\n서버 비용문제를 해결하여, 앞으로 문제없이 서비스 운영을 계속할 예정입니다. 이용해주셔서 감사합니다. 좋은 하루 되세요! \n \n 이 안내는 8월 12일 까지 유지될 예정입니다.")
   // alert("250501부터 약 3개월간 서비스 중지하려합니다. 이용해주셔서 감사합니다:) \n 더 나은 서비스로 다시 만나요!! \n 카톡 문의: https://open.kakao.com/o/suvzT5Wf")
     const isPortfolio = searchParams.get("portfolio");
     if (isPortfolio === "true") setPortfolio(true);
